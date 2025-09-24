@@ -77,8 +77,8 @@ function Register() {
   };
   return (
     <>
-      <section className="flex min-h-screen bg-[var(--color--primary)]">
-        <div className="w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-20 py-20">
+      <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
+        <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-20 py-20">
           <div className="flex items-center text-[var(--color--primary)]">
             <img src={dompetkecil} alt="dompet" className="w-8 h-8" />
             <p>E-Wallet</p>
@@ -203,7 +203,7 @@ function Register() {
           </p>
         </div>
 
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="hidden md:flex md:w-1/2 justify-center items-center">
           <img src={register} alt="logo register" className="w-150 h-135" />
         </div>
       </section>
