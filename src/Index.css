@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --font-mulish: "Mulish", sans-serif;
+  --font--inter: "Inter", sans-serif;
+  --color--primary: #2948ff;
+  --color--secondary: #4f5665;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
