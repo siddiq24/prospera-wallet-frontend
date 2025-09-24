@@ -36,14 +36,13 @@ function EditProfile() {
                     <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33'>
                         <Profile size={50} />
                     </div>
-                    <div className='w-full p-4 flex flex-col items-center justify-between'>
-                        <div className='p-2 flex w-full bg-[#2948FF] rounded-lg text-white'>
-                            <span><Pencil size={20} /></span>
+                    <div className='w-full p-4 flex flex-col items-center justify-between md:w-fit'>
+                        <div className='p-2 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white'>
+                            <span className='mr-2'><Pencil size={20} /></span>
                             Change Profile
                         </div>
-                        <div className='p-2 flex w-full rounded-lg text-[#D00000] border border-[#D00000]'>
-                            <Trash size={20} />
-                            <span>Remove Profile</span>
+                        <div className='p-2 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-fit'>
+                            <span className='mr-2'><Trash size={20} /></span>Remove Profile
                         </div>
                     </div>
                 </section>
@@ -57,7 +56,7 @@ function EditProfile() {
                     <label htmlFor='fullname' className='font-medium'>
                         Full Name
                     </label>
-                    <div className='border p-2 rounded-lg flex'>
+                    <div className='border border-gray-300 p-2 rounded-lg flex'>
                         <Profile size={20} />
                         <input
                             className='ml-2 placeholder:text-sm w-full focus:outline-none'
@@ -74,7 +73,7 @@ function EditProfile() {
                     <label htmlFor='phone' className='font-medium'>
                         Phone
                     </label>
-                    <div className='border p-2 rounded-lg flex'>
+                    <div className='border border-gray-300 p-2 rounded-lg flex'>
                         <Phone size={20} />
                         <input
                             className='ml-2 placeholder:text-sm w-full focus:outline-none'
@@ -91,7 +90,7 @@ function EditProfile() {
                     <label htmlFor='email' className='font-medium'>
                         Email
                     </label>
-                    <div className='border p-2 rounded-lg flex'>
+                    <div className='border border-gray-300 p-2 rounded-lg flex'>
                         <Mail size={20} />
                         <input
                             className='ml-2 placeholder:text-sm w-full focus:outline-none'
