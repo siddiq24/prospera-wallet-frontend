@@ -28,13 +28,16 @@ function EditProfile() {
         console.log('Form submitted:', formData)
     }
 
+    // let profileUrl = 'https://avatar.iran.liara.run/public/12'
+    let profileUrl = ''
+    let Avatar = () => { return profileUrl ? (<img src={profileUrl} />) : (<Profile size={50} />) }
     return (
         <div className='p-8'>
             <p>Profile Picture</p>
             <div>
                 <section className='flex mt-4'>
                     <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33'>
-                        <Profile size={50} />
+                        {Avatar()}
                     </div>
                     <div className='w-full p-4 flex flex-col items-center justify-between md:w-fit'>
                         <div className='p-2 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white'>
@@ -57,7 +60,7 @@ function EditProfile() {
                         Full Name
                     </label>
                     <div className='border border-gray-300 p-2 rounded-lg flex'>
-                        <Profile size={20} />
+                        {<Profile size={20}/>}
                         <input
                             className='ml-2 placeholder:text-sm w-full focus:outline-none'
                             type='text'
@@ -107,7 +110,7 @@ function EditProfile() {
                     <label htmlFor='password' className='font-medium'>
                         Password
                     </label>
-                    <Link to='/' className='text-blue-600 block'>
+                    <Link to='/profile/change-password' className='text-blue-600 block'>
                         Change Password
                     </Link>
 
@@ -115,7 +118,7 @@ function EditProfile() {
                     <label htmlFor='pin' className='font-medium'>
                         Pin
                     </label>
-                    <Link to='/' className='text-blue-600 block'>
+                    <Link to='/profile/change-pin' className='text-blue-600 block'>
                         Change Pin
                     </Link>
 
