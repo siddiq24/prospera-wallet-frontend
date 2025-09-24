@@ -15,12 +15,15 @@ function App() {
       <Routes>
         <Route path="/rules" element={<Rules />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="profile">
-            <Route path="edit" element={<EditProfile />} />
-            <Route path="change-password" element={<ChangePassword />} />
-            <Route path="change-pin" element={<ChangePin />} />
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+
+          <Route element={<DashboardLayout />}>
+            <Route path="profile">
+              <Route path="edit" element={<EditProfile />} />
+              <Route path="change-password" element={<ChangePassword />} />
+              <Route path="change-pin" element={<ChangePin />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
