@@ -2,21 +2,28 @@ import React from "react"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules"
-import Dashboard  from "./pages/Dashboard.jsx";
 import EditProfile from "./pages/profile/EditProfile"
-import Footer from "./components/Footer"
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/rules" element={<Rules />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="/" element={<Dashboard />} />
+
+        {/* AUTHH  */}
+        <Route path="/auth">
+          <Route path="register" element={<Register />} />
+        </Route>
+
+        {/* DASHBOARD */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+
           <Route path="profile">
             <Route path="edit" element={<EditProfile />} />
           </Route>
+
         </Route>
       </Routes>
     </BrowserRouter>
