@@ -6,7 +6,7 @@ function Footer() {
             className='bg-[#2948FF] text-white flex flex-col items-center pt-6'
         >
             <div
-                className='flex gap-12 border-b pb-16'
+                className='flex gap-12 border-b pb-16 flex-col md:flex-row'
             >
                 <div
                     className='flex flex-col gap-3'

@@ -50,35 +50,32 @@ export function Navbar() {
 
 export function LoggedNavbar() {
     return (
-        <>
-            <header
-                className='z-9999 bg-white text-white py-3 border-b border-[#E8E8E8]'
+        <header
+            className='z-9999 text-white py-3 border-b border-[#E8E8E8] w-full'
+        >
+            <nav
+                className='flex items-center justify-between'
             >
-                <nav
-                    className='flex items-center justify-between'
+                <div
+                    className='flex items-center gap-3'
                 >
-                    <div
-                        className='flex items-center gap-3'
-                    >
-                        <img src="money-wallet.svg" alt="" />
-                        <p
-                            className='text-[#2948FF]'
-                        >E-Wallet</p>
-                    </div>
-                    <div
-                        className='flex items-center gap-3'
-                    >
-                        <p
-                            className='text-[#4F5665]'
-                        >Ghaluh Wizard</p>
-                        <img src="avatar-galuh.png" alt=""
-                            className='size-10 rounded-full object-cover'
-                        />
-                        <img src="down.svg" alt="" />
-                    </div>
-                </nav>
-            </header>
-            <Footer />
-        </>
+                    <img src="money-wallet.svg" alt="" />
+                    <p
+                        className='text-[#2948FF]'
+                    >E-Wallet</p>
+                </div>
+                <div
+                    className='flex items-center gap-3'
+                >
+                    <p
+                        className='text-[#4F5665]'
+                    >Ghaluh Wizard</p>
+                    <img src="avatar-galuh.png" alt=""
+                        className='size-10 rounded-full object-cover'
+                    />
+                    <img src="down.svg" alt="" />
+                </div>
+            </nav>
+        </header>
     )
 }
