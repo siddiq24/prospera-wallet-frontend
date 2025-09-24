@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../index.css";
 import dompetkecil from "../../assets/dompetkecil.png";
 import google from "../../assets/google.png";
@@ -6,9 +6,13 @@ import fb from "../../assets/fb.png";
 import register from "../../assets/register.png";
 import email from "../../assets/mail.svg";
 import pwd from "../../assets/password.svg";
+import eyesolid from "../../assets/eye-solid.svg";
+import eyeslash from "../../assets/eye-slash.svg";
 import { Link } from "react-router-dom";
 
 function Register() {
+  const [showPwd, setShowPwd] = useState(false);
+  const [showConfPwd, setShowConfPwd] = useState(false);
   return (
     <>
       <section className="flex min-h-screen bg-[var(--color--primary)]">
@@ -66,7 +70,8 @@ function Register() {
               <label htmlFor="pwd">Password</label>
               <div className="relative">
                 <input
-                  type="text"
+                  type={showPwd ? "text" : "password"}
+                  inputMode="none"
                   name="pwd"
                   id="pwd"
                   placeholder="Enter Your Password"
@@ -77,13 +82,19 @@ function Register() {
                   alt="password logo"
                   className="absolute w-5 h-5 left-4 top-4.5"
                 />
+                <img
+                  src={showPwd ? eyesolid : eyeslash}
+                  alt="toggle password"
+                  className="absolute w-5 h-5 right-4 top-4.5 cursor-pointer"
+                  onClick={() => setShowPwd(!showPwd)}
+                />
               </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="confpwd">Confirm Password</label>
               <div className="relative">
                 <input
-                  type="text"
+                  type={showConfPwd ? "text" : "password"}
                   name="confpwd"
                   id="confpwd"
                   placeholder="Enter Your Password Again"
@@ -93,6 +104,12 @@ function Register() {
                   src={pwd}
                   alt="password logo"
                   className="absolute w-5 h-5 left-4 top-4.5"
+                />
+                <img
+                  src={showConfPwd ? eyesolid : eyeslash}
+                  alt="toggle confirm password"
+                  className="absolute w-5 h-5 right-4 top-4.5 cursor-pointer"
+                  onClick={() => setShowConfPwd(!showConfPwd)}
                 />
               </div>
             </div>
