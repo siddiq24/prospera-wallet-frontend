@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import "../../index.css";
+import "/src/assets/styles/index.css";
 import dompetkecil from "../../assets/dompetkecil.png";
 import google from "../../assets/google.png";
 import fb from "../../assets/fb.png";
 import register from "../../assets/register.png";
-import email from "../../assets/mail.svg";
-import pwd from "../../assets/password.svg";
-import eyesolid from "../../assets/eye-solid.svg";
-import eyeslash from "../../assets/eye-slash.svg";
+import email from "../../assets/email.png";
+import pwd from "../../assets/password.png";
+// import eyesolid from "";
+// import eyeslash from "";
 import { Link } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 function Register() {
   const [showPwd, setShowPwd] = useState(false);
   const [showConfPwd, setShowConfPwd] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const eyesolid = <Eye/>
+  const eyeslash = <EyeOff/>
 
   const [form, setForm] = useState({
     email: "",
@@ -151,12 +154,10 @@ function Register() {
                   alt="password logo"
                   className="absolute w-5 h-5 left-4 top-4.5"
                 />
-                <img
-                  src={showPwd ? eyesolid : eyeslash}
-                  alt="toggle password"
+                <div
                   className="absolute w-5 h-5 right-4 top-4.5 cursor-pointer"
                   onClick={() => setShowPwd(!showPwd)}
-                />
+                >{showPwd ? eyesolid : eyeslash}</div>
               </div>
               {errors.pwd && (
                 <p className="text-red-500 text-sm">{errors.pwd}</p>
@@ -180,11 +181,14 @@ function Register() {
                   className="absolute w-5 h-5 left-4 top-4.5"
                 />
                 <img
-                  src={showConfPwd ? eyesolid : eyeslash}
-                  alt="toggle confirm password"
+                  src={pwd}
+                  alt="password logo"
+                  className="absolute w-5 h-5 left-4 top-4.5"
+                />
+                <div
                   className="absolute w-5 h-5 right-4 top-4.5 cursor-pointer"
                   onClick={() => setShowConfPwd(!showConfPwd)}
-                />
+                >{showConfPwd ? eyesolid : eyeslash}</div>
               </div>
               {errors.confpwd && (
                 <p className="text-red-500 text-sm">{errors.confpwd}</p>
