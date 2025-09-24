@@ -2,6 +2,7 @@ import React from "react"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import { Rules } from "./pages/Rules"
 import EditProfile from "./pages/profile/EditProfile"
+import Footer from "./components/Footer"
 
 function App() {
   return (
