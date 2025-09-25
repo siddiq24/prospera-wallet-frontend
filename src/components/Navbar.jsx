@@ -51,7 +51,7 @@ export function Navbar() {
 export function LoggedNavbar() {
     return (
         <header
-            className='z-9999 text-white py-3 border-b border-[#E8E8E8] w-full'
+            className='z-9999 text-white px-8 py-3 border-b border-[#E8E8E8] w-full'
         >
             <nav
                 className='flex items-center justify-between'
@@ -59,7 +59,7 @@ export function LoggedNavbar() {
                 <div
                     className='flex items-center gap-3'
                 >
-                    <img src="money-wallet.svg" alt="" />
+                    <img src="/money-wallet.svg" alt="" />
                     <p
                         className='text-[#2948FF]'
                     >E-Wallet</p>
@@ -70,10 +70,10 @@ export function LoggedNavbar() {
                     <p
                         className='text-[#4F5665]'
                     >Ghaluh Wizard</p>
-                    <img src="avatar-galuh.png" alt=""
+                    <img src="/avatar-galuh.png" alt=""
                         className='size-10 rounded-full object-cover'
                     />
-                    <img src="down.svg" alt="" />
+                    <img src="/down.svg" alt="" />
                 </div>
             </nav>
         </header>

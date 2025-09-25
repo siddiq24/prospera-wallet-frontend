@@ -6,6 +6,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import EditProfile from "./pages/profile/EditProfile"
 import Footer from "./components/Footer"
 import { LoggedNavbar } from "./components/Navbar"
+import Sidebar from "./components/Sidebar"
 import ChangePassword from "./pages/profile/ChangePassword"
 import ChangePin from "./pages/profile/ChangePin"
 
@@ -35,8 +36,10 @@ function DashboardLayout() {
   return (
     <div>
       <LoggedNavbar />
-
+      <div className="flex flex-col-reverse md:flex-row">
+      <Sidebar cName="w-min" />
       <Outlet />
+      </div>
     </div>
   )
 }
