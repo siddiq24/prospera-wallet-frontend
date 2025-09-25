@@ -6,7 +6,6 @@ import { Home } from "./pages/landingPage/Home";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditProfile from "./pages/profile/EditProfile";
-import Footer from "./components/Footer";
 import { LoggedNavbar } from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import ChangePassword from "./pages/profile/ChangePassword";
