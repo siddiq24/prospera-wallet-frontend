@@ -12,6 +12,7 @@ import Sidebar from "./components/Sidebar";
 import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
+import EnterPin from "./pages/auth/EnterPin";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="/pin" element={<EnterPin />} />
         </Route>
 
         <Route path="/" element={<Home />} />
