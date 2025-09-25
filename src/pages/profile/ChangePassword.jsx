@@ -3,7 +3,6 @@ import { KeyPass, Profile } from '../../components/profile/Svg'
 import { Eye, EyeOff } from 'lucide-react'
 
 function EditProfile() {
-  // state untuk toggle show/hide
   const [showExist, setShowExist] = useState(false)
   const [showNew, setShowNew] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -25,7 +24,6 @@ function EditProfile() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Form submitted:', formData)
-    // TODO: panggil API update password di sini
   }
 
   // avatar placeholder
@@ -38,10 +36,11 @@ function EditProfile() {
     )
 
   return (
-    <div className="p-8 w-full">
+    <div className="p-8 pt-4 w-full">
+      <p className='font-semibold mb-6'>Change Password</p>
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 border border-gray-200 p-0 md:p-8"
+        className="space-y-6 md:border  border-gray-200 p-0 md:p-8"
       >
         {/* Existing Password */}
         <label htmlFor="ExistingPass" className="font-medium">
@@ -89,7 +88,6 @@ function EditProfile() {
           </div>
         </div>
 
-        {/* Confirm New Password */}
         <label htmlFor="ConfirmNewPassword" className="font-medium">
           Confirm New Password
         </label>

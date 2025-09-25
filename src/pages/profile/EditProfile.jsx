@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Mail, Pencil, Phone, Profile } from '../../components/profile/Svg'
+import { Mail, Pencil, Phone, Profile, Trash } from '../../components/profile/Svg'
 import { Link } from 'react-router-dom'
 
 function EditProfile() {

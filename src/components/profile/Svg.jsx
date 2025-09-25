@@ -38,4 +38,4 @@ const KeyPass = ({ size }) => {
     </svg>
 }
 
-export { Profile, Phone, Mail, Pencil, KeyPass }
+export { Profile, Phone, Mail, Pencil, Trash, KeyPass }
