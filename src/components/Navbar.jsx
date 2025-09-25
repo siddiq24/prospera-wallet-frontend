@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { BurgerMenu, Exit } from '../assets/Svg'
+import { useNavigate } from 'react-router';
 
 export function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
+    const navigate = useNavigate()
 
     return (
         <header
             className='text-white'
         >
             <nav
-                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4'
+                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-32'
             >
                 <div
                     className='flex items-center gap-3'
@@ -36,10 +38,10 @@ export function Navbar() {
             <div
                 className={`${openMenu ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
-                <button
+                <button onClick={()=>{navigate('/auth/login')}}
                     className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
                 >Sign In</button>
-                <button
+                <button onClick={()=>{navigate('/auth/register')}}
                     className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
                 >Sign Up</button>
             </div>
@@ -50,9 +52,9 @@ export function Navbar() {
 export function LoggedNavbar() {
     const [open, setOpen] = useState(false)
     return (
-        <header className=' '>
+        <header className=''>
             <div
-                className='z-9999 text-white px-8 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
+                className='z-9999 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
             >
                 <nav
                     className='flex items-center justify-between'
