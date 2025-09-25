@@ -199,7 +199,9 @@ function Register() {
           </form>
           <p className="flex gap-1 justify-center">
             Have An Account?
-            <Link className="text-[var(--color--primary)]">Login</Link>
+            <Link to="/login" className="text-[var(--color--primary)]">
+              Login
+            </Link>
           </p>
         </div>
 
