@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "/src/assets/styles/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
 function Register() {
@@ -8,6 +8,7 @@ function Register() {
   const [showConfPwd, setShowConfPwd] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const eyesolid = <Eye />;
   const eyeslash = <EyeOff />;
 
@@ -64,6 +65,7 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate("/login");
     if (validate()) {
       setMessage("Register berhasil");
     } else {
