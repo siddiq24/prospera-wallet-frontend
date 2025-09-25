@@ -19,12 +19,10 @@ function App() {
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route element={<DashboardLayout />}>
-            <Route path="profile">
-              <Route path="edit" element={<EditProfile />} />
-              <Route path="change-password" element={<ChangePassword />} />
-              <Route path="change-pin" element={<ChangePin />} />
-            </Route>
+          <Route path="profile">
+            <Route path="edit" element={<EditProfile />} />
+            <Route path="change-password" element={<ChangePassword />} />
+            <Route path="change-pin" element={<ChangePin />} />
           </Route>
         </Route>
       </Routes>
@@ -37,8 +35,8 @@ function DashboardLayout() {
     <div>
       <LoggedNavbar />
       <div className="flex flex-col-reverse md:flex-row">
-      <Sidebar cName="w-min" />
-      <Outlet />
+        <Sidebar cName="w-min" />
+        <Outlet />
       </div>
     </div>
   )
