@@ -1,6 +1,7 @@
 import React from "react"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import Register from "./pages/auth/Register";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import { Rules } from "./pages/Rules"
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditProfile from "./pages/profile/EditProfile"
@@ -15,7 +16,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/rules" element={<Rules />} />
-        <Route path="/register" element={<Register />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
