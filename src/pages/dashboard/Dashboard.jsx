@@ -84,14 +84,14 @@ const Dashboard = () => {
           <div className="bg-white rounded-2xl shadow-lg relative overflow-hidden">
             {/* Wave Background */}
             <Wave
-              fill='#2948FF1A'
+              fill="#2948FF1A"
               paused={false}
-              style={{ display: 'flex' }}
+              style={{ display: "flex" }}
               options={{
                 height: 80,
                 amplitude: 20,
                 speed: 0.15,
-                points: 3
+                points: 3,
               }}
             />
 
@@ -129,11 +129,11 @@ const Dashboard = () => {
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>Income</option>
                   <option>Expense</option>
                 </select>
-                <select className="rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>7 Days</option>
                   <option>30 Days</option>
                 </select>
@@ -142,9 +142,9 @@ const Dashboard = () => {
 
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={chartData}>
-                <XAxis dataKey="day" style={{ fontSize: '10px' }} />
-                <YAxis style={{ fontSize: '10px' }} />
-                <Tooltip content={ CustomTooltip} />
+                <XAxis dataKey="day" style={{ fontSize: "10px" }} />
+                <YAxis style={{ fontSize: "10px" }} />
+                <Tooltip content={CustomTooltip} />
                 <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />
                 <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />
               </BarChart>
@@ -191,8 +191,9 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div
-                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
-                      }`}
+                    className={`font-semibold text-sm ${
+                      t.type === "income" ? "text-green-500" : "text-red-500"
+                    }`}
                   >
                     {t.type === "income" ? "+" : "-"}Rp
                     {t.amount.toLocaleString("id-ID")}
@@ -260,22 +261,29 @@ const Dashboard = () => {
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="focus:outline-none focus:ring-0 border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>7 Days</option>
                   <option>30 Days</option>
                 </select>
-                <select className="border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="focus:outline-none focus:ring-0 border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>All</option>
                   <option>Income</option>
                   <option>Expense</option>
                 </select>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={400}>
-              <BarChart data={chartData}>
+            <ResponsiveContainer
+              width="100%"
+              height={400}
+              className="outline-none focus:outline-none"
+            >
+              <BarChart
+                data={chartData}
+                className="outline-none focus:outline-none"
+              >
                 <XAxis dataKey="day" />
                 <YAxis />
-                <Tooltip content={CustomTooltip}/>
+                <Tooltip content={CustomTooltip} />
                 <Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />
                 <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />
               </BarChart>
@@ -317,8 +325,9 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <p
-                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
-                      }`}
+                    className={`font-semibold text-sm ${
+                      t.type === "income" ? "text-green-500" : "text-red-500"
+                    }`}
                   >
                     {t.type === "income" ? "+" : "-"}Rp
                     {t.amount.toLocaleString("id-ID")}
