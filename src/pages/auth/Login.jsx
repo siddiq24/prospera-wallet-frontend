@@ -3,9 +3,8 @@ import "/src/assets/styles/index.css";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
-function Register() {
+function Login() {
   const [showPwd, setShowPwd] = useState(false);
-  const [showConfPwd, setShowConfPwd] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const eyesolid = <Eye />;
@@ -49,15 +48,6 @@ function Register() {
       valid = false;
     }
 
-    // validasi confirm password
-    if (!form.confpwd) {
-      newErr.confpwd = "Konfirmasi password tidak boleh kosong";
-      valid = false;
-    } else if (form.confpwd !== form.pwd) {
-      newErr.confpwd = "Password tidak sama";
-      valid = false;
-    }
-
     setErrors(newErr);
     return valid;
   };
@@ -78,14 +68,9 @@ function Register() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl my-2">
-            Start Accessing Banking Needs With All Devices and All Platforms
-            With 30.000+ Users
-          </h1>
+          <h1 className="font-medium text-3xl my-2">Hello Welcome Back 👋</h1>
           <p className="font-normal text-[15px] text-gray-400">
-            Transfering money is eassier than ever, you can access Zwallet
-            wherever you are. Desktop, laptop, mobile phone? we cover all of
-            that for you!
+            Fill out the form correctly or you can login with several option.
           </p>
 
           <div className="mt-6 md:space-y-3 flex md:flex-col flex-row">
@@ -157,64 +142,27 @@ function Register() {
                 <p className="text-red-500 text-sm">{errors.pwd}</p>
               )}
             </div>
-            <div className="flex flex-col">
-              <label htmlFor="confpwd">Confirm Password</label>
-              <div className="relative">
-                <input
-                  type={showConfPwd ? "text" : "password"}
-                  name="confpwd"
-                  id="confpwd"
-                  value={form.confpwd}
-                  onChange={handleChange}
-                  placeholder="Enter Your Password Again"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
-                />
-                <img
-                  src="/password.png"
-                  alt="password logo"
-                  className="absolute w-5 h-5 left-4 top-4.5"
-                />
-                <img
-                  src="/password.png"
-                  alt="password logo"
-                  className="absolute w-5 h-5 left-4 top-4.5"
-                />
-                <div
-                  className="absolute w-5 h-5 right-4 top-4.5 cursor-pointer"
-                  onClick={() => setShowConfPwd(!showConfPwd)}
-                >
-                  {showConfPwd ? eyesolid : eyeslash}
-                </div>
-              </div>
-              {errors.confpwd && (
-                <p className="text-red-500 text-sm">{errors.confpwd}</p>
-              )}
-            </div>
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
             <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
-              Register
+              Login
             </button>
           </form>
           <p className="flex gap-1 justify-center">
             Have An Account?
-            <Link to="/login" className="text-[var(--color--primary)]">
-              Login
+            <Link to="/register" className="text-[var(--color--primary)]">
+              Register
             </Link>
           </p>
         </div>
 
         <div className="hidden md:flex md:w-1/2 justify-center items-center">
-          <img
-            src="/register.png"
-            alt="logo register"
-            className="w-150 h-135"
-          />
+          <img src="/login.svg" alt="logo login" className="w-150 h-135" />
         </div>
       </section>
     </>
   );
 }
 
-export default Register;
+export default Login;
