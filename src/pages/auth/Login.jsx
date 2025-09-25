@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "/src/assets/styles/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
 function Login() {
   const [showPwd, setShowPwd] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const eyesolid = <Eye />;
   const eyeslash = <EyeOff />;
 
@@ -54,6 +55,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate("/pin");
     if (validate()) {
       setMessage("Register berhasil");
     } else {
@@ -63,7 +65,7 @@ function Login() {
   return (
     <>
       <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
-        <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-20 md:p-20">
+        <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-12 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
