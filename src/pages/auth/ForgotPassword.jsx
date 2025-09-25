@@ -15,7 +15,7 @@ const ForgotPassword = () => {
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
         {/* Header with Icon */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center mt-2">
             <img src="/money-wallet.svg" />
           </div>
           <h1 className="text-xl font-semibold text-blue-600">E-Wallet</h1>
@@ -23,7 +23,7 @@ const ForgotPassword = () => {
 
         {/* Title */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+          <h2 className="text-lg font-semibold text-gray-900 mb-5">
             Fill Out Form Correctly 👋
           </h2>
           <p className="text-sm text-gray-600">
@@ -55,7 +55,7 @@ const ForgotPassword = () => {
           {/* Submit Button */}
           <button
             onClick={handleSubmit}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-colors duration-200 shadow-lg"
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-colors duration-200 shadow-lg mt-4"
           >
             Submit
           </button>
