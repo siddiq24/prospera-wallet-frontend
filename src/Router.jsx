@@ -16,16 +16,13 @@ function App() {
       <Routes>
         <Route path="/rules" element={<Rules />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route element={<DashboardLayout />}>
-            <Route path="profile">
-              <Route path="edit" element={<EditProfile />} />
-              <Route path="change-password" element={<ChangePassword />} />
-              <Route path="change-pin" element={<ChangePin />} />
-            </Route>
+          <Route path="profile">
+            <Route path="edit" element={<EditProfile />} />
+            <Route path="change-password" element={<ChangePassword />} />
+            <Route path="change-pin" element={<ChangePin />} />
           </Route>
         </Route>
       </Routes>
@@ -35,9 +32,9 @@ function App() {
 
 function DashboardLayout() {
   return (
-    <div>
+    <div className="relative">
       <LoggedNavbar />
-      <div className="flex flex-col-reverse md:flex-row">
+      <div className="flex flex-col-reverse md:flex-row justify-between ">
         <Sidebar cName="w-min" />
         <Outlet />
       </div>

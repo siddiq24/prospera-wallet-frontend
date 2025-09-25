@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { BurgerMenu } from '../assets/Svg'
-import Footer from './Footer'
+import { BurgerMenu, Exit } from '../assets/Svg'
 
 export function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
@@ -49,33 +48,46 @@ export function Navbar() {
 }
 
 export function LoggedNavbar() {
+    const [open, setOpen] = useState(false)
     return (
-        <header
-            className='z-9999 text-white px-8 py-3 border-b border-[#E8E8E8] w-full'
-        >
-            <nav
-                className='flex items-center justify-between'
+        <header className=' '>
+            <div
+                className='z-9999 text-white px-8 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
             >
-                <div
-                    className='flex items-center gap-3'
+                <nav
+                    className='flex items-center justify-between'
                 >
-                    <img src="/money-wallet.svg" alt="" />
-                    <p
-                        className='text-[#2948FF]'
-                    >E-Wallet</p>
-                </div>
-                <div
-                    className='flex items-center gap-3'
-                >
-                    <p
-                        className='text-[#4F5665]'
-                    >Ghaluh Wizard</p>
-                    <img src="/avatar-galuh.png" alt=""
-                        className='size-10 rounded-full object-cover'
-                    />
-                    <img src="/down.svg" alt="" />
-                </div>
-            </nav>
+                    <div
+                        className='flex items-center gap-3'
+                    >
+                        <img src="/money-wallet.svg" alt="" />
+                        <p
+                            className='text-[#2948FF]'
+                        >E-Wallet</p>
+                    </div>
+                    <div
+                        className='flex items-center gap-3'
+                    >
+                        <p
+                            className='text-[#4F5665]'
+                        >Ghaluh Wizard</p>
+                        <img src="/avatar-galuh.png" alt=""
+                            className='size-10 rounded-full object-cover'
+                        />
+                        <div onClick={() => { setOpen(!open) }}
+                            className=' md:hidden'>
+                            <img src="/down.svg" alt="" />
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div
+                className={`${open ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
+            >
+                <button
+                    className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                ><Exit/>Sign In</button>
+            </div>
         </header>
     )
 }
