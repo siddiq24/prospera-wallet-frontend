@@ -1,5 +1,7 @@
 import React from "react"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
+import { Rules } from "./pages/Rules";
+import { Home } from "./pages/landingPage/Home";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import { Rules } from "./pages/Rules"
@@ -16,8 +18,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/rules" element={<Rules />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
