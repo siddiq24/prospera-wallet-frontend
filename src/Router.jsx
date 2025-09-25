@@ -19,11 +19,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/rules" element={<Rules />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/pin" element={<EnterPin />} />
+
+        <Route path="/auth">
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="/pin" element={<EnterPin />} />
+        </Route>
+
+        <Route path="/" element={<Home />} />
+
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
@@ -33,6 +38,7 @@ function App() {
             <Route path="change-pin" element={<ChangePin />} />
           </Route>
         </Route>
+
       </Routes>
     </BrowserRouter>
   );
