@@ -265,7 +265,7 @@ export const Home = () => {
           </div>
 
           {/* Blue section */}
-          <div className="rounded-2xl bg-[#2948FF] w-[50%]  flex flex-col items-center px-4 py-8 gap-2">
+          <div className="rounded-2xl bg-[#2948FF] md:w-[50%]  flex flex-col items-center px-4 py-8 gap-2">
             {/* User Review Photo */}
             <div>
               <img src="james-bond.png" alt="James Bond" />
