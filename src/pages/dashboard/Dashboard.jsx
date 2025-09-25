@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Wave from "react-wavify";
 
 const Dashboard = () => {
   const chartData = [
@@ -58,6 +59,19 @@ const Dashboard = () => {
     },
   ];
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip rounded-lg" style={{ fontSize: '14px', backgroundColor: 'white', padding: '5px' }}>
+          <p className="text-center">{label}</p>
+          <p className="label text-blue-600">{`Income : ${payload[0].value}`}</p>
+          <p className="label text-red-600">{`Expense : ${payload[1].value}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="bg-white min-h-screen max-w-5xl mx-auto">
       {/* Header Background biru - hanya untuk mobile */}
@@ -67,13 +81,23 @@ const Dashboard = () => {
       <div className="block md:hidden">
         {/* Balance Card Mobile */}
         <div className="-mt-16 px-4">
-          <div className="bg-white rounded-2xl shadow-lg relative overflow-hidden p-6">
+          <div className="bg-white rounded-2xl shadow-lg relative overflow-hidden">
             {/* Wave Background */}
-            <div className="absolute bottom-0 left-0 w-full h-20 bg-indigo-100 clip-wave"></div>
+            <Wave
+              fill='#2948FF1A'
+              paused={false}
+              style={{ display: 'flex' }}
+              options={{
+                height: 80,
+                amplitude: 20,
+                speed: 0.15,
+                points: 3
+              }}
+            />
 
-            <div className="relative flex justify-between items-center">
+            <div className="absolute inset-0 p-6 flex justify-between items-center">
               {/* Balance Section */}
-              <div>
+              <div className="">
                 <p className="text-gray-600 text-sm">Balance</p>
                 <p className="text-xl font-bold">Rp. 500.000</p>
               </div>
@@ -105,11 +129,11 @@ const Dashboard = () => {
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="border rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>Income</option>
                   <option>Expense</option>
                 </select>
-                <select className="border rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>7 Days</option>
                   <option>30 Days</option>
                 </select>
@@ -118,9 +142,9 @@ const Dashboard = () => {
 
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={chartData}>
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
+                <XAxis dataKey="day" style={{ fontSize: '10px' }} />
+                <YAxis style={{ fontSize: '10px' }} />
+                <Tooltip content={ CustomTooltip} />
                 <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />
                 <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />
               </BarChart>
@@ -167,9 +191,8 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div
-                    className={`font-semibold text-sm ${
-                      t.type === "income" ? "text-green-500" : "text-red-500"
-                    }`}
+                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
+                      }`}
                   >
                     {t.type === "income" ? "+" : "-"}Rp
                     {t.amount.toLocaleString("id-ID")}
@@ -184,9 +207,9 @@ const Dashboard = () => {
       {/* ===== Desktop Layout ===== */}
       <div className="hidden md:block p-6">
         {/* Bagian Atas: 2 grid */}
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div className="flex gap-6 mb-6">
           {/* Balance Card Desktop */}
-          <div className="bg-white border rounded-xl p-6 shadow-sm">
+          <div className="bg-white flex-1 border border-gray-300 rounded-xl p-6 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <img src="/balance.png"></img>
               <span className="text-gray-700 font-medium">Balance</span>
@@ -209,8 +232,8 @@ const Dashboard = () => {
           </div>
 
           {/* Fast Service + Buttons */}
-          <div className="bg-white border rounded-xl p-6 shadow-sm">
-            <div className="flex justify-between items-center">
+          <div className="bg-white flex-2 border border-gray-300 col-auto rounded-xl p-6 shadow-sm flex flex-col justify-center">
+            <div className="flex justify-between items-center ">
               <h3 className="text-gray-700 font-medium text-lg">
                 Fast Service
               </h3>
@@ -231,28 +254,28 @@ const Dashboard = () => {
         {/* Bagian Bawah: Chart + History */}
         <div className="grid grid-cols-3 gap-6">
           {/* Financial Chart Desktop */}
-          <div className="col-span-2 bg-white border rounded-xl p-6 shadow-sm">
+          <div className="col-span-2 bg-white border border-gray-300 rounded-xl p-6 shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-900">
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="border rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>7 Days</option>
                   <option>30 Days</option>
                 </select>
-                <select className="border rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>All</option>
                   <option>Income</option>
                   <option>Expense</option>
                 </select>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={400}>
               <BarChart data={chartData}>
                 <XAxis dataKey="day" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip content={CustomTooltip}/>
                 <Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />
                 <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />
               </BarChart>
@@ -270,7 +293,7 @@ const Dashboard = () => {
           </div>
 
           {/* Transaction History Desktop */}
-          <div className="bg-white border rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-gray-300 rounded-xl p-6 shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-900">
                 Transaction History
@@ -294,9 +317,8 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <p
-                    className={`font-semibold text-sm ${
-                      t.type === "income" ? "text-green-500" : "text-red-500"
-                    }`}
+                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
+                      }`}
                   >
                     {t.type === "income" ? "+" : "-"}Rp
                     {t.amount.toLocaleString("id-ID")}
