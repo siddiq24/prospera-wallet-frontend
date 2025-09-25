@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import { Rules } from "./pages/Rules"
 import EditProfile from "./pages/profile/EditProfile"
 import Footer from "./components/Footer"
+import { LoggedNavbar } from "./components/Navbar"
+import Sidebar from "./components/Sidebar"
 
 function App() {
   return (
@@ -23,7 +25,11 @@ function App() {
 function DashboardLayout() {
   return (
     <div>
+      <LoggedNavbar />
+      <div className="flex flex-col-reverse md:flex-row">
+      <Sidebar cName="w-min" />
       <Outlet />
+      </div>
     </div>
   )
 }
