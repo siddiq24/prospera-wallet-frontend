@@ -6,12 +6,13 @@ import { Home } from "./pages/landingPage/Home";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditProfile from "./pages/profile/EditProfile";
-import { LoggedNavbar } from "./components/Navbar";
+import { LoggedNavbar, Navbar } from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
           <Route path="pin" element={<EnterPin />} />
         </Route>
 
-        <Route path="/" element={<Home />} />
+        <Route element={<HomeLayout />} >
+          <Route path="/" element={<Home />} />
+        </Route>
 
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -48,9 +51,19 @@ function DashboardLayout() {
     <div className="relative">
       <LoggedNavbar />
       <div className="flex flex-col-reverse md:flex-row justify-between ">
-        <Sidebar cName="w-min" />
+        <Sidebar cName="w-min md:min-h-screen" />
         <Outlet />
+        <div className="md:w-25"></div>
       </div>
+    </div>
+  );
+}
+function HomeLayout() {
+  return (
+    <div className="relative">
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
   );
 }
