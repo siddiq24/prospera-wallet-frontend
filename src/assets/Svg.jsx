@@ -75,12 +75,12 @@ const Profile = ({ size = 20, isActive }) => {
     )
 }
 
-const Exit = ({ size = 20, isActive }) => {
+const Exit = ({ size = 20, isActive, color='#fff' }) => {
     return (
         <svg width={size} height={size} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${isActive ? "md:text-white" : "text-red-600"} text-blue-600`}>
-            <path d="M13 8.125L13 5.5C13 3.84315 14.3431 2.5 16 2.5L19 2.5C20.6569 2.5 22 3.84315 22 5.5L22 19.5C22 21.1569 20.6569 22.5 19 22.5L16 22.5C14.3431 22.5 13 21.1569 13 19.5L13 17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            <path d="M5 15.5L2.44194 12.9419C2.19786 12.6979 2.19786 12.3021 2.44194 12.0581L5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            <path d="M10 12.5L3 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M13 8.125L13 5.5C13 3.84315 14.3431 2.5 16 2.5L19 2.5C20.6569 2.5 22 3.84315 22 5.5L22 19.5C22 21.1569 20.6569 22.5 19 22.5L16 22.5C14.3431 22.5 13 21.1569 13 19.5L13 17.5" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M5 15.5L2.44194 12.9419C2.19786 12.6979 2.19786 12.3021 2.44194 12.0581L5 9.5" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M10 12.5L3 12.5" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
         </svg>
     )
 }

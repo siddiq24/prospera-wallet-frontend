@@ -32,9 +32,9 @@ function App() {
 
 function DashboardLayout() {
   return (
-    <div>
+    <div className="relative">
       <LoggedNavbar />
-      <div className="flex flex-col-reverse md:flex-row">
+      <div className="flex flex-col-reverse md:flex-row justify-between ">
         <Sidebar cName="w-min" />
         <Outlet />
       </div>

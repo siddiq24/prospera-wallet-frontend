@@ -75,7 +75,7 @@ export function LoggedNavbar() {
                             className='size-10 rounded-full object-cover'
                         />
                         <div onClick={() => { setOpen(!open) }}
-                            className='border border-black '>
+                            className=' md:hidden'>
                             <img src="/down.svg" alt="" />
                         </div>
                     </div>
@@ -85,7 +85,7 @@ export function LoggedNavbar() {
                 className={`${open ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
                 <button
-                    className='text-[#3969FD] flex justify-center items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                    className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
                 ><Exit/>Sign In</button>
             </div>
         </header>

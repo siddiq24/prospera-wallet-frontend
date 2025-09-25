@@ -10,7 +10,7 @@ function Sidebar({ cName }) {
         { svg: <History size={sz}/>, text: "History", link:'/' },
         { svg: <TopUp size={sz}/>, text: "Top Up", link:'/' },
         { svg: <Profile size={sz} />, text: "Profile", link:'/profile/edit' },
-        { svg: <Exit size={sz}/>, text: "Keluar", link:'/' },
+        { svg: <Exit size={sz} color='#f00'/>, text: "Keluar", link:'/' },
     ];
 
     return (
