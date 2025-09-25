@@ -3,18 +3,19 @@ import { Dashboard, Exit, History, Profile, TopUp, TransferMobile } from '../ass
 import { Link } from 'react-router-dom';
 
 function Sidebar({ cName }) {
+    const sz = (window.innerWidth<768)? '30%':'20';
     const items = [
-        { svg: <Dashboard isActive={true} />, text: "Dashboard", isActive: true, link:'/dashboard' },
-        { svg: <TransferMobile />, text: "Transfer", link:'/' },
-        { svg: <History />, text: "History", link:'/' },
-        { svg: <TopUp />, text: "Top Up", link:'/' },
-        { svg: <Profile size={22} />, text: "Profile", link:'/profile/edit' },
-        { svg: <Exit />, text: "Keluar", link:'/' },
+        { svg: <Dashboard isActive={true} size={sz}/>, text: "Dashboard", isActive: true, link:'/dashboard' },
+        { svg: <TransferMobile size={sz}/>, text: "Transfer", link:'/' },
+        { svg: <History size={sz}/>, text: "History", link:'/' },
+        { svg: <TopUp size={sz}/>, text: "Top Up", link:'/' },
+        { svg: <Profile size={sz} />, text: "Profile", link:'/profile/edit' },
+        { svg: <Exit size={sz}/>, text: "Keluar", link:'/' },
     ];
 
     return (
         <aside
-            className={`fixed md:static text-sm md:text-md text-[#4F5665] ${cName} p-3 md:ps-8 pt-5 border-r border-[#E8E8E8] z-9999 bg-white md:bg-transparent flex bottom-0 md:block w-screen md:w-min`}
+            className={`fixed md:static text-[3vw] border-t md:text-[18px] text-[#4F5665] ${cName} p-3 md:ps-8 pt-5 border-r border-[#E8E8E8] z-9999 bg-white md:bg-transparent flex bottom-0 md:block w-screen md:w-min justify-between`}
         >
             {items.map((e, i) => {
 

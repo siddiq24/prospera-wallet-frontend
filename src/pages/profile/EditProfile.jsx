@@ -32,20 +32,19 @@ function EditProfile() {
     let profileUrl = ''
     let Avatar = () => { return profileUrl ? (<img src={profileUrl} />) : (<Profile size={50} />) }
     return (
-        <div className='p-8'>
-            <p>Profile Picture</p>
+        <div className='p-8 pt-0'>
             <div>
-                <section className='flex mt-4'>
+                <section className='flex mt-4 gap-4'>
                     <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33'>
                         {Avatar()}
                     </div>
-                    <div className='w-full p-4 flex flex-col items-center justify-between md:w-fit'>
-                        <div className='p-2 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white'>
-                            <span className='mr-2'><Pencil size={20} /></span>
+                    <div className='w-full flex flex-col items-center justify-around md:w-fit'>
+                        <div className='p-3 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white'>
+                            <span className='mr-2'><Pencil size={18} /></span>
                             Change Profile
                         </div>
-                        <div className='p-2 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-fit'>
-                            <span className='mr-2'><Trash size={20} /></span>Remove Profile
+                        <div className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-fit'>
+                            <span className='mr-2'><Trash size={18} /></span>Remove Profile
                         </div>
                     </div>
                 </section>
