@@ -67,6 +67,7 @@ const TRUSTED_PARTNERS = [
   },
 ];
 
+// Kalau mau ganti ke swiperJS ini hapus saja
 const carouselItems = [
   {
     img: "carousel-1.png",
@@ -316,16 +317,6 @@ export const Home = () => {
 
           {/* Carousel Section */}
           <div className="flex flex-col items-center gap-4 md:hi">
-            {/* <div className="w-full flex justify-center items-center">
-              <img
-                src={carouselItems[activeIndex].img}
-                alt=""
-                className="w-32 h-32 object-contain"
-              />
-            </div>
-            <div className="text-center text-[#4F5665]">
-              {carouselItems[activeIndex].text}
-            </div> */}
             <div className="flex gap-2 mt-2">
               {carouselItems.map((_, idx) => (
                 <button
@@ -359,7 +350,7 @@ export const Home = () => {
           <div className="flex gap-8">
             <Link
               to={""}
-              className="bg-[#2948FF] text-[#ffffff] w-full px-6 py-4 flex items-center justify-center gap-4 rounded-md"
+              className="bg-[#2948FF] text-[#f8f8f8] w-full px-6 py-4 flex items-center justify-center gap-4 rounded-md"
             >
               <span>
                 <img src="play-store.svg" alt="Play Store" />
@@ -368,7 +359,7 @@ export const Home = () => {
             </Link>
             <Link
               to={""}
-              className="bg-white text-[#2948FF] border border-[#2948FF] w-full px-6 py-4 flex items-center justify-center gap-4 rounded-md"
+              className="bg-[#f8f8f8] text-[#2948FF] border border-[#2948FF] w-full px-6 py-4 flex items-center justify-center gap-4 rounded-md"
             >
               <span>
                 {/* Inline SVG for blue color */}
