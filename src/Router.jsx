@@ -1,14 +1,14 @@
-import React from "react"
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
+import React from "react";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Register from "./pages/auth/Register";
-import { Rules } from "./pages/Rules"
+import { Rules } from "./pages/Rules";
 import Dashboard from "./pages/dashboard/Dashboard";
-import EditProfile from "./pages/profile/EditProfile"
-import Footer from "./components/Footer"
-import { LoggedNavbar } from "./components/Navbar"
-import Sidebar from "./components/Sidebar"
-import ChangePassword from "./pages/profile/ChangePassword"
-import ChangePin from "./pages/profile/ChangePin"
+import EditProfile from "./pages/profile/EditProfile";
+import Footer from "./components/Footer";
+import { LoggedNavbar } from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import ChangePassword from "./pages/profile/ChangePassword";
+import ChangePin from "./pages/profile/ChangePin";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/rules" element={<Rules />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
@@ -29,7 +30,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 function DashboardLayout() {
@@ -37,11 +38,11 @@ function DashboardLayout() {
     <div>
       <LoggedNavbar />
       <div className="flex flex-col-reverse md:flex-row">
-      <Sidebar cName="w-min" />
-      <Outlet />
+        <Sidebar cName="w-min" />
+        <Outlet />
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
