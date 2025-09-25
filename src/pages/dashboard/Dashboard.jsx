@@ -73,7 +73,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen max-w-5xl mx-auto">
+    <div className="bg-white min-h-screen flex-1">
       {/* Header Background biru - hanya untuk mobile */}
       <div className="bg-blue-600 h-28 md:hidden"></div>
 
@@ -140,15 +140,17 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={chartData}>
-                <XAxis dataKey="day" style={{ fontSize: "10px" }} />
-                <YAxis style={{ fontSize: "10px" }} />
-                <Tooltip content={CustomTooltip} />
-                <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />
-                <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="-ml-5">
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={chartData}>
+                  <XAxis dataKey="day" style={{ fontSize: "10px" }} />
+                  <YAxis style={{ fontSize: "10px" }} />
+                  <Tooltip content={CustomTooltip} />
+                  <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />
+                  <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
 
             <div className="flex gap-6 mt-4">
               <div className="flex items-center gap-2">
@@ -191,9 +193,8 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div
-                    className={`font-semibold text-sm ${
-                      t.type === "income" ? "text-green-500" : "text-red-500"
-                    }`}
+                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
+                      }`}
                   >
                     {t.type === "income" ? "+" : "-"}Rp
                     {t.amount.toLocaleString("id-ID")}
@@ -325,9 +326,8 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <p
-                    className={`font-semibold text-sm ${
-                      t.type === "income" ? "text-green-500" : "text-red-500"
-                    }`}
+                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
+                      }`}
                   >
                     {t.type === "income" ? "+" : "-"}Rp
                     {t.amount.toLocaleString("id-ID")}
