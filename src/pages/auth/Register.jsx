@@ -78,7 +78,7 @@ function Register() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl">
+          <h1 className="font-medium text-3xl my-2">
             Start Accessing Banking Needs With All Devices and All Platforms
             With 30.000+ Users
           </h1>
@@ -88,14 +88,14 @@ function Register() {
             that for you!
           </p>
 
-          <div className="mt-6 space-y-3">
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2">
-              <img src="/google.png" alt="google logo" />
-              <span>Sign In With Google</span>
+          <div className="mt-6 md:space-y-3 flex md:flex-col flex-row">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer">
+              <img src="/google.png" alt="google logo" className="w-6 h-6" />
+              <span className="hidden md:block">Sign In With Google</span>
             </div>
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2">
-              <img src="/fb.png" alt="facebook logo" />
-              <span>Sign In With Facebook</span>
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer">
+              <img src="/fb.png" alt="facebook logo" className="w-6 h-6" />
+              <span className="hidden md:block">Sign In With Facebook</span>
             </div>
           </div>
 
