@@ -9,6 +9,7 @@ import { LoggedNavbar } from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
+import Login from "./pages/auth/Login";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/rules" element={<Rules />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
 
