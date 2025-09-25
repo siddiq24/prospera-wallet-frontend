@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Search, X, Trash2, ArrowLeft } from "lucide-react";
 
-const TransactionFinder = () => {
+const TransactionHistory = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -461,4 +461,4 @@ const TransactionFinder = () => {
   );
 };
 
-export default TransactionFinder;
+export default TransactionHistory;
