@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --font-mulish: "Mulish", sans-serif;
+  --font--inter: "Inter", sans-serif;
+  --color--primary: #2948ff;
+  --color--secondary: #4f5665;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Hilangin icon mata bawaan browser */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+  width: 0;
+  height: 0;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container,
+input[type="password"]::-webkit-clear-button,
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+}
