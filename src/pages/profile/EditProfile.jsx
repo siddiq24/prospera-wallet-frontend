@@ -32,7 +32,7 @@ function EditProfile() {
     let profileUrl = ''
     let Avatar = () => { return profileUrl ? (<img src={profileUrl} />) : (<Profile size={50} />) }
     return (
-        <div className='p-8 pt-0'>
+        <div className='p-8 pt-0 w-full'>
             <div>
                 <section className='flex mt-4 gap-4'>
                     <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33'>
