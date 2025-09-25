@@ -28,7 +28,14 @@ const Trash = ({ size }) => {
         <path d="M20.708 6.24023H3.75" stroke="#D00000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M17.4406 6.23998C16.6556 6.23998 15.9796 5.68498 15.8256 4.91598L15.5826 3.69998C15.4326 3.13898 14.9246 2.75098 14.3456 2.75098H10.1126C9.53358 2.75098 9.02558 3.13898 8.87558 3.69998L8.63258 4.91598C8.47858 5.68498 7.80258 6.23998 7.01758 6.23998" stroke="#D00000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-
+}
+const KeyPass = ({ size }) => {
+    return <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.12754 8.00008C7.12754 8.68208 6.57487 9.23475 5.89287 9.23475C5.21087 9.23475 4.6582 8.68208 4.6582 8.00008C4.6582 7.31808 5.21087 6.76541 5.89287 6.76541H5.89487C6.5762 6.76608 7.12754 7.31874 7.12754 8.00008Z" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M7.12891 8.00006H11.3409V9.23473" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9.45443 9.23473V8.00006" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.83398 8.00007C1.83398 3.3754 3.37598 1.8334 8.00065 1.8334C12.6253 1.8334 14.1673 3.3754 14.1673 8.00007C14.1673 12.6247 12.6253 14.1667 8.00065 14.1667C3.37598 14.1667 1.83398 12.6247 1.83398 8.00007Z" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
 }
 
-export { Profile, Phone, Mail, Pencil, Trash }
+export { Profile, Phone, Mail, Pencil, Trash, KeyPass }

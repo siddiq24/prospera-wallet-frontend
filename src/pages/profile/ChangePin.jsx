@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 function ChangePin() {
   const [_, setOtp] = useState()
   return (
-    <div className='p-10'>
-      <div className='border mt-22'>
+    <div className='p-10 w-full'>
+      <div className='mt-22'>
         <div className='flex justify-center items-center'>
           <h1 className=''>Change Pin</h1>
           <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} />
@@ -49,7 +49,7 @@ function OtpInput({ setOtp }) {
   };
 
   return (
-    <div className="flex justify-between w-full gap-4">
+    <div className="flex justify-center w-full gap-4">
       {otpDigits.map((digit, i) => (
         <input
           key={i}
