@@ -129,11 +129,11 @@ const Dashboard = () => {
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>Income</option>
                   <option>Expense</option>
                 </select>
-                <select className="rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>7 Days</option>
                   <option>30 Days</option>
                 </select>
