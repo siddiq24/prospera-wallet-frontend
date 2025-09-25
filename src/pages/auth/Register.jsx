@@ -73,10 +73,10 @@ function Register() {
   return (
     <>
       <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
-        <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-20 py-20">
-          <div className="flex items-center text-[var(--color--primary)]">
+        <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-20 md:p-20">
+          <div className="flex gap-3 items-center text-[var(--color--primary)]">
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
-            <p>E-Wallet</p>
+            <p className="font-medium">E-Wallet</p>
           </div>
           <h1 className="font-medium text-3xl">
             Start Accessing Banking Needs With All Devices and All Platforms
