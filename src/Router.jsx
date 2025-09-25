@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules"
-import Dashboard  from "./pages/Dashboard.jsx";
+import Dashboard from "./pages/dashboard/Dashboard";
 import EditProfile from "./pages/profile/EditProfile"
 import Footer from "./components/Footer"
 import { LoggedNavbar } from "./components/Navbar"
