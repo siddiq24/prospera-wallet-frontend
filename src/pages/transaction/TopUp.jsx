@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 function TopUp() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [nominal, setNominal] = useState("");
   const [errors, setErrors] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState(null);
+  const navigate = useNavigate();
 
   const methods = [
-    { id: "bri", name: "Bank Rakyat Indonesia", logo: "/BRI.svg" },
-    { id: "dana", name: "Dana", logo: "/dana.svg" },
-    { id: "bca", name: "Bank Central Asia", logo: "/bca.svg" },
-    { id: "gopay", name: "Gopay", logo: "/gopay.svg" },
-    { id: "ovo", name: "Ovo", logo: "/ovo.svg" },
+    { id: "bri", name: "Bank Rakyat Indonesia", logo: "/BRI.svg", num: "112" },
+    { id: "dana", name: "Dana", logo: "/dana.svg", num: "215" },
+    { id: "bca", name: "Bank Central Asia", logo: "/bca.svg", num: "122" },
+    { id: "gopay", name: "Gopay", logo: "/gopay.svg", num: "224" },
+    { id: "ovo", name: "Ovo", logo: "/ovo.svg", num: "245" },
   ];
 
   const formatCurrency = (value) => {
@@ -43,18 +47,6 @@ function TopUp() {
     return isValid;
   };
 
-  //  disable button
-  const isFormValid = nominal.replace(/\D/g, "") && paymentMethod;
-
-  // handle submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      //   const rawNominal = nominal.replace(/\D/g, "");
-      // navigate("/auth/pin");
-    }
-  };
-
   // hitung payment
   const amount = Number(nominal.replace(/\D/g, "")) || 0;
   // default tax
@@ -69,6 +61,52 @@ function TopUp() {
     }
   }
   const subtotal = amount + tax;
+
+  //  disable button
+  const isFormValid = nominal.replace(/\D/g, "") && paymentMethod;
+
+  // handle submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const selectedBank = methods.find((m) => m.id === paymentMethod);
+    setPaymentInfo({
+      logoBank: selectedBank.logo,
+      bank: selectedBank.name,
+      vaNumber: selectedBank.num,
+      phone: "6282116304337",
+      amount: subtotal,
+    });
+    setShowModal(true);
+  };
+
+  const formatWithSpaces = (value) => {
+    if (!value) return "";
+    return (
+      value
+        .toString()
+        //   .replace(/\D/g, "") // buang non-digit
+        .replace(/(.{4})/g, "$1 ") // kasih spasi tiap 4 digit
+        .trim()
+    );
+  };
+
+  const copy = (text) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showModal]);
 
   return (
     <>
@@ -217,6 +255,64 @@ function TopUp() {
           </div>
         </div>
       </section>
+
+      {/* Modal */}
+      {showModal && paymentInfo && (
+        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-10">
+          <div className="bg-white rounded-lg py-6 px-10 w-96">
+            <div className="flex justify-between">
+              <h2 className="text-lg font-semibold my-4">
+                Instruksi Pembayaran
+              </h2>
+              <div
+                className="font-semibold cursor-pointer"
+                onClick={() => {
+                  setShowModal(false);
+                }}
+              >
+                X
+              </div>
+            </div>
+            <div className="flex items-center gap-4 my-3">
+              <img src={paymentInfo.logoBank} alt="selected bank logo" />
+              <p className="mb-2 text-base">{paymentInfo.bank}</p>
+            </div>
+            <hr />
+            <p className="mb-2 mt-4">Nomor Rekening:</p>
+            <div className="flex justify-between mb-4 items-center">
+              <p className="text-[var(--color--primary)]">
+                {formatWithSpaces(
+                  `${paymentInfo.vaNumber}${paymentInfo.phone}`
+                )}
+              </p>
+              <button
+                onClick={() => copy(paymentInfo.vaNumber)}
+                className="cursor-pointer border border-[var(--color--primary)] py-1 px-2 rounded"
+              >
+                COPY
+              </button>
+            </div>
+            <hr />
+            <p className="my-4 text-gray-400 text-sm">
+              Verification process takes less than 10 minutes after successful
+              payment
+            </p>
+            <p className="text-sm">Only accept from {paymentInfo.bank}</p>
+            <div className="flex justify-end gap-2">
+              <button
+                className="my-5 w-full py-2 rounded-lg cursor-pointer
+                  bg-[var(--color--primary)] text-white"
+                onClick={() => {
+                  setShowModal(false);
+                  navigate("/transaction/history");
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
