@@ -12,9 +12,12 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
-import TopUp from "./pages/transaction/Topup";
+import TopUp from "./pages/transaction/TopUp";
 import Footer from "./components/Footer";
 import TransactionHistory from "./pages/dashboard/TransactionHistory";
+import Transfer from "./pages/transaction/Transfer";
+import NotFoundPage from "./pages/error/ErrorPage";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -38,6 +41,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="history" element={<TransactionHistory />} />
             <Route path="topup" element={<TopUp />} />
+            <Route path="transfer" element={<Transfer />} />
           </Route>
 
           <Route path="profile">
@@ -47,6 +51,7 @@ function App() {
           </Route>
         </Route>
 
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
@@ -54,12 +59,17 @@ function App() {
 
 function DashboardLayout() {
   return (
-    <div className="relative">
+    <div className="fixed h-screen w-screen">
       <LoggedNavbar />
-      <div className="flex flex-col-reverse md:flex-row justify-between ">
+      <div className="flex flex-col-reverse md:flex-row justify-between h-full border mb-5">
         <Sidebar cName="w-min md:min-h-screen" />
-        <Outlet />
-        <div className="md:w-25"></div>
+        <div className="w-full bg-gray-50">
+          <Header title={'Title'} />
+          <div className="border ml-8 overflow-y-auto">
+            <Outlet />
+          </div>
+        </div>
+        <div className="md:w-25 bg-gray-50"></div>
       </div>
     </div>
   );
@@ -68,7 +78,9 @@ function HomeLayout() {
   return (
     <div className="relative">
       <Navbar />
-      <Outlet />
+      <div className="mt-20">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

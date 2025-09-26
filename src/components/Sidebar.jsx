@@ -17,7 +17,7 @@ function Sidebar({ cName }) {
 
     return (
         <aside
-            className={`fixed md:static text-[3vw] border-t md:text-[18px] text-[#4F5665] ${cName} p-3 md:ps-[5%] pt-10 border-r border-[#E8E8E8] z-9999 bg-white md:bg-transparent flex bottom-0 md:flex-col w-screen md:w-full md:max-w-xs justify-between md:justify-start md:gap-8`}
+            className={`fixed md:static text-[3vw] border-t md:text-[18px] text-[#4F5665] ${cName} p-3 md:ps-[5%] pt-10 border-r border-[#E8E8E8] bg-white md:bg-transparent flex bottom-0 md:flex-col w-screen md:w-full md:max-w-xs justify-between md:justify-start md:gap-8`}
         >
             {items.map((e, i) => {
                 const isActive = location.pathname.startsWith(e.link);

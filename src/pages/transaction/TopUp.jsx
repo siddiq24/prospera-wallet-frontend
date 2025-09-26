@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Header from "../../components/Header";
 
 function TopUp() {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -56,17 +57,14 @@ function TopUp() {
     paymentMethod;
 
   return (
-    <>
-      <section className="flex flex-col px-5 my-8 w-full pb-25 md:pb-0">
-        <div className="hidden md:flex items-center gap-3">
-          <img src="/Upload.svg" alt="upload logo" />
-          <p className="font-semibold">Top Up Account</p>
-        </div>
+    <div className="flex-1 mb-88">
+        {/* <Header title={'Top Up Account'} Icon={(sz, cl)=>{return <TopUp color={cl} size={sz}/>}}/> */}
 
+      <section className="flex flex-col w-full pb-88 md:pb-0">
         {/* Content */}
         <div className="flex flex-col md:flex-row gap-1 md:gap-10">
           {/* Account Information */}
-          <div className="py-5 px-8 mb-5 md:my-5 flex-1 md:border md:border-gray-200 md:rounded-lg">
+          <div className="py-5 px-8 mb-5 flex-1 md:border md:border-gray-200 md:rounded-lg ">
             <h2 className="font-semibold mb-3">Account Information</h2>
             <div>
               <div className="flex gap-5 bg-[#E8E8E84D] p-5 rounded-lg">
@@ -151,7 +149,7 @@ function TopUp() {
           </div>
 
           {/* Payment */}
-          <div className="pt-5 pb-2 px-8 mb-0 md:my-5 w-full md:w-1/3 md:border md:border-gray-200 md:rounded-lg self-start">
+          <div className="pt-5 pb-2 px-8 mb-0 w-full md:w-1/3 md:border md:border-gray-200 md:rounded-lg self-start">
             <p className="font-semibold">Payment</p>
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p>Order</p>
@@ -188,7 +186,7 @@ function TopUp() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 

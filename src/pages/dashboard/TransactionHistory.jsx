@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Search, X, Trash2, ArrowLeft } from "lucide-react";
+import Header from "../../components/Header";
 
 const TransactionHistory = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -136,14 +137,7 @@ const TransactionHistory = () => {
   return (
     <div className="w-full bg-gray-50 min-h-screen">
       {/* Mobile Version - Hidden on Desktop */}
-      <div className="md:hidden max-w-md mx-auto bg-white min-h-screen">
-        {/* Header */}
-        <div className="bg-blue-600 text-white p-4">
-          <h1 className="text-lg font-semibold text-left">
-            Transaction History
-          </h1>
-        </div>
-
+      <div className="md:hidden mx-auto bg-white min-h-screen">
         {/* Search Bar */}
         <div className="p-4">
           <h1 className="text-lg font-semibold text-left">Find Transaction</h1>
@@ -199,21 +193,12 @@ const TransactionHistory = () => {
       </div>
 
       {/* Desktop Version - Hidden on Mobile */}
-      <div className="hidden md:block mx-auto">
+      <div className="hidden md:block">
         {/* Header */}
-        <div className="">
-          <div className="px-10 py-8">
-            <div className="flex items-center gap-3">
-              <img src="/history.png" alt="" />
-              <h1 className="text-xl font-semibold text-gray-900">
-                History Transaction
-              </h1>
-            </div>
-          </div>
-        </div>
+        <Header title={'History Transaction'} img={'/history.png'}/>
 
         {/* Main Content */}
-        <div className="p-8 pt-0">
+        <div className="py-8 pt-0">
           <div className="bg-white rounded-xl shadow-sm ">
             {/* Search and Header */}
             <div className="p-6 border-b border-gray-200">
