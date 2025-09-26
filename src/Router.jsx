@@ -12,6 +12,7 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
+import TopUp from "./pages/transaction/Topup";
 import Footer from "./components/Footer";
 import TransactionHistory from "./pages/dashboard/TransactionHistory";
 
@@ -36,6 +37,7 @@ function App() {
           <Route path='/transaction'>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="history" element={<TransactionHistory />} />
+          <Route path="/topup" element={<TopUp />} />
           </Route>
 
           <Route path="profile">

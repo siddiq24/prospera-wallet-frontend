@@ -50,8 +50,8 @@ function EnterPin() {
   const isPinComplete = pinValues.every((v) => v !== "");
   return (
     <>
-      <section className="flex min-h-screen bg-[var(--color--primary)] py-15 px-10 md:p-0">
-        <div className="w-full md:w-1/2 rounded-r-2xl rounded-l-2xl md:rounded-r-4xl md:rounded-l-none bg-white flex flex-col justify-center px-10 py-10 md:py-20 md:p-20">
+      <section className="flex min-h-screen bg-[var(--color--primary)] py-30 px-10 md:p-0">
+        <div className="w-full md:w-1/2 rounded-r-2xl rounded-l-2xl md:rounded-r-4xl md:rounded-l-none bg-white flex flex-col justify-center px-10 py-5 md:py-20 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
@@ -80,7 +80,7 @@ function EnterPin() {
                   onBlur={handleBlur}
                   ref={(el) => (inputsRef.current[idx] = el)}
                   autoComplete="one-time-code" // biar dianggap input OTP, ga diisi otomatis
-                  className={`w-5 md:w-14 h-12 text-center border-b-2 outline-none text-xl
+                  className={`w-6 md:w-14  h-12 text-center border-b-2 outline-none text-xl"
           ${
             focusedIndex === idx
               ? "border-[var(--color--primary)]"
