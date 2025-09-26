@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules";
@@ -13,6 +13,8 @@ import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
 import TopUp from "./pages/transaction/Topup";
+import Footer from "./components/Footer";
+import TransactionHistory from "./pages/dashboard/TransactionHistory";
 
 function App() {
   return (
@@ -32,8 +34,11 @@ function App() {
         </Route>
 
         <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/topup" element={<TopUp />} />
+          <Route path="/transaction">
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="history" element={<TransactionHistory />} />
+            <Route path="topup" element={<TopUp />} />
+          </Route>
 
           <Route path="profile">
             <Route path="edit" element={<EditProfile />} />

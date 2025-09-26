@@ -163,8 +163,10 @@ const TransactionHistory = () => {
         <div className="px-4">
           {filteredTransactions.map((transaction) => (
             <div
-              key={transaction.id }
-                  className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
+              key={transaction.id}
+              className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
+                transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+              }`}
               onClick={() => handleTransactionClick(transaction)}
             >
               <div className="flex-1">
@@ -199,10 +201,10 @@ const TransactionHistory = () => {
       </div>
 
       {/* Desktop Version - Hidden on Mobile */}
-      <div className="hidden md:block max-w-7xl mx-auto">
+      <div className="hidden md:block mx-auto">
         {/* Header */}
-        <div className="bg-white shadow-sm">
-          <div className="px-8 py-6">
+        <div className="">
+          <div className="px-10 py-8">
             <div className="flex items-center gap-3">
               <img src="/history.png" alt="" />
               <h1 className="text-xl font-semibold text-gray-900">
@@ -213,7 +215,7 @@ const TransactionHistory = () => {
         </div>
 
         {/* Main Content */}
-        <div className="p-8">
+        <div className="p-8 pt-0">
           <div className="bg-white rounded-xl shadow-sm ">
             {/* Search and Header */}
             <div className="p-6 border-b border-gray-200">
@@ -221,7 +223,7 @@ const TransactionHistory = () => {
                 <h2 className="text-lg font-semibold text-gray-900">
                   Find Transaction
                 </h2>
-                <div className="relative max-w-md">
+                <div className="relative w-lg">
                   <input
                     type="text"
                     placeholder="Enter Number Or Full Name"
@@ -238,8 +240,10 @@ const TransactionHistory = () => {
             <div className="overflow-x-auto">
               {currentTransactions.map((transaction) => (
                 <div
-                      key={transaction.id}
-                      className={`flex items-center px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
+                  key={transaction.id}
+                  className={`flex items-center px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${
+                    transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  }`}
                 >
                   {/* Avatar */}
                   <div className="flex-shrink-0 mr-4">
@@ -374,7 +378,6 @@ const TransactionHistory = () => {
           <div className="bg-white rounded-lg w-full max-w-sm mx-4 relative z-10">
             {/* Modal Header */}
             <div className="bg-gray-100 p-4 rounded-t-lg">
-              
               <h2 className="text-sm font-medium text-gray-600 uppercase tracking-wide">
                 DETAIL TRANSACTION {selectedTransaction.name.toUpperCase()}
               </h2>
