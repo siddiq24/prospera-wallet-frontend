@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
-  const navigate = useNavigate();
 
   return (
         <header
@@ -14,7 +13,7 @@ export function Navbar() {
                 className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-10 md:px-32'
             >
                 <div
-                    className='w-50'
+                    className='w-30 md:w-50'
                 >
                     <img src="/LogoNavHome.png" alt="" className='drop-shadow-2xl '
                     />

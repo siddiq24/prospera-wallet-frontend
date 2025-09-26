@@ -18,6 +18,8 @@ import TransactionHistory from "./pages/dashboard/TransactionHistory";
 import Transfer from "./pages/transaction/Transfer";
 import NotFoundPage from "./pages/error/ErrorPage";
 import Header from "./components/Header";
+import Detail from "./pages/transaction/Detail";
+import {FinePeople} from "./pages/transaction/FinePeople";
 
 function App() {
   return (
@@ -39,9 +41,10 @@ function App() {
         <Route element={<DashboardLayout />}>
           <Route path="/transaction">
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="transfer" element={<FinePeople/>} />
+            <Route path="transfer/:id" element={<Detail />} />
             <Route path="history" element={<TransactionHistory />} />
             <Route path="topup" element={<TopUp />} />
-            <Route path="transfer" element={<Transfer />} />
           </Route>
 
           <Route path="profile">

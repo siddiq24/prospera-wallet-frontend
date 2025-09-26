@@ -1,12 +1,18 @@
 import React, { useState, useRef } from "react";
-import { Send } from "lucide-react";
+import { Transfer } from "../../components/profile/Svg";
+import Header from "../../components/Header";
+import { useNavigate, useParams } from "react-router";
+import { Transactions } from "./FinePeople";
 
 function Detail() {
   const [nominal, setNominal] = useState("");
   const [errors, setErrors] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [status, setStatus] = useState(null); // "success" | "error" | null
-  const [modalStep, setModalStep] = useState(null); // "pin" | "result"
+  const [modalStep, setModalStep] = useState(132453); // "pin" | "result"
+  const { id } = useParams()
+
+  const { name, phone, } = Transactions[id]
 
   // --- PIN States ---
   const PIN_LENGTH = 6;
@@ -84,24 +90,23 @@ function Detail() {
 
   const isPinComplete = pinValues.every((v) => v !== "");
 
+  const navigate = useNavigate()
+
   return (
     <>
       {/* --- MAIN PAGE --- */}
-      <section className="flex flex-col w-full pb-25 overflow-hidden md:pb-0 my-5">
-        <div className="hidden md:flex items-center px-3 gap-3 m-5">
-          <Send className="w-5 h-5 text-blue-600" />
-          <p className="font-semibold">Transfer Money</p>
-        </div>
+      <section className="flex flex-col w-full pb-25 overflow-hidden md:pb-0 mb-5">
+        <Header title={'Top Up Account'} Icon={Transfer} />
 
         {/* STEP BAR */}
-        <div className="hidden md:flex items-center justify-between max-w-2xl px-6">
-          <div className="flex items-center">
+        <div className="hidden md:flex items-center justify-between max-w-2xl px-6 p-6">
+          <div onClick={()=>{navigate('/transaction/transfer')}} className="flex items-center">
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-600 text-white text-sm font-medium">
               1
             </div>
             <span className="ml-2 text-gray-700">Find People</span>
           </div>
-          <div className="flex-1 mx-2 border-t border-dashed border-gray-400"></div>
+          <div className="flex-1 mx-2 border-t border-dashed border-blue-400"></div>
           <div className="flex items-center">
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-medium">
               2
@@ -118,7 +123,7 @@ function Detail() {
         </div>
 
         {/* CONTENT */}
-        <div className="flex flex-col md:flex-row gap-1 md:gap-10 m-5">
+        <div className="flex flex-col md:flex-row gap-1 md:gap-10">
           <div className="md:py-5 md:px-8 mb-5 md:my-5 flex-1 md:border md:border-gray-200 md:rounded-lg">
             <h2 className="font-semibold mb-3">People Information</h2>
             <div>
@@ -129,12 +134,12 @@ function Detail() {
                     <img
                       src="/Profile.svg"
                       alt="foto profile"
-                      className="w-20 h-20 object-cover rounded-lg"
+                      className="w-20 h-20 object-cover rounded-lg  "
                     />
                   </div>
                   <div>
-                    <p className="font-semibold">Ghaluh 1</p>
-                    <p className="text-gray-500 my-1">(239)555-0108</p>
+                    <p className="font-semibold">{name}</p>
+                    <p className="text-gray-500 my-1">{phone}</p>
                     <div className="inline-flex items-center gap-2 bg-[var(--color--primary)] rounded px-2 py-1">
                       <img
                         src="/verified.svg"
@@ -200,7 +205,7 @@ function Detail() {
 
       {/* --- MODAL --- */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-lg">
           <div
             className="fixed inset-0 bg-black opacity-50"
             onClick={() => setShowModal(false)}
@@ -215,8 +220,10 @@ function Detail() {
             {/* PIN STEP */}
             {modalStep === "pin" && (
               <div className="flex flex-col items-center">
-                <h2 className="text-lg font-semibold mb-2">
-                  Enter Your Pin 👋
+                <h2 className="text-lg font-semibold mb-2 flex gap-3 ">
+                  Enter Your Pin           
+                  <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} 
+                  className="justify"/>
                 </h2>
                 <p className="text-gray-500 mb-4">
                   Enter your pin for transaction
@@ -237,11 +244,10 @@ function Detail() {
                       ref={(el) => (inputsRef.current[idx] = el)}
                       autoComplete="one-time-code"
                       className={`w-10 h-12 text-center border-b-2 outline-none text-xl
-                      ${
-                        focusedIndex === idx
+                      ${focusedIndex === idx
                           ? "border-[var(--color--primary)]"
                           : "border-gray-300"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
@@ -250,10 +256,9 @@ function Detail() {
                   onClick={handleCheckPin}
                   disabled={!isPinComplete}
                   className={`w-full py-2 rounded-lg cursor-pointer transition
-                    ${
-                      isPinComplete
-                        ? "bg-[var(--color--primary)] text-white hover:opacity-90"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    ${isPinComplete
+                      ? "bg-[var(--color--primary)] text-white hover:opacity-90"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
                     }`}
                 >
                   Submit

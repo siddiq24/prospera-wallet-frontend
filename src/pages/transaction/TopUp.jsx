@@ -112,12 +112,12 @@ function TopUp() {
 
   return (
     <div className="flex-1">
-      <Header title={'Top Up Account'} Icon={Topup}/>
+      <Header title={'Top Up Account'} Icon={Topup} />
       <section className="flex flex-col w-full pb-30 md:pb-0">
         {/* Content */}
         <div className="flex flex-col md:flex-row gap-1 md:gap-10">
           {/* Account Information */}
-          <div className="py-5 px-8 mb-5 flex-1 md:border md:border-gray-200 md:rounded-lg ">
+          <div className="py-5 px-8 mb-5 flex-1 md:border bg-white md:border-gray-200 md:rounded-lg ">
             <h2 className="font-semibold mb-3">Account Information</h2>
             <div>
               <div className="flex gap-5 bg-[#E8E8E84D] p-5 rounded-lg">
@@ -150,8 +150,7 @@ function TopUp() {
                   placeholder="Enter Nominal Top Up"
                   value={nominal}
                   onChange={handleNominalChange}
-                  className="border rounded-lg py-2 px-10 my-2 w-full 
-             focus:outline-none focus:outline-none focus:ring-1"
+                  className="border rounded-lg py-2 px-10 my-2 w-full focus:ring-1"
                 />
                 <img
                   src="/u_money.svg"
@@ -171,11 +170,10 @@ function TopUp() {
                 {methods.map((method) => (
                   <label
                     key={method.id}
-                    className={`flex items-center gap-4 border rounded-xl p-4 cursor-pointer hover:border-blue-500 my-5 ${
-                      paymentMethod === method.id
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 bg-[#E8E8E84D]"
-                    }`}
+                    className={`flex items-center gap-4 border rounded-xl p-4 cursor-pointer hover:border-blue-500 my-5 ${paymentMethod === method.id
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 bg-[#E8E8E84D]"
+                      }`}
                   >
                     <input
                       type="radio"
@@ -231,7 +229,7 @@ function TopUp() {
                 )}
               </p>
             </div>
-            <hr className="border-gray-500"/>
+            <hr className="border-gray-500" />
             <div className="flex justify-between mt-4 mb-2 font-semibold text-sm">
               <p className="font-medium text-gray-500">Sub Total</p>
               <p>Idr.{formatCurrency(subtotal)}</p>
@@ -240,11 +238,10 @@ function TopUp() {
             <button
               onClick={handleSubmit}
               disabled={!isFormValid}
-              className={`my-5 w-full py-2 rounded-lg cursor-pointer ${
-                isFormValid
-                  ? "bg-[var(--color--primary)] text-white"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+              className={`my-5 w-full py-2 rounded-lg cursor-pointer ${isFormValid
+                ? "bg-[var(--color--primary)] text-white"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
             >
               Submit
             </button>
