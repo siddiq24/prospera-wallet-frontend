@@ -37,7 +37,7 @@ function App() {
           <Route path='/transaction'>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="history" element={<TransactionHistory />} />
-          <Route path="/topup" element={<TopUp />} />
+            <Route path="topup" element={<TopUp />} />
           </Route>
 
           <Route path="profile">
