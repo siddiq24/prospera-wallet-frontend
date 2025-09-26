@@ -90,6 +90,7 @@ function EditProfile() {
     }
     return (
         <div className='flex-1'>
+            <Header title={'Profile Account'} Icon={People}/>
             <div className='p-8 pt-0 w-full'>
                 <div>
                     <section className='flex mt-4 gap-4'>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Search, X, Trash2, ArrowLeft } from "lucide-react";
+import { Search, Trash2 } from "lucide-react";
 import Header from "../../components/Header";
+import { History } from "../../components/profile/Svg";
+import { Plus, Send } from "lucide-react";
 
 const TransactionHistory = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -135,9 +137,10 @@ const TransactionHistory = () => {
   };
 
   return (
-    <div className="w-full bg-gray-50 min-h-screen">
+    <div className="w-full">
+      <Header title={'History Transaction'} Icon={History}/>
       {/* Mobile Version - Hidden on Desktop */}
-      <div className="md:hidden mx-auto bg-white min-h-screen">
+      <div className="md:hidden mx-auto bg-white min-h-screen px-4">
         {/* Search Bar */}
         <div className="p-4">
           <h1 className="text-lg font-semibold text-left">Find Transaction</h1>
@@ -173,11 +176,10 @@ const TransactionHistory = () => {
               </div>
               <div className="text-right">
                 <p
-                  className={`font-medium text-sm ${
-                    transaction.type === "credit"
+                  className={`font-medium text-sm ${transaction.type === "credit"
                       ? "text-green-600"
                       : "text-red-500"
-                  }`}
+                    }`}
                 >
                   {formatCurrency(transaction.amount)}
                 </p>
@@ -197,8 +199,6 @@ const TransactionHistory = () => {
       {/* Desktop Version - Hidden on Mobile */}
       <div className="hidden md:block">
         {/* Header */}
-        <Header title={'History Transaction'} img={'/history.png'}/>
-
         {/* Main Content */}
         <div className="py-8 pt-0">
           <div className="bg-white rounded-xl shadow-sm ">
@@ -255,11 +255,10 @@ const TransactionHistory = () => {
                   {/* Amount */}
                   <div className="flex-shrink-0 text-right mr-28">
                     <p
-                      className={`text-sm font-medium ${
-                        transaction.type === "credit"
+                      className={`text-sm font-medium ${transaction.type === "credit"
                           ? "text-green-600"
                           : "text-red-500"
-                      }`}
+                        }`}
                     >
                       {formatCurrency(transaction.amount)}
                     </p>
@@ -302,11 +301,10 @@ const TransactionHistory = () => {
                     <button
                       onClick={goToPrevPage}
                       disabled={currentPage <= 1}
-                      className={`text-sm mr-4 ${
-                        currentPage <= 1
+                      className={`text-sm mr-4 ${currentPage <= 1
                           ? "text-gray-400 cursor-not-allowed"
                           : "text-gray-500 hover:text-gray-700"
-                      }`}
+                        }`}
                     >
                       Prev
                     </button>
@@ -320,11 +318,10 @@ const TransactionHistory = () => {
                         <button
                           key={page}
                           onClick={() => goToPage(page)}
-                          className={`px-3 py-1 text-sm rounded ${
-                            currentPage === page
+                          className={`px-3 py-1 text-sm rounded ${currentPage === page
                               ? "bg-blue-600 text-white"
                               : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-                          }`}
+                            }`}
                         >
                           {page}
                         </button>
@@ -334,11 +331,10 @@ const TransactionHistory = () => {
                     <button
                       onClick={goToNextPage}
                       disabled={currentPage >= totalPages}
-                      className={`text-sm ml-4 ${
-                        currentPage >= totalPages
+                      className={`text-sm ml-4 ${currentPage >= totalPages
                           ? "text-gray-400 cursor-not-allowed"
                           : "text-gray-500 hover:text-gray-700"
-                      }`}
+                        }`}
                     >
                       Next
                     </button>
@@ -413,11 +409,10 @@ const TransactionHistory = () => {
                     Amount:
                   </label>
                   <p
-                    className={`text-sm font-medium mt-1 ${
-                      selectedTransaction.type === "credit"
+                    className={`text-sm font-medium mt-1 ${selectedTransaction.type === "credit"
                         ? "text-green-600"
                         : "text-red-500"
-                    }`}
+                      }`}
                   >
                     {formatCurrency(selectedTransaction.amount)}
                   </p>

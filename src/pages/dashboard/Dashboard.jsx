@@ -1,5 +1,4 @@
 import React from "react";
-import { Plus, Send } from "lucide-react";
 import {
   BarChart,
   Bar,
@@ -9,6 +8,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Wave from "react-wavify";
+import Header from "../../components/Header";
+import { Dashb } from "../../assets/Svg";
+import { Plus, Send } from "lucide-react";
 
 const Dashboard = () => {
   const chartData = [
@@ -57,6 +59,41 @@ const Dashboard = () => {
       amount: 50000,
       method: "Send",
     },
+    {
+      id: 6,
+      name: "Floyd Miles",
+      type: "expense",
+      amount: 50000,
+      method: "Send",
+    },
+    {
+      id: 7,
+      name: "Floyd Miles",
+      type: "income",
+      amount: 50000,
+      method: "Send",
+    },
+    {
+      id: 8,
+      name: "Floyd Miles",
+      type: "expense",
+      amount: 50000,
+      method: "Send",
+    },
+    {
+      id: 9,
+      name: "Floyd Miles",
+      type: "income",
+      amount: 50000,
+      method: "Send",
+    },
+    {
+      id: 10,
+      name: "Floyd Miles",
+      type: "expense",
+      amount: 50000,
+      method: "Send",
+    },
   ];
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -73,9 +110,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className=" min-h-screen flex-1">
+    <div className=" flex-1">
+      <Header title={'Dashboard'} Icon={Dashb}/>
       {/* Header Background biru - hanya untuk mobile */}
-      <div className="bg-blue-600 h-28 md:hidden"></div>
+      <div className="bg-blue-600 h-16 md:hidden"></div>
 
       {/* ===== Mobile Layout ===== */}
       <div className="block md:hidden">
@@ -83,6 +121,7 @@ const Dashboard = () => {
         <div className="-mt-16 px-4">
           <div className="bg-white rounded-2xl shadow-lg relative overflow-hidden">
             {/* Wave Background */}
+            <p>{new Date(Date.now()).toDateString().slice(0,3)}</p>
             <Wave
               fill="#2948FF1A"
               paused={false}
@@ -130,7 +169,8 @@ const Dashboard = () => {
               </h3>
               <div className="flex gap-3">
                 <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
-                  <option>Income</option>
+                  <option>All</option>
+                  <option>Expense</option>
                   <option>Expense</option>
                 </select>
                 <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
@@ -146,8 +186,8 @@ const Dashboard = () => {
                   <XAxis dataKey="day" style={{ fontSize: "10px" }} />
                   <YAxis style={{ fontSize: "10px" }} />
                   <Tooltip content={CustomTooltip} />
-                  <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />
-                  <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />
+                  {chartData[0].income && <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />}
+                  {chartData[0].expense && <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />}
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -274,8 +314,8 @@ const Dashboard = () => {
               </div>
             </div>
             <ResponsiveContainer
-              width="100%"
-              height={400}
+              // width="100%"
+              height='90%'
               className="outline-none focus:outline-none"
             >
               <BarChart

@@ -16,9 +16,8 @@ export function Navbar() {
                 <div
                     className='w-50'
                 >
-                    <img src="/LogoNav.png" alt=""  className='drop-shadow-2xl '
-                      style={{ filter: "brightness(90%) saturate(90%) invert(100%) sepia(100%) saturate(100%) hue-rotate(180deg) brightness(95%) contrast(100%)" }} 
-/>
+                    <img src="/LogoNavHome.png" alt="" className='drop-shadow-2xl '
+                    />
                 </div>
                 <div
                     className='md:flex md:items-center md:gap-4'
@@ -55,7 +54,7 @@ export function LoggedNavbar() {
     return (
         <header className='t-0 w-screen'>
             <div
-                className='z-9999 pl-8 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
+                className='z-99999 md:pl-8 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
             >
                 <nav
                     className='flex items-center justify-between'
