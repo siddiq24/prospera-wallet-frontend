@@ -93,7 +93,7 @@ export const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <main className="flex flex-col gap-18">
+    <main className="flex flex-col gap-18 overflow-hidden">
       {/* Hero section */}
       <div
         className={`bg-[#2948FF]  text-white flex flex-col pt-20 gap-6  md:items-center ${sectionPadding}`}
@@ -107,25 +107,32 @@ export const Home = () => {
             <div className="text-md">
               Simplify Your Life with Secure and Convenient Mobile Payments
             </div>
-            <div className="flex gap-8">
-              {DOWNLOAD_BUTTONS.map((el, idx) => (
-                <Link
-                  key={idx}
-                  to={""}
-                  style={{
-                    backgroundColor: el.bg,
-                    color: el.text,
-                    borderColor: el.border,
-                    borderWidth: "1px",
-                  }}
-                  className="w-full px-6 py-4 flex items-center justify-center gap-4 rounded-md"
-                >
-                  <span>
-                    <img src={el.img} alt={el.title} />
-                  </span>
-                  <span>{el.title}</span>
-                </Link>
-              ))}
+            <div className="flex gap-8 h-14 w-full">
+              <div className="bg-[#FFFFFF] flex items-center justify-center flex-1 h-full text-[#2948FF] px-6 py-4 gap-4 rounded-md">
+                <img src="play-store.svg" alt="Play Store" /> Play Store
+              </div>
+
+              <div className="bg-[#2948FF] h-full text-[#FFFFFF] border border-[#FFFFF] px-6 py-4 flex flex-1 items-center justify-center gap-4 rounded-md">
+                <div>
+                  <svg
+                    width="18"
+                    height="20"
+                    fill="#FFFFFF"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="scale-150"
+                  >
+                    <path
+                      d="M11.5787 9.29677C11.5609 7.17243 13.3173 6.13993 13.3944 6.09246C12.3975 4.64458 10.8547 4.44283 10.3147 4.42503C9.02114 4.28855 7.76315 5.20237 7.10449 5.20237C6.43395 5.20237 5.41332 4.44283 4.32148 4.46063C2.91514 4.48437 1.59188 5.29731 0.873876 6.56717C-0.615536 9.14842 0.494106 12.9461 1.92418 15.0349C2.64218 16.0555 3.47293 17.2007 4.5707 17.1592C5.63881 17.1177 6.04232 16.4768 7.32998 16.4768C8.6117 16.4768 8.98554 17.1592 10.1011 17.1355C11.2523 17.1177 11.9703 16.1089 12.6646 15.0764C13.4894 13.9074 13.8217 12.7503 13.8335 12.691C13.8039 12.6791 11.6024 11.8365 11.5787 9.29677Z"
+                      fill="#ffffff"
+                    />
+                    <path
+                      d="M9.47225 3.05435C10.0478 2.33635 10.4395 1.35725 10.3327 0.360352C9.50192 0.395955 8.45755 0.935941 7.85822 1.64208C7.33011 2.26514 6.85539 3.27984 6.97407 4.2352C7.91163 4.30641 8.87292 3.76048 9.47225 3.05435Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                </div>
+                <span>Apps Store</span>
+              </div>
             </div>
             <div className="flex gap-4 items-center">
               <div className="text-4xl">4.6 M</div>
@@ -190,12 +197,12 @@ export const Home = () => {
             transactions right at your fingertips. Whether you're shopping,
             dining out, or sending money to loved ones, we've got you covered.
           </div>
-          <Link
+          <div
             to={""}
             className="w-full md:w-fit px-6 py-4 flex items-center justify-center gap-4 rounded-md bg-[#2948FF] text-white text-lg"
           >
             <span>Get Started</span>
-          </Link>
+          </div>
         </div>
       </div>
 
@@ -239,12 +246,12 @@ export const Home = () => {
             </li>
           </ul>
 
-          <Link
+          <div
             to={""}
             className="w-full md:w-fit px-6 py-4 flex items-center justify-center gap-4 rounded-md bg-[#2948FF] text-white text-lg"
           >
             <span>Get Started</span>
-          </Link>
+          </div>
         </div>
       </div>
 

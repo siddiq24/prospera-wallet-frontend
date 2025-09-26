@@ -1,19 +1,82 @@
-import React from 'react'
-import { Dashboard, Exit, History, Profile, TopUp, TransferMobile } from '../assets/Svg'
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import {
+  Dashboard,
+  Exit,
+  History,
+  Profile,
+  TopUp,
+  TransferMobile,
+} from "../assets/Svg";
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar({ cName }) {
-    const location = useLocation();
-    const sz = (window.innerWidth < 768) ? '30%' : '20';
+  const location = useLocation();
+  const sz = window.innerWidth < 768 ? "30%" : "20";
 
-    const items = [
-        { svg: <Dashboard isActive={location.pathname.startsWith('/transaction/dashboard')} size={sz} />, text: "Dashboard", link: '/transaction/dashboard' },
-        { svg: <TransferMobile isActive={location.pathname.startsWith('/transaction/transfer')} size={sz} />, text: "Transfer", link: '/transaction/transfer' },
-        { svg: <History isActive={location.pathname.startsWith('/transaction/history')} size={sz} />, text: "History", link: '/transaction/history' },
-        { svg: <TopUp isActive={location.pathname.startsWith('/transaction/topup')} size={sz} />, text: "Top Up", link: '/transaction/topup' },
-        { svg: <Profile isActive={location.pathname.startsWith('/profile/edit')} size={sz} />, text: "Profile", link: '/profile/edit' },
-        { svg: <Exit isActive={location.pathname.startsWith('/')} size={sz} color='#f00' />, text: "Keluar", link: '/' },
-    ];
+  const items = [
+    {
+      svg: (
+        <Dashboard
+          isActive={location.pathname.startsWith("/transaction/dashboard")}
+          size={sz}
+        />
+      ),
+      text: "Dashboard",
+      link: "/transaction/dashboard",
+    },
+    {
+      svg: (
+        <TransferMobile
+          isActive={location.pathname.startsWith("/transaction/transfer")}
+          size={sz}
+        />
+      ),
+      text: "Transfer",
+      link: "/transaction/transfer",
+    },
+    {
+      svg: (
+        <History
+          isActive={location.pathname.startsWith("/transaction/history")}
+          size={sz}
+        />
+      ),
+      text: "History",
+      link: "/transaction/history",
+    },
+    {
+      svg: (
+        <TopUp
+          isActive={location.pathname.startsWith("/transaction/topup")}
+          size={sz}
+        />
+      ),
+      text: "Top Up",
+      link: "/transaction/topup",
+    },
+    {
+      svg: (
+        <Profile
+          isActive={location.pathname.startsWith("/profile/edit")}
+          size={sz}
+        />
+      ),
+      text: "Profile",
+      link: "/profile/edit",
+    },
+    {
+      svg: (
+        <Exit
+          isActive={location.pathname.startsWith("/")}
+          size={sz}
+          color="#f00"
+        />
+      ),
+      text: "Keluar",
+      link: "/",
+    },
+  ];
+
 
     return (
         <aside
@@ -36,16 +99,20 @@ function Sidebar({ cName }) {
 }
 
 function Item({ text, isActive, svg }) {
-    return (
-        <div
-            className={`flex flex-col md:flex-row items-center border border-transparent cursor-pointer gap-2 md:gap-3 p-2 rounded-md w-fit md:w-[90%]
-        ${isActive ? "text-blue-800 md:bg-[#2948ff] md:text-white" : "text-[#4F5665] hover:border-[#c3c3c3]"}
+  return (
+    <div
+      className={`flex flex-col md:flex-row items-center border border-transparent cursor-pointer gap-2 md:gap-3 p-2 rounded-md w-fit md:w-[90%]
+        ${
+          isActive
+            ? "text-blue-800 md:bg-[#2948ff] md:text-white"
+            : "text-[#4F5665] hover:border-[#c3c3c3]"
+        }
         ${text === "Keluar" ? "text-[#D00000] hidden md:flex" : ""}`}
-        >
-            {svg}
-            <p>{text}</p>
-        </div>
-    )
+    >
+      {svg}
+      <p>{text}</p>
+    </div>
+  );
 }
 
-export default Sidebar
+export default Sidebar;

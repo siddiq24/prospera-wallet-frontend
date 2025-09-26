@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { BurgerMenu, Exit } from '../assets/Svg'
-import { Link } from 'react-router';
+import { useState } from "react";
+import { BurgerMenu, Exit } from "../assets/Svg";
+import { Link } from "react-router";
 
 export function Navbar() {
-    const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const navigate = useNavigate();
 
-    return (
+  return (
         <header
             className='text-white fixed w-screen top-0'
         >

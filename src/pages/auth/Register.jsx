@@ -77,8 +77,8 @@ function Register() {
       <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
         <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-20 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
-            <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
-            <p className="font-medium">E-Wallet</p>
+            <img src="/prospera.png" alt="dompet" className="w-8 h-8" />
+            <p className="font-medium">Prospera</p>
           </div>
           <h1 className="font-medium text-3xl my-2">
             Start Accessing Banking Needs With All Devices and All Platforms
@@ -118,7 +118,7 @@ function Register() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter Your Email"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/email.png"
@@ -141,7 +141,7 @@ function Register() {
                   value={form.pwd}
                   onChange={handleChange}
                   placeholder="Enter Your Password"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/password.png"
@@ -169,7 +169,7 @@ function Register() {
                   value={form.confpwd}
                   onChange={handleChange}
                   placeholder="Enter Your Password Again"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/password.png"

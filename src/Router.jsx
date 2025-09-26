@@ -32,12 +32,12 @@ function App() {
           <Route path="pin" element={<EnterPin />} />
         </Route>
 
-        <Route element={<HomeLayout />} >
+        <Route element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
         </Route>
 
         <Route element={<DashboardLayout />}>
-          <Route path='/transaction'>
+          <Route path="/transaction">
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="history" element={<TransactionHistory />} />
             <Route path="topup" element={<TopUp />} />
@@ -50,7 +50,6 @@ function App() {
             <Route path="change-pin" element={<ChangePin />} />
           </Route>
         </Route>
-
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
