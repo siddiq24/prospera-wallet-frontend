@@ -1,17 +1,16 @@
 import { useState } from 'react'
 import { BurgerMenu, Exit } from '../assets/Svg'
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
 export function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
-    const navigate = useNavigate()
 
     return (
         <header
             className='text-white'
         >
             <nav
-                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-32'
+                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-10 md:px-32'
             >
                 <div
                     className='flex items-center gap-3'
@@ -27,23 +26,23 @@ export function Navbar() {
                         setOpenMenu={setOpenMenu}
                         openMenu={openMenu}
                     />
-                    <button
+                    <Link to={'/auth/login'}
                         className='hidden md:block px-4 py-2 bg-transparent rounded-sm border'
-                    >SignIn</button>
-                    <button
+                    >SignIn</Link>
+                    <Link to={'/auth/register'}
                         className='hidden md:block px-4 py-2 bg-white rounded-sm text-[#3969FD]'
-                    >SignUp</button>
+                    >SignUp</Link>
                 </div>
             </nav>
             <div
                 className={`${openMenu ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
-                <button onClick={()=>{navigate('/auth/login')}}
+                <Link to={'/auth/login'}
                     className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
-                >Sign In</button>
-                <button onClick={()=>{navigate('/auth/register')}}
+                >Sign In</Link>
+                <Link to={'/auth/register'}
                     className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
-                >Sign Up</button>
+                >Sign Up</Link>
             </div>
         </header>
     )
@@ -86,9 +85,9 @@ export function LoggedNavbar() {
             <div
                 className={`${open ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
-                <button
+                <Link to={'/'}
                     className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
-                ><Exit/>Sign In</button>
+                ><Exit/>Exit</Link>
             </div>
         </header>
     )
