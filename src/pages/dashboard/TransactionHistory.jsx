@@ -18,7 +18,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Ghauhi Wizard Aragonia",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ const TransactionHistory = () => {
       type: "debit",
       fullName: "Cameron Williamson",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Cody Fisher",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 4,
@@ -48,7 +48,7 @@ const TransactionHistory = () => {
       type: "debit",
       fullName: "Kristin Watson",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 5,
@@ -58,7 +58,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Floyd Miles",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 6,
@@ -68,7 +68,7 @@ const TransactionHistory = () => {
       type: "debit",
       fullName: "Wade Warren",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 7,
@@ -78,7 +78,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Savannah Nguyen",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
   ];
 
