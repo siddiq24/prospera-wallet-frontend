@@ -73,7 +73,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen flex-1">
+    <div className=" min-h-screen flex-1">
       {/* Header Background biru - hanya untuk mobile */}
       <div className="bg-blue-600 h-28 md:hidden"></div>
 
@@ -207,7 +207,7 @@ const Dashboard = () => {
       </div>
 
       {/* ===== Desktop Layout ===== */}
-      <div className="hidden md:block p-6">
+      <div className="hidden md:block">
         {/* Bagian Atas: 2 grid */}
         <div className="flex gap-6 mb-6">
           {/* Balance Card Desktop */}

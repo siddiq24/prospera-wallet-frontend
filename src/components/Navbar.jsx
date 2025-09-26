@@ -7,96 +7,87 @@ export function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <header className="text-white">
-      <nav className="z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-10 md:px-32">
-        <div className="flex items-center gap-3">
-          <img src="money-wallet.svg" alt="" />
-          <p>E-Wallet</p>
-        </div>
-        <div className="md:flex md:items-center md:gap-4">
-          <BurgerMenu
-            size={16}
-            cName={"md:hidden cursor-pointer hover:opacity-60"}
-            setOpenMenu={setOpenMenu}
-            openMenu={openMenu}
-          />
-          <Link
-            to={"/auth/login"}
-            className="hidden md:block px-4 py-2 bg-transparent rounded-sm border"
-          >
-            SignIn
-          </Link>
-          <Link
-            to={"/auth/register"}
-            className="hidden md:block px-4 py-2 bg-white rounded-sm text-[#3969FD]"
-          >
-            SignUp
-          </Link>
-        </div>
-      </nav>
-      <div
-        className={`${
-          openMenu ? "block" : "hidden"
-        } shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
-      >
-        <Link
-          to={"/auth/login"}
-          className="text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2"
+        <header
+            className='text-white fixed w-screen top-0'
         >
-          Sign In
-        </Link>
-        <Link
-          to={"/auth/register"}
-          className="text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2"
-        >
-          Sign Up
-        </Link>
-      </div>
-    </header>
-  );
+            <nav
+                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-10 md:px-32'
+            >
+                <div
+                    className='w-50'
+                >
+                    <img src="/LogoNav.png" alt=""  className='drop-shadow-2xl '
+                      style={{ filter: "brightness(90%) saturate(90%) invert(100%) sepia(100%) saturate(100%) hue-rotate(180deg) brightness(95%) contrast(100%)" }} 
+/>
+                </div>
+                <div
+                    className='md:flex md:items-center md:gap-4'
+                >
+                    <BurgerMenu size={16}
+                        cName={"md:hidden cursor-pointer hover:opacity-60"}
+                        setOpenMenu={setOpenMenu}
+                        openMenu={openMenu}
+                    />
+                    <Link to={'/auth/login'}
+                        className='hidden md:block px-4 py-2 bg-transparent rounded-sm border'
+                    >SignIn</Link>
+                    <Link to={'/auth/register'}
+                        className='hidden md:block px-4 py-2 bg-white rounded-sm text-[#3969FD]'
+                    >SignUp</Link>
+                </div>
+            </nav>
+            <div
+                className={`${openMenu ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
+            >
+                <Link to={'/auth/login'}
+                    className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                >Sign In</Link>
+                <Link to={'/auth/register'}
+                    className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                >Sign Up</Link>
+            </div>
+        </header>
+    )
 }
 
 export function LoggedNavbar() {
-  const [open, setOpen] = useState(false);
-  return (
-    <header className="">
-      <div className="z-9999 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]">
-        <nav className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/money-wallet.svg" alt="" />
-            <p className="text-[#2948FF]">E-Wallet</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <p className="text-[#4F5665]">Ghaluh Wizard</p>
-            <img
-              src="/avatar-galuh.png"
-              alt=""
-              className="size-10 rounded-full object-cover"
-            />
+    const [open, setOpen] = useState(false)
+    return (
+        <header className='t-0 w-screen'>
             <div
-              onClick={() => {
-                setOpen(!open);
-              }}
-              className=" md:hidden"
+                className='z-9999 pl-8 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
             >
-              <img src="/down.svg" alt="" />
+                <nav
+                    className='flex items-center justify-between'
+                >
+                    <div
+                        className='w-30'
+                    >
+                        <img src="/LogoNav.png" alt="" />
+                    </div>
+                    <div
+                        className='flex items-center gap-3'
+                    >
+                        <p
+                            className='text-[#4F5665]'
+                        >Ghaluh Wizard</p>
+                        <img src="/avatar-galuh.png" alt=""
+                            className='size-10 rounded-full object-cover'
+                        />
+                        <div onClick={() => { setOpen(!open) }}
+                            className=' md:hidden'>
+                            <img src="/down.svg" alt="" />
+                        </div>
+                    </div>
+                </nav>
             </div>
-          </div>
-        </nav>
-      </div>
-      <div
-        className={`${
-          open ? "block" : "hidden"
-        } shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
-      >
-        <Link
-          to={"/"}
-          className="text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2"
-        >
-          <Exit />
-          Exit
-        </Link>
-      </div>
-    </header>
-  );
+            <div
+                className={`${open ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
+            >
+                <Link to={'/'}
+                    className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                ><Exit />Exit</Link>
+            </div>
+        </header>
+    )
 }
