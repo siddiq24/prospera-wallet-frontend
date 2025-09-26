@@ -14,8 +14,8 @@ function TopUp() {
   ];
 
   const formatCurrency = (value) => {
-    if (!value) return "";
-    return "Rp " + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    if (!value) return "0";
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
   const handleNominalChange = (e) => {
@@ -23,37 +23,52 @@ function TopUp() {
     setNominal(rawValue ? formatCurrency(rawValue) : "");
   };
 
-  // validasi
   const validateForm = () => {
-    let newErrors = {};
-    const rawNominal = nominal.replace(/\D/g, ""); // ambil angka asli
+    let isValid = true;
+    const rawNominal = nominal.replace(/\D/g, "");
 
-    if (!rawNominal || Number(rawNominal) <= 0) {
-      newErrors.nominal = "Nominal harus berupa angka lebih dari 0";
-    }
-    if (!paymentMethod) {
-      newErrors.paymentMethod = "Pilih metode pembayaran";
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // submit
-  const handleSubmit = () => {
-    if (validateForm()) {
-      const rawNominal = nominal.replace(/\D/g, "");
-      console.log("Form valid, kirim data:", {
-        nominal: rawNominal,
-        paymentMethod,
+    if (Number(rawNominal) < 10000) {
+      setErrors((prev) => ({
+        ...prev,
+        nominal: "Minimal Top Up Rp.10.000",
+      }));
+      isValid = false;
+    } else {
+      setErrors((prev) => {
+        const newErr = { ...prev };
+        delete newErr.nominal;
+        return newErr;
       });
     }
+    return isValid;
   };
 
-  // disable kalau invalid
-  const isFormValid =
-    nominal.replace(/\D/g, "") &&
-    Number(nominal.replace(/\D/g, "")) > 0 &&
-    paymentMethod;
+  //  disable button
+  const isFormValid = nominal.replace(/\D/g, "") && paymentMethod;
+
+  // handle submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      //   const rawNominal = nominal.replace(/\D/g, "");
+      // navigate("/auth/pin");
+    }
+  };
+
+  // hitung payment
+  const amount = Number(nominal.replace(/\D/g, "")) || 0;
+  // default tax
+  let tax = 0;
+
+  // kalau sudah pilih bank
+  if (paymentMethod) {
+    if (paymentMethod === "bca") {
+      tax = 0; // gratis
+    } else {
+      tax = amount < 1000000 ? 2500 : 5000;
+    }
+  }
+  const subtotal = amount + tax;
 
   return (
     <>
@@ -99,7 +114,8 @@ function TopUp() {
                   placeholder="Enter Nominal Top Up"
                   value={nominal}
                   onChange={handleNominalChange}
-                  className="border rounded-lg py-2 px-10 my-2 w-full"
+                  className="border rounded-lg py-2 px-10 my-2 w-full 
+             focus:outline-none focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/u_money.svg"
@@ -155,20 +171,33 @@ function TopUp() {
             <p className="font-semibold">Payment</p>
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p>Order</p>
-              <p>Idr.40.000</p>
+              <p>Idr.{formatCurrency(amount)}</p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p>Delivery</p>
               <p>Idr.0</p>
             </div>
+
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p>Tax</p>
-              <p>Idr.4000</p>
+              <p>
+                {paymentMethod === "bca" ? (
+                  <>
+                    <span className="line-through text-gray-500 mr-2">
+                      Idr.
+                      {formatCurrency((tax = amount < 1000000 ? 2500 : 5000))}
+                    </span>
+                    Idr.0
+                  </>
+                ) : (
+                  `Idr.${formatCurrency(tax)}`
+                )}
+              </p>
             </div>
             <hr />
             <div className="flex justify-between mt-4 mb-2 font-semibold text-sm">
               <p>Sub Total</p>
-              <p>Idr.44.000</p>
+              <p>Idr.{formatCurrency(subtotal)}</p>
             </div>
 
             <button
