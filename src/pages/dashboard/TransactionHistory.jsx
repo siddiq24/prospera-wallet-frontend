@@ -21,7 +21,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Ghauhi Wizard Aragonia",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 2,
@@ -31,7 +31,7 @@ const TransactionHistory = () => {
       type: "debit",
       fullName: "Cameron Williamson",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 3,
@@ -41,7 +41,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Cody Fisher",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 4,
@@ -51,7 +51,7 @@ const TransactionHistory = () => {
       type: "debit",
       fullName: "Kristin Watson",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 5,
@@ -61,7 +61,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Floyd Miles",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 6,
@@ -71,7 +71,7 @@ const TransactionHistory = () => {
       type: "debit",
       fullName: "Wade Warren",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
     {
       id: 7,
@@ -81,7 +81,7 @@ const TransactionHistory = () => {
       type: "credit",
       fullName: "Savannah Nguyen",
       status: "Transfer Success",
-      avatar: "avatar-aang.png",
+      avatar: "/avatar-aang.png",
     },
   ];
 
@@ -161,7 +161,9 @@ const TransactionHistory = () => {
           {filteredTransactions.map((transaction) => (
             <div
               key={transaction.id}
-              className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
+              className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
+                transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+              }`}
               onClick={() => handleTransactionClick(transaction)}
             >
               <div className="flex-1">
@@ -224,7 +226,9 @@ const TransactionHistory = () => {
               {currentTransactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className={`flex items-center px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
+                  className={`flex items-center px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${
+                    transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  }`}
                 >
                   {/* Avatar */}
                   <div className="flex-shrink-0 mr-4">
@@ -355,7 +359,6 @@ const TransactionHistory = () => {
           <div className="bg-white rounded-lg w-full max-w-sm mx-4 relative z-10">
             {/* Modal Header */}
             <div className="bg-gray-100 p-4 rounded-t-lg">
-
               <h2 className="text-sm font-medium text-gray-600 uppercase tracking-wide">
                 DETAIL TRANSACTION {selectedTransaction.name.toUpperCase()}
               </h2>
