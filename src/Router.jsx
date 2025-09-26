@@ -12,6 +12,7 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
+import TopUp from "./pages/transaction/Topup";
 import Footer from "./components/Footer";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
 
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/topup" element={<TopUp />} />
 
           <Route path="profile">
             <Route path="edit" element={<EditProfile />} />
