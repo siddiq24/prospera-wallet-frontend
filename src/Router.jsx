@@ -13,6 +13,7 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
+import TopUp from "./pages/transaction/Topup";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/pin" element={<EnterPin />} />
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/topup" element={<TopUp />} />
 
           <Route path="profile">
             <Route path="edit" element={<EditProfile />} />
