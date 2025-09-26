@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
+import { Topup } from "../../components/profile/Svg";
 
 function TopUp() {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -57,10 +58,9 @@ function TopUp() {
     paymentMethod;
 
   return (
-    <div className="flex-1 mb-88">
-        {/* <Header title={'Top Up Account'} Icon={(sz, cl)=>{return <TopUp color={cl} size={sz}/>}}/> */}
-
-      <section className="flex flex-col w-full pb-88 md:pb-0">
+    <div className="flex-1">
+      <Header title={'Top Up Account'} Icon={Topup}/>
+      <section className="flex flex-col w-full pb-30 md:pb-0">
         {/* Content */}
         <div className="flex flex-col md:flex-row gap-1 md:gap-10">
           {/* Account Information */}
@@ -152,20 +152,20 @@ function TopUp() {
           <div className="pt-5 pb-2 px-8 mb-0 w-full md:w-1/3 md:border md:border-gray-200 md:rounded-lg self-start">
             <p className="font-semibold">Payment</p>
             <div className="flex justify-between my-2 font-semibold text-sm">
-              <p>Order</p>
+              <p className="font-medium text-gray-500">Order</p>
               <p>Idr.40.000</p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
-              <p>Delivery</p>
+              <p className="font-medium text-gray-500">Delivery</p>
               <p>Idr.0</p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
-              <p>Tax</p>
+              <p className="font-medium text-gray-500">Tax</p>
               <p>Idr.4000</p>
             </div>
-            <hr />
+            <hr className="border-gray-500"/>
             <div className="flex justify-between mt-4 mb-2 font-semibold text-sm">
-              <p>Sub Total</p>
+              <p className="font-medium text-gray-500">Sub Total</p>
               <p>Idr.44.000</p>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules";
@@ -59,17 +59,15 @@ function App() {
 
 function DashboardLayout() {
   return (
-    <div className="fixed h-screen w-screen">
+    <div className="overflow-x-hidden">
       <LoggedNavbar />
-      <div className="flex flex-col-reverse md:flex-row justify-between h-full border mb-5">
-        <Sidebar cName="w-min md:min-h-screen" />
+      <div className="flex flex-col-reverse md:flex-row ">
+        <Sidebar cName="md:min-h-screen" />
         <div className="w-full bg-gray-50">
-          <Header title={'Title'} />
-          <div className="border ml-8 overflow-y-auto">
+          <div className="md:ml-8 md:flex justify-between md:pr-20">
             <Outlet />
           </div>
         </div>
-        <div className="md:w-25 bg-gray-50"></div>
       </div>
     </div>
   );
