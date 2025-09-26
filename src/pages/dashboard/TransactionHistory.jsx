@@ -199,10 +199,10 @@ const TransactionHistory = () => {
       </div>
 
       {/* Desktop Version - Hidden on Mobile */}
-      <div className="hidden md:block max-w-7xl mx-auto">
+      <div className="hidden md:block mx-auto">
         {/* Header */}
-        <div className="bg-white shadow-sm">
-          <div className="px-8 py-6">
+        <div className="">
+          <div className="px-10 py-8">
             <div className="flex items-center gap-3">
               <img src="/history.png" alt="" />
               <h1 className="text-xl font-semibold text-gray-900">
@@ -213,7 +213,7 @@ const TransactionHistory = () => {
         </div>
 
         {/* Main Content */}
-        <div className="p-8">
+        <div className="p-8 pt-0">
           <div className="bg-white rounded-xl shadow-sm ">
             {/* Search and Header */}
             <div className="p-6 border-b border-gray-200">
@@ -221,7 +221,7 @@ const TransactionHistory = () => {
                 <h2 className="text-lg font-semibold text-gray-900">
                   Find Transaction
                 </h2>
-                <div className="relative max-w-md">
+                <div className="relative w-lg">
                   <input
                     type="text"
                     placeholder="Enter Number Or Full Name"
