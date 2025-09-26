@@ -55,7 +55,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/pin");
+    navigate("/auth/pin");
     if (validate()) {
       setMessage("Register berhasil");
     } else {
@@ -70,7 +70,9 @@ function Login() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl my-2">Hello Welcome Back 👋</h1>
+          <h1 className="font-medium text-3xl my-2 flex">Hello Welcome Back 
+          <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} />
+          </h1>
           <p className="font-normal text-[15px] text-gray-400">
             Fill out the form correctly or you can login with several option.
           </p>
@@ -153,7 +155,7 @@ function Login() {
           </form>
           <p className="flex gap-1 justify-center">
             Have An Account?
-            <Link to="/register" className="text-[var(--color--primary)]">
+            <Link to="/auth/register" className="text-[var(--color--primary)]">
               Register
             </Link>
           </p>
