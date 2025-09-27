@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { pinFound } from "../../redux/slices/pinSlice";
+import { clearUser, setUser } from "../../redux/slices/userSlice";
 
 function Login() {
   const [showPwd, setShowPwd] = useState(false);
@@ -13,6 +13,10 @@ function Login() {
   const dispatch = useDispatch();
   const eyesolid = <Eye />;
   const eyeslash = <EyeOff />;
+
+  useEffect(() => {
+    dispatch(clearUser());
+  }, []);
 
   const [form, setForm] = useState({
     email: "",
@@ -77,14 +81,21 @@ function Login() {
 
       // console.log(data);
       if (!data.success) {
-        setMessage(data.error);
+        let newErr = {};
+        newErr.pwd = data.error;
+
+        setErrors(newErr)
         return
       }
+      setErrors({ pwd: "" })
 
       setMessage(data.message);
       logBtn.disabled = true;
 
-      dispatch(pinFound(data.isPinExist));
+      dispatch(setUser({
+        isPinExist: data.isPinExist,
+        token: data.token,
+      }));
 
       setTimeout(() => {
         navigate("/auth/pin");
@@ -92,7 +103,6 @@ function Login() {
     } catch (err) {
       console.error("Error: ", err)
     }
-    // navigate("/auth/pin");
   };
   return (
     <>

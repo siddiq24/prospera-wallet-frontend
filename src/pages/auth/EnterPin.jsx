@@ -8,7 +8,7 @@ function EnterPin() {
   const [focusedIndex, setFocusedIndex] = useState(null);
   const inputsRef = useRef([]);
   const navigate = useNavigate();
-  const pin = useSelector((state) => state.pin);
+  const { isPinExist, token } = useSelector((state) => state.user);
 
   const handleChange = (e, idx) => {
     const val = e.target.value.replace(/\D/g, ""); // hanya angka
@@ -44,9 +44,45 @@ function EnterPin() {
     setFocusedIndex(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/transaction/dashboard");
+    const pinInput = pinValues.join("");
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    const body = JSON.stringify({
+      pin: pinInput,
+    });
+
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body,
+      };
+
+      if (!isPinExist) {
+        const response = await fetch(`${baseUrl}/auth/pin`, options);
+        const data = await response.json();
+
+        if (data.success) {
+          navigate("/transaction/dashboard");
+          return;
+        }
+      }
+
+      const response = await fetch(`${baseUrl}/auth/verify`, options);
+      const data = await response.json();
+
+      if (data.data) {
+        navigate("/transaction/dashboard");
+        return;
+      }
+      console.log(data);
+    } catch (err) {
+      console.error("Error: ", err)
+    }
   };
 
   const isPinComplete = pinValues.every((v) => v !== "");
@@ -58,7 +94,7 @@ function EnterPin() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl my-2">{pin ? "Enter" : "Create"} Your Pin 👋</h1>
+          <h1 className="font-medium text-3xl my-2">{isPinExist ? "Enter" : "Create"} Your Pin 👋</h1>
           <p className="font-normal text-[13px] md:text-[15px] text-gray-400">
             Please save your pin because this so important.
           </p>
@@ -83,11 +119,10 @@ function EnterPin() {
                   ref={(el) => (inputsRef.current[idx] = el)}
                   autoComplete="one-time-code" // biar dianggap input OTP, ga diisi otomatis
                   className={`w-6 md:w-14  h-12 text-center border-b-2 outline-none text-xl"
-          ${
-            focusedIndex === idx
-              ? "border-[var(--color--primary)]"
-              : "border-gray-300"
-          }`}
+          ${focusedIndex === idx
+                      ? "border-[var(--color--primary)]"
+                      : "border-gray-300"
+                    }`}
                 />
               ))}
             </div>
@@ -96,11 +131,10 @@ function EnterPin() {
               type="submit"
               disabled={!isPinComplete}
               className={`w-full py-3 rounded-lg cursor-pointer transition
-            ${
-              isPinComplete
-                ? "bg-[var(--color--primary)] text-white hover:opacity-90"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
+            ${isPinComplete
+                  ? "bg-[var(--color--primary)] text-white hover:opacity-90"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
             >
               Submit
             </button>

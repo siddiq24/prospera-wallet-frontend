@@ -83,18 +83,20 @@ function Register() {
 
         const response = await fetch(url, options);
         const data = await response.json();
-        console.log(data)
 
-        if (response.ok) {
-          setMessage(data.message);
-          regBtn.disabled = true;
-          setTimeout(() => {
-            navigate("/auth/login");
-          }, 1800)
-          return
+        if (!response.ok) {
+          let newErr = {};
+          newErr.confpwd = data.error;
+
+          setErrors(newErr);
+          throw response.statusText;
         }
 
-        setMessage(data.error);
+        setMessage(data.message);
+        regBtn.disabled = true;
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 1200);
       } catch (err) {
         console.error("Error: ", err)
       }
@@ -231,7 +233,7 @@ function Register() {
           </form>
           <p className="flex gap-1 justify-center">
             Have An Account?
-            <Link to="/login" className="text-[var(--color--primary)]">
+            <Link to="/auth/login" className="text-[var(--color--primary)]">
               Login
             </Link>
           </p>
