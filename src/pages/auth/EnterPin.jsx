@@ -95,7 +95,7 @@ function EnterPin() {
             <p className="font-medium">E-Wallet</p>
           </div>
           <div className="flex gap-2 items-center w-max">
-            <h1 className="font-medium text-3xl my-2">{pin ? "Enter" : "Create"} Your Pin </h1>
+            <h1 className="font-medium text-3xl my-2">{isPinExist ? "Enter" : "Create"} Your Pin </h1>
             <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" className="size-8" />
           </div>
           <p className="font-normal text-[13px] md:text-[15px] text-gray-400">
