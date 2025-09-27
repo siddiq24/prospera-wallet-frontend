@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -11,100 +11,69 @@ import Wave from "react-wavify";
 import Header from "../../components/Header";
 import { Dashb } from "../../assets/Svg";
 import { Plus, Send } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHistory } from "../../redux/slices/historySlice";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { Down, Up } from "../../components/profile/Svg";
+const URL = import.meta.env.VITE_BASE_URL
 
 const Dashboard = () => {
+  const navigate = useNavigate()
   const [select, setSelect] = useState('all')
+  const [range, setRange] = useState('daily')
+  const { token } = useSelector(state => state.user)
+  const { history } = useSelector((state) => state.history);
+  const dispatch = useDispatch()
+  // console.log(history)
 
-  const chartData = [
-    { day: "Sat", income: 20000, expense: 50000 },
-    { day: "Sun", income: 80000, expense: 50000 },
-    { day: "Mon", income: 85000, expense: 65000 },
-    { day: "Tue", income: 85000, expense: 20000 },
-    { day: "Wed", income: 30000, expense: 5000 },
-    { day: "Thu", income: 20000, expense: 60000 },
-    { day: "Fri", income: 70000, expense: 45000 },
-  ];
+  const [balance, setBalance] = useState(null)
+  const [chartData, setChartData] = useState([])
+  const [daily, setDaily] = useState([])
 
-  const transactions = [
-    {
-      id: 1,
-      name: "Floyd Miles",
-      type: "expense",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 2,
-      name: "Floyd Miles",
-      type: "income",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 3,
-      name: "Floyd Miles",
-      type: "expense",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 4,
-      name: "Floyd Miles",
-      type: "income",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 5,
-      name: "Floyd Miles",
-      type: "expense",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 6,
-      name: "Floyd Miles",
-      type: "expense",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 7,
-      name: "Floyd Miles",
-      type: "income",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 8,
-      name: "Floyd Miles",
-      type: "expense",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 9,
-      name: "Floyd Miles",
-      type: "income",
-      amount: 50000,
-      method: "Send",
-    },
-    {
-      id: 10,
-      name: "Floyd Miles",
-      type: "expense",
-      amount: 50000,
-      method: "Send",
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchHistory(token));
+    (async () => {
+      try {
+        const resH = await axios.get(`${URL}/user/wallet`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setBalance(resH.data.data)
+
+        const resC = await axios.get(`${URL}/user/summary?range=${range}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setChartData(
+          resC.data.data.map((data, i) => ({
+            day: (resC.data.data.length == 4 ? `Week ${i + 1}` : new Date(data.date).toDateString().slice(0, 3)),
+            income: data.total_income,
+            expense: data.total_expense
+          }))
+        );
+        const resD = await axios.get(`${URL}/user/summary`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setDaily(resD.data.data[5])
+
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  }, [dispatch, token, balance, range]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip rounded-lg" style={{ fontSize: '14px', backgroundColor: 'white', padding: '5px' }}>
           <p className="text-center">{label}</p>
-          {payload[0]?.value && <p className="label text-blue-600">{`Income : ${payload[0].value}`}</p>}
-          {payload[1]?.value && <p className="label text-red-600">{`Expense : ${payload[1].value}`}</p>}
+          {payload?.[0] && <p className="label text-blue-600">Income : {'Rp.' + payload[0].value.toLocaleString("id-ID")}</p>}
+          {payload?.[1] && <p className="label text-red-600">Expense : {'Rp.' + payload[1].value.toLocaleString("id-ID")}</p>}
         </div>
       );
     }
@@ -140,19 +109,21 @@ const Dashboard = () => {
               {/* Balance Section */}
               <div className="">
                 <p className="text-gray-600 text-sm">Balance</p>
-                <p className="text-xl font-bold">Rp. 500.000</p>
+                <p className="text-xl font-bold">Rp. {balance?.toLocaleString("id-ID") || '-'}</p>
               </div>
 
               {/* Actions */}
               <div className="flex gap-6">
                 <div className="flex flex-col items-center">
-                  <button className="bg-blue-600 text-white p-3 rounded-full shadow">
+                  <button onClick={() => { navigate('/transaction/topup') }}
+                    className="bg-blue-600 text-white p-3 rounded-full shadow">
                     <Plus size={16} />
                   </button>
                   <span className="text-xs text-gray-700 mt-2">Top Up</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <button className="bg-blue-600 text-white p-3 rounded-full shadow">
+                  <button onClick={() => { navigate('/transaction/transfer') }}
+                    className="bg-blue-600 text-white p-3 rounded-full shadow">
                     <Send size={16} />
                   </button>
                   <span className="text-xs text-gray-700 mt-2">Transfer</span>
@@ -175,13 +146,17 @@ const Dashboard = () => {
                   setSelect(e.target.value)
                 }}
                   className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
-                  <option>All</option>
-                  <option>Expense</option>
-                  <option>Expense</option>
+                  <option value={'all'}>All</option>
+                  <option value={'income'}>Income</option>
+                  <option value={'expense'}>Expense</option>
                 </select>
-                <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
-                  <option>7 Days</option>
-                  <option>30 Days</option>
+                <select onChange={(e) => {
+                  e.preventDefault()
+                  setRange(e.target.value)
+                }}
+                  className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                  <option value={'daily'}>7 Days</option>
+                  <option value={'weekly'}>30 Days</option>
                 </select>
               </div>
             </div>
@@ -220,7 +195,7 @@ const Dashboard = () => {
             </div>
 
             <div className="space-y-4">
-              {transactions.map((t) => (
+              {history.map((t) => (
                 <div
                   key={t.id}
                   className="flex items-center justify-between pb-2"
@@ -228,22 +203,23 @@ const Dashboard = () => {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                       <span className="text-sm font-medium text-gray-600">
-                        <img src="/avatar.png" alt="" />
+                        <img src={`https://api.dicebear.com/9.x/open-peeps/png?seed==${t.id}`} alt="" />
+                        {/* <img src={t.counterparty_img} alt="" /> */}
                       </span>
                     </div>
                     <div>
                       <div className="font-medium text-gray-900 text-sm">
-                        {t.name}
+                        {t.counterparty_name}
                       </div>
-                      <div className="text-xs text-gray-500">{t.method}</div>
+                      <div className="text-xs text-gray-500">{t.total}</div>
                     </div>
                   </div>
                   <div
-                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
+                    className={`font-semibold text-sm ${t.type === "transfer" ? "text-green-500" : "text-red-500"
                       }`}
                   >
-                    {t.type === "income" ? "+" : "-"}Rp
-                    {t.amount.toLocaleString("id-ID")}
+                    {t.type === "transfer" ? "+" : "-"}Rp
+                    {t.total.toLocaleString("id-ID")}
                   </div>
                 </div>
               ))}
@@ -262,18 +238,38 @@ const Dashboard = () => {
               <img src="/balance.png"></img>
               <span className="text-gray-700 font-medium">Balance</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">Rp.120.000</p>
+            <p className="text-3xl font-bold text-gray-900">{balance?.toLocaleString("id-ID") || '-'}</p>
             <div className="mt-4 flex justify-between text-sm text-gray-600">
-              <div>
+              <div >
                 Income
-                <div className="text-green-600 font-medium">
-                  Rp.200.000 <span className="ml-1">+2%</span>
+                <div className="text-green-600 font-medium flex w-max">
+                  Rp.{history.length > 0
+                    ? (daily?.total_income ?? 0).toLocaleString("id-ID")
+                    : '0'
+                  }
+                  <span className="ml-2">
+                    +{balance > 0
+                      ? Math.round(((daily?.total_income ?? 0) / balance) * 100)
+                      : 0
+                    }%
+                  </span>
+                  <Up />
                 </div>
               </div>
-              <div>
+              <div >
                 Expense
-                <div className="text-red-500 font-medium">
-                  Rp.100.000 <span className="ml-1">+5%</span>
+                <div className="text-red-500 font-medium flex w-max">
+                  Rp.{history.length > 0
+                    ? (daily?.total_expense ?? 0).toLocaleString("id-ID")
+                    : '0'
+                  }
+                  <span className="ml-2">
+                    +{balance > 0
+                      ? Math.round(((daily?.total_expense ?? 0) / balance) * 100)
+                      : 0
+                    }%
+                  </span>
+                  <Down />
                 </div>
               </div>
             </div>
@@ -286,11 +282,13 @@ const Dashboard = () => {
                 Fast Service
               </h3>
               <div className="flex gap-3">
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 shadow text-sm">
+                <button onClick={() => { navigate('/transaction/topup') }}
+                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm">
                   <Plus size={16} />
                   Top Up
                 </button>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 shadow text-sm">
+                <button onClick={() => { navigate('/transaction/transfer') }}
+                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm">
                   <Send size={16} />
                   Transfer
                 </button>
@@ -308,9 +306,13 @@ const Dashboard = () => {
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="focus:outline-none focus:ring-0 border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
-                  <option>7 Days</option>
-                  <option>30 Days</option>
+                <select onChange={(e) => {
+                  e.preventDefault()
+                  setRange(e.target.value)
+                }}
+                  className="focus:outline-none focus:ring-0 border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                  <option value={'daily'}>7 Days</option>
+                  <option value={'weekly'}>30 Days</option>
                 </select>
                 <select onChange={(e) => {
                   e.preventDefault()
@@ -334,10 +336,10 @@ const Dashboard = () => {
                   className="outline-none focus:outline-none"
                 >
                   <XAxis dataKey="day" />
-                  <YAxis />
+                  <YAxis style={{ fontSize: "10px" }} />
                   <Tooltip content={CustomTooltip} />
                   {(select == 'income' || select == 'all') && < Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />}
-                  {(select == 'expense' || select == 'all' )&& <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />}
+                  {(select == 'expense' || select == 'all') && <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />}
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -362,27 +364,30 @@ const Dashboard = () => {
               <button className="text-blue-600 text-sm">See All</button>
             </div>
             <div className="space-y-4">
-              {transactions.map((t) => (
+              {history.map((t) => (
                 <div key={t.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                       <span className="text-sm font-medium text-gray-600">
-                        <img src="/avatar.png" alt="" />
+                        {t.counterparty_im
+                          ? <img src={`${URL}/profile/${t.counterparty_img}`} alt="" className="rounded-full" />
+                          : <img src={`https://api.dicebear.com/9.x/open-peeps/png?seed=${t.id}&flip=${t.id % 2 == 0}`} alt="" className="rounded-full" />
+                        }
                       </span>
                     </div>
                     <div>
                       <p className="font-medium text-gray-900 text-sm">
-                        {t.name}
+                        {t.counterparty_name}
                       </p>
                       <p className="text-xs text-gray-500">{t.method}</p>
                     </div>
                   </div>
                   <p
-                    className={`font-semibold text-sm ${t.type === "income" ? "text-green-500" : "text-red-500"
+                    className={`font-semibold text-sm ${t.type === "transfer" ? "text-green-500" : "text-red-500"
                       }`}
                   >
-                    {t.type === "income" ? "+" : "-"}Rp
-                    {t.amount.toLocaleString("id-ID")}
+                    {t.type === "transfer" ? "+" : "-"}Rp
+                    {t.total.toLocaleString("id-ID")}
                   </p>
                 </div>
               ))}

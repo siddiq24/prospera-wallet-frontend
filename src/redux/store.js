@@ -12,10 +12,12 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import authReducer from "./slices/userSlice";
+import historyReducer from "./slices/historySlice";
 import profileReducer from "./slices/profileSlice";
 
 const rootReducer = combineReducers({
   user: authReducer,
+  history: historyReducer,
   profile: profileReducer,
 });
 
