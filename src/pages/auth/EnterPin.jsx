@@ -58,7 +58,10 @@ function EnterPin() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl my-2">{pin ? "Enter" : "Create"} Your Pin 👋</h1>
+          <div className="flex gap-2 items-center w-max">
+            <h1 className="font-medium text-3xl my-2">{pin ? "Enter" : "Create"} Your Pin </h1>
+            <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" className="size-8" />
+          </div>
           <p className="font-normal text-[13px] md:text-[15px] text-gray-400">
             Please save your pin because this so important.
           </p>
@@ -83,11 +86,10 @@ function EnterPin() {
                   ref={(el) => (inputsRef.current[idx] = el)}
                   autoComplete="one-time-code" // biar dianggap input OTP, ga diisi otomatis
                   className={`w-6 md:w-14  h-12 text-center border-b-2 outline-none text-xl"
-          ${
-            focusedIndex === idx
-              ? "border-[var(--color--primary)]"
-              : "border-gray-300"
-          }`}
+          ${focusedIndex === idx
+                      ? "border-[var(--color--primary)]"
+                      : "border-gray-300"
+                    }`}
                 />
               ))}
             </div>
@@ -96,11 +98,10 @@ function EnterPin() {
               type="submit"
               disabled={!isPinComplete}
               className={`w-full py-3 rounded-lg cursor-pointer transition
-            ${
-              isPinComplete
-                ? "bg-[var(--color--primary)] text-white hover:opacity-90"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
+            ${isPinComplete
+                  ? "bg-[var(--color--primary)] text-white hover:opacity-90"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
             >
               Submit
             </button>

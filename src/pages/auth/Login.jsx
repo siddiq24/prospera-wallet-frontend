@@ -103,12 +103,13 @@ function Login() {
             <p className="font-medium">Prospera</p>
           </div>
 
-          <h1 className="font-medium text-3xl my-2 flex">
+          <h1 className="font-medium text-3xl flex- gap-2 my-2 flex items-center">
             Hello Welcome Back
             <img
               src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113"
               alt=""
               width={30}
+              className="size-8"
             />
           </h1>
           <p className="font-normal text-[15px] text-gray-400">
