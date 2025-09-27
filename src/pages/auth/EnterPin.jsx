@@ -8,7 +8,7 @@ function EnterPin() {
   const [focusedIndex, setFocusedIndex] = useState(null);
   const inputsRef = useRef([]);
   const navigate = useNavigate();
-  const pin = useSelector((state) => state.pin);
+  const { isPinExist, token } = useSelector((state) => state.user);
 
   const handleChange = (e, idx) => {
     const val = e.target.value.replace(/\D/g, ""); // hanya angka
@@ -44,9 +44,45 @@ function EnterPin() {
     setFocusedIndex(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/transaction/dashboard");
+    const pinInput = pinValues.join("");
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    const body = JSON.stringify({
+      pin: pinInput,
+    });
+
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body,
+      };
+
+      if (!isPinExist) {
+        const response = await fetch(`${baseUrl}/auth/pin`, options);
+        const data = await response.json();
+
+        if (data.success) {
+          navigate("/transaction/dashboard");
+          return;
+        }
+      }
+
+      const response = await fetch(`${baseUrl}/auth/verify`, options);
+      const data = await response.json();
+
+      if (data.data) {
+        navigate("/transaction/dashboard");
+        return;
+      }
+      console.log(data);
+    } catch (err) {
+      console.error("Error: ", err)
+    }
   };
 
   const isPinComplete = pinValues.every((v) => v !== "");
