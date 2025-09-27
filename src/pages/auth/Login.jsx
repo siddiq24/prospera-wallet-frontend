@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearUser, setUser } from "../../redux/slices/userSlice";
 
 function Login() {
@@ -16,7 +16,7 @@ function Login() {
 
   useEffect(() => {
     dispatch(clearUser());
-  }, []);
+  }, [dispatch]);
 
   const [form, setForm] = useState({
     email: "",
@@ -96,6 +96,7 @@ function Login() {
         isPinExist: data.isPinExist,
         token: data.token,
         email: data.email,
+        issuedAt: Date.now(),
       }));
 
       setTimeout(() => {
@@ -199,7 +200,7 @@ function Login() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
-            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
+            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Login
             </button>
           </form>
