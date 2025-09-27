@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { pinFound } from "../../redux/slices/pinSlice";
+import { useDispatch } from "react-redux";
+import { clearUser, setUser } from "../../redux/slices/userSlice";
 
 function Login() {
   const [showPwd, setShowPwd] = useState(false);
@@ -13,6 +13,10 @@ function Login() {
   const dispatch = useDispatch();
   const eyesolid = <Eye />;
   const eyeslash = <EyeOff />;
+
+  useEffect(() => {
+    dispatch(clearUser());
+  }, [dispatch]);
 
   const [form, setForm] = useState({
     email: "",
@@ -77,14 +81,23 @@ function Login() {
 
       // console.log(data);
       if (!data.success) {
-        setMessage(data.error);
+        let newErr = {};
+        newErr.pwd = data.error;
+
+        setErrors(newErr)
         return
       }
+      setErrors({ pwd: "" })
 
       setMessage(data.message);
       logBtn.disabled = true;
 
-      dispatch(pinFound(data.isPinExist));
+      dispatch(setUser({
+        isPinExist: data.isPinExist,
+        token: data.token,
+        email: data.email,
+        issuedAt: Date.now(),
+      }));
 
       setTimeout(() => {
         navigate("/auth/pin");
@@ -92,7 +105,6 @@ function Login() {
     } catch (err) {
       console.error("Error: ", err)
     }
-    // navigate("/auth/pin");
   };
   return (
     <>
@@ -103,12 +115,13 @@ function Login() {
             <p className="font-medium">Prospera</p>
           </div>
 
-          <h1 className="font-medium text-3xl my-2 flex">
+          <h1 className="font-medium text-3xl flex- gap-2 my-2 flex items-center">
             Hello Welcome Back
             <img
               src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113"
               alt=""
               width={30}
+              className="size-8"
             />
           </h1>
           <p className="font-normal text-[15px] text-gray-400">
@@ -187,7 +200,7 @@ function Login() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
-            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
+            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Login
             </button>
           </form>

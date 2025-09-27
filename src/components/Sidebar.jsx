@@ -1,9 +1,14 @@
 import React from 'react'
 import { Dashb, Exit, History, Profile, TopUp, TransferMobile } from '../assets/Svg'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../redux/slices/userSlice';
 
 function Sidebar({ cName }) {
     const location = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { token } = useSelector((state) => state.user);
     const sz = window.innerWidth < 768 ? "30%" : "20";
 
     const items = [
@@ -71,12 +76,49 @@ function Sidebar({ cName }) {
     ];
 
 
+    async function handleLogout() {
+        try {
+            const url = `${import.meta.env.VITE_BASE_URL}/auth`;
+            const options = {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            };
+
+            const response = await fetch(url, options);
+            const data = await response.json();
+
+            if (data.success) {
+                dispatch(clearUser());
+                navigate("/", { replace: true });
+            }
+        } catch (err) {
+            console.error("Error: ", err);
+        }
+    }
+
     return (
         <aside
             className={`fixed md:static text-[3vw] border-t md:text-[18px] text-[#4F5665] ${cName} p-3 md:ps-[5%] md:pt-10 border-r border-[#E8E8E8] bg-white md:bg-transparent flex bottom-0 md:flex-col w-screen md:w-full md:max-w-xs justify-between md:justify-start md:gap-8`}
         >
             {items.map((e, i) => {
                 const isActive = location.pathname.startsWith(e.link);
+
+                if (e.text == "Keluar") {
+                    return (
+                        <button
+                            key={i}
+                            onClick={handleLogout}
+                        >
+                            <Item 
+                                text={e.text}
+                                svg={e.svg}
+                            />
+                        </button>
+                    );
+                }
+
                 return (
                     <Link to={e.link} key={i}>
                         <Item
