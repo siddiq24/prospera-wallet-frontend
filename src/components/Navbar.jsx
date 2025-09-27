@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <header className="text-white">
