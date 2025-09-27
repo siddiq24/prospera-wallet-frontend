@@ -35,13 +35,13 @@ export function Navbar() {
                 </div>
             </nav>
             <div
-                className={`${openMenu ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
+                className={`${openMenu ? 'block' : 'hidden'} shadow-md bg-white rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
                 <Link to={'/auth/login'}
-                    className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                    className='text-[#3969FD] cursor-pointer border text-center hover:border-[#2948FF] rounded-sm py-2'
                 >Sign In</Link>
                 <Link to={'/auth/register'}
-                    className='text-[#3969FD] cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
+                    className='text-white md:text-[#2948FF] cursor-pointer border text-center bg-[#2948FF] md:bg-white hover:border-[#2948FF] rounded-sm py-2'
                 >Sign Up</Link>
             </div>
         </header>
