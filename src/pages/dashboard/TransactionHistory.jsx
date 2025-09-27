@@ -1,89 +1,40 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { Search, Trash2 } from "lucide-react";
 import Header from "../../components/Header";
 import { History } from "../../components/profile/Svg";
 import { Plus, Send } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHistory } from "../../redux/slices/historySlice";
 
 const TransactionHistory = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [transactions, setTransactions] = useState([]);
   const itemsPerPage = 10;
+  const { history } = useSelector(state => state.history)
+  const { token } = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
-  // Data transaksi contoh
-  const transactions = [
-    {
-      id: 1,
-      name: "Ghauhi 1",
-      phone: "082785504337",
-      amount: 50000,
-      type: "credit",
-      fullName: "Ghauhi Wizard Aragonia",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-    {
-      id: 2,
-      name: "Cameron Williamson",
-      phone: "(208) 555-0112",
-      amount: 50000,
-      type: "debit",
-      fullName: "Cameron Williamson",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-    {
-      id: 3,
-      name: "Cody Fisher",
-      phone: "(704) 555-0127",
-      amount: 50000,
-      type: "credit",
-      fullName: "Cody Fisher",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-    {
-      id: 4,
-      name: "Kristin Watson",
-      phone: "(603) 555-0123",
-      amount: 50000,
-      type: "debit",
-      fullName: "Kristin Watson",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-    {
-      id: 5,
-      name: "Floyd Miles",
-      phone: "(671) 555-0110",
-      amount: 50000,
-      type: "credit",
-      fullName: "Floyd Miles",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-    {
-      id: 6,
-      name: "Wade Warren",
-      phone: "(229) 555-0109",
-      amount: 50000,
-      type: "debit",
-      fullName: "Wade Warren",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-    {
-      id: 7,
-      name: "Savannah Nguyen",
-      phone: "(217) 555-0113",
-      amount: 50000,
-      type: "credit",
-      fullName: "Savannah Nguyen",
-      status: "Transfer Success",
-      avatar: "/avatar-aang.png",
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchHistory(token));
+    setTransactions(
+      history.map((user) => ({
+        id: user.id,
+        name: user.counterparty_name,
+        phone: user.counterparty_phone,
+        amount: user.total,
+        type: user.type,
+        fullName: user.counterparty_name,
+        status: "Transfer Success",
+        avatar: user.counterparty_img,
+      }))
+    )
+  }, [dispatch, token])
+
+  console.log(transactions)
 
   // Filter transaksi berdasarkan search term
   const filteredTransactions = transactions.filter(
@@ -138,7 +89,7 @@ const TransactionHistory = () => {
 
   return (
     <div className="w-full">
-      <Header title={'History Transaction'} Icon={History}/>
+      <Header title={'History Transaction'} Icon={History} />
       {/* Mobile Version - Hidden on Desktop */}
       <div className="md:hidden mx-auto bg-white min-h-screen px-4">
         {/* Search Bar */}
@@ -161,9 +112,8 @@ const TransactionHistory = () => {
           {filteredTransactions.map((transaction) => (
             <div
               key={transaction.id}
-              className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
-                transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
-              }`}
+              className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                }`}
               onClick={() => handleTransactionClick(transaction)}
             >
               <div className="flex-1">
@@ -177,8 +127,8 @@ const TransactionHistory = () => {
               <div className="text-right">
                 <p
                   className={`font-medium text-sm ${transaction.type === "credit"
-                      ? "text-green-600"
-                      : "text-red-500"
+                    ? "text-green-600"
+                    : "text-red-500"
                     }`}
                 >
                   {formatCurrency(transaction.amount)}
@@ -223,41 +173,44 @@ const TransactionHistory = () => {
 
             {/* Transaction List - Desktop Table Style */}
             <div className="overflow-x-auto">
-              {currentTransactions.map((transaction) => (
+              {currentTransactions.map((transaction, i) => (
                 <div
-                  key={transaction.id}
-                  className={`flex items-center px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${
-                    transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  }`}
+                  key={i}
+                  className={`flex justify-between px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    }`}
                 >
                   {/* Avatar */}
-                  <div className="flex-shrink-0 mr-4">
-                    <img
-                      src={transaction.avatar}
-                      alt={transaction.name}
-                      className="w-12 h-12 rounded-lg object-cover"
-                    />
+                  <div className="flex-1 flex justify-center">
+                    {
+                      transaction.avatar
+                        ? <img
+                          src={transaction.avatar}
+                          alt={transaction.name}
+                          className="w-12 h-12 rounded-lg object-cover border"
+                        />
+                        : <img src={`https://api.dicebear.com/9.x/open-peeps/png?seed=${transaction.id}&flip=${transaction.id % 2 == 0}&size=50`} alt="" className="rounded-full" />
+                    }
                   </div>
 
                   {/* Name and Phone */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-gray-900 truncate">
+                  <div className="flex-2 min-w-0">
+                    <h3 className="text-sm font-medium text-gray-900 text-center">
                       {transaction.name}
                     </h3>
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-500 mt-1">
+                  <div className="flex-2 min-w-0">
+                    <p className="text-sm text-gray-500 mt-1 text-center">
                       {transaction.phone}
                     </p>
                   </div>
 
                   {/* Amount */}
-                  <div className="flex-shrink-0 text-right mr-28">
+                  <div className="flex-2 mr-28">
                     <p
-                      className={`text-sm font-medium ${transaction.type === "credit"
-                          ? "text-green-600"
-                          : "text-red-500"
+                      className={`text-sm text-center font-medium ${transaction.type === "credit"
+                        ? "text-green-600"
+                        : "text-red-500"
                         }`}
                     >
                       {formatCurrency(transaction.amount)}
@@ -265,7 +218,7 @@ const TransactionHistory = () => {
                   </div>
 
                   {/* Delete Button */}
-                  <div className="flex-shrink-0">
+                  <div className="flex-1">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -302,8 +255,8 @@ const TransactionHistory = () => {
                       onClick={goToPrevPage}
                       disabled={currentPage <= 1}
                       className={`text-sm mr-4 ${currentPage <= 1
-                          ? "text-gray-400 cursor-not-allowed"
-                          : "text-gray-500 hover:text-gray-700"
+                        ? "text-gray-400 cursor-not-allowed"
+                        : "text-gray-500 hover:text-gray-700"
                         }`}
                     >
                       Prev
@@ -319,8 +272,8 @@ const TransactionHistory = () => {
                           key={page}
                           onClick={() => goToPage(page)}
                           className={`px-3 py-1 text-sm rounded ${currentPage === page
-                              ? "bg-blue-600 text-white"
-                              : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                            ? "bg-blue-600 text-white"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                             }`}
                         >
                           {page}
@@ -332,8 +285,8 @@ const TransactionHistory = () => {
                       onClick={goToNextPage}
                       disabled={currentPage >= totalPages}
                       className={`text-sm ml-4 ${currentPage >= totalPages
-                          ? "text-gray-400 cursor-not-allowed"
-                          : "text-gray-500 hover:text-gray-700"
+                        ? "text-gray-400 cursor-not-allowed"
+                        : "text-gray-500 hover:text-gray-700"
                         }`}
                     >
                       Next
@@ -410,8 +363,8 @@ const TransactionHistory = () => {
                   </label>
                   <p
                     className={`text-sm font-medium mt-1 ${selectedTransaction.type === "credit"
-                        ? "text-green-600"
-                        : "text-red-500"
+                      ? "text-green-600"
+                      : "text-red-500"
                       }`}
                   >
                     {formatCurrency(selectedTransaction.amount)}
