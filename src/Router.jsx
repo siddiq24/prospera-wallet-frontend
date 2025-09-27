@@ -18,7 +18,8 @@ import TransactionHistory from "./pages/dashboard/TransactionHistory";
 import NotFoundPage from "./pages/error/ErrorPage";
 import Detail from "./pages/transaction/Detail";
 import { FinePeople } from "./pages/transaction/FinePeople";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "./redux/slices/userSlice";
 
 function App() {
   return (
@@ -60,14 +61,36 @@ function App() {
 
 function DashboardLayout() {
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.user);
+  const { token, issuedAt } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token || token == null) {
       navigate("/", { replace: true });
       return;
     }
-  }, [navigate, token]);
+
+    const EXPIRED_AT = 60 * 60 * 1000 - 2000;
+
+    const now = Date.now();
+    const timePassed = now - issuedAt;
+    const timeLeft = EXPIRED_AT - timePassed;
+
+    if (timeLeft <= 0) {
+      console.log("logging out...");
+      dispatch(clearUser());
+      navigate("/", { replace: true });
+      return;
+    }
+
+    const logoutTimer = setTimeout(() => {
+      console.log("logging out...");
+      dispatch(clearUser());
+      navigate("/", { replace: true });
+    }, timeLeft);
+
+    return () => clearTimeout(logoutTimer);
+  }, [dispatch, issuedAt, navigate, token]);
 
   return (
     <div className="overflow-x-hidden">
