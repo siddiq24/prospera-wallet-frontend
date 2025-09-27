@@ -11,16 +11,16 @@ import {
 } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 
-import pinReducer from "./slices/pinSlice";
+import authReducer from "./slices/userSlice";
 
 const rootReducer = combineReducers({
-    pin: pinReducer,
+    user: authReducer,
 });
 
 const persistConfig = {
     key: "prospera:root",
     storage,
-}
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
