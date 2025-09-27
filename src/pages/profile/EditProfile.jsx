@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Mail, Pencil, People, Phone, Profile, Trash } from '../../components/profile/Svg'
 import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
+import { useDispatch, useSelector } from "react-redux";
+import { profileActions } from '../../redux/slices/profileSlice';
 
 function EditProfile() {
     const [_, setAvatar] = useState(null) // URL gambar
     const [loading, setLoading] = useState(false)
+    const [profileUrl, setProfileUrl] = useState('');
+
+    const dispatch = useDispatch()
+    const userState = useSelector((state) => state.user)
+    const profileState = useSelector((state) => state.profile)
 
     const userData = {
         fullname: 'Sidik Wisnu Sasmito',
@@ -27,74 +34,58 @@ function EditProfile() {
         }))
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('Form submitted:', formData)
-    }
+    const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log('Form submitted:', formData)
+    const profileImg = e.target.profile_img.files[0];
+    const fullName = e.target.fullname.value;
+    const phone = e.target.phone.value;
 
-    // let profileUrl = 'https://avatar.iran.liara.run/public/12'
-    let profileUrl = ''
+    try {
+        // Update the profile
+        await dispatch(profileActions.updateProfileThunk({
+            token: userState.token, 
+            fullname: fullName, 
+            phone,
+            profileImg
+        })).unwrap();
+
+        // Fetch updated profile data after successful update
+        dispatch(profileActions.getProfileThunk({ token: userState.token }));
+    } catch (error) {
+        console.error("Profile update failed:", error);
+    }
+}
+
     let Avatar = () => { return profileUrl ? (<img src={profileUrl} />) : (<Profile size={50} />) }
 
+
     useEffect(() => {
-        const fetchAvatar = async () => {
-            try {
-                const res = await fetch("http://localhost:5000/api/profile/avatar")
-                const data = await res.json()
-                setAvatar(data.avatarUrl)
-            } catch (err) {
-                console.error("Error fetching avatar:", err)
-            }
-        }
-        fetchAvatar()
-    }, [])
+        dispatch(profileActions.getProfileThunk({ token: userState.token }))
+    }, [dispatch, userState.token])
 
-    // Handle upload avatar baru
-    const handleUpload = async (e) => {
-        const file = e.target.files[0]
-        if (!file) return
-        let re = /\.(jpe?g|png|gif|webp|svg|bmp|tiff?|avif|heic|heif)$/i
-        if (!re.test(file.name)) return
+    useEffect(() => {
+        setFormData({
+            fullname: profileState.fullname || '',
+            phone: profileState.phone || '',
+            email: profileState.email || '',
+        })
 
-
-        const formData = new FormData()
-        formData.append("avatar", file)
-
-        setLoading(true)
-        try {
-            const res = await fetch("http://localhost:5000/api/profile/avatar", {
-                method: "POST",
-                body: formData,
-            })
-            const data = await res.json()
-            setAvatar(data.avatarUrl)
-        } catch (err) {
-            console.error("Upload failed:", err)
-        } finally {
-            setLoading(false)
-        }
-    }
+        setProfileUrl(`${import.meta.env.VITE_BASE_URL}/profile/${profileState.img}`)
+    }, [profileState])
 
     const handleDelete = async () => {
-        setLoading(true)
-        try {
-            await fetch("http://localhost:5000/api/profile/avatar", {
-                method: "DELETE",
-            })
-            setAvatar(null)
-        } catch (err) {
-            console.error("Delete failed:", err)
-        } finally {
-            setLoading(false)
-        }
+        dispatch(profileActions.deleteProfileThunk({ token: userState.token }))
     }
     return (
         <div className='flex-1'>
             <Header title={'Profile Account'} Icon={People}/>
             <div className='p-8 pt-0 w-full'>
                 <div>
+                    <form onSubmit={handleSubmit} className='space-y-4'>
                     <section className='flex mt-4 gap-4'>
                         <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33 md:h-44'>
+                            {/* <img src={avatar} alt="" /> */}
                             {Avatar()}
                         </div>
                         <div className='w-full flex flex-col items-center justify-around md:w-66 md:ml-4 md:text-xl'>
@@ -103,7 +94,7 @@ function EditProfile() {
                                     <Pencil size={window.innerWidth>768?25:18} />
                                 </span>
                                 {loading ? "Uploading..." : "Change Profile"}
-                                <input type="file" className="hidden" accept="image/*" onChange={handleUpload} />
+                                <input type="file" className="hidden" accept="image/*" id="profile_img"  />
                             </label>
                             <button onClick={handleDelete}
                                 className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-full md:py-4 items-center'>
@@ -116,7 +107,7 @@ function EditProfile() {
                         The profile picture must be 512 x 512 pixels or less
                     </p>
 
-                    <form onSubmit={handleSubmit} className='space-y-4'>
+                    
                         {/* Full Name */}
                         <label htmlFor='fullname' className='font-medium'>
                             Full Name
