@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     isPinExist: false,
     token: null,
+    email: null,
 };
 const userSlice = createSlice({
     initialState,
@@ -11,10 +12,12 @@ const userSlice = createSlice({
         setUser: (state, { payload }) => {
             state.isPinExist = payload.isPinExist;
             state.token = payload.token;
+            state.email = payload.email;
         },
         clearUser: (state) => {
             state.isPinExist = false;
             state.token = null;
+            state.email = null;
         },
     },
 });
