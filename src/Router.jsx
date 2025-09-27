@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules";
@@ -12,9 +12,14 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import ChangePin from "./pages/profile/ChangePin";
 import Login from "./pages/auth/Login";
 import EnterPin from "./pages/auth/EnterPin";
-import TopUp from "./pages/transaction/Topup";
+import TopUp from "./pages/transaction/TopUp";
 import Footer from "./components/Footer";
 import TransactionHistory from "./pages/dashboard/TransactionHistory";
+import Transfer from "./pages/transaction/Transfer";
+import NotFoundPage from "./pages/error/ErrorPage";
+import Header from "./components/Header";
+import Detail from "./pages/transaction/Detail";
+import {FinePeople} from "./pages/transaction/FinePeople";
 
 function App() {
   return (
@@ -36,6 +41,8 @@ function App() {
         <Route element={<DashboardLayout />}>
           <Route path="/transaction">
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="transfer" element={<FinePeople/>} />
+            <Route path="transfer/:id" element={<Detail />} />
             <Route path="history" element={<TransactionHistory />} />
             <Route path="topup" element={<TopUp />} />
           </Route>
@@ -46,6 +53,7 @@ function App() {
             <Route path="change-pin" element={<ChangePin />} />
           </Route>
         </Route>
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
@@ -53,12 +61,15 @@ function App() {
 
 function DashboardLayout() {
   return (
-    <div className="relative">
+    <div className="overflow-x-hidden">
       <LoggedNavbar />
-      <div className="flex flex-col-reverse md:flex-row justify-between ">
-        <Sidebar cName="w-min md:min-h-screen" />
-        <Outlet />
-        <div className="md:w-25"></div>
+      <div className="flex flex-col-reverse md:flex-row ">
+        <Sidebar cName="md:min-h-screen" />
+        <div className="w-full bg-gray-50">
+          <div className="md:ml-8 md:flex justify-between md:pr-20">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -67,7 +78,9 @@ function HomeLayout() {
   return (
     <div className="relative">
       <Navbar />
-      <Outlet />
+      <div className="mt-20">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
