@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -13,6 +13,8 @@ import { Dashb } from "../../assets/Svg";
 import { Plus, Send } from "lucide-react";
 
 const Dashboard = () => {
+  const [select, setSelect] = useState('all')
+
   const chartData = [
     { day: "Sat", income: 20000, expense: 50000 },
     { day: "Sun", income: 80000, expense: 50000 },
@@ -101,8 +103,8 @@ const Dashboard = () => {
       return (
         <div className="custom-tooltip rounded-lg" style={{ fontSize: '14px', backgroundColor: 'white', padding: '5px' }}>
           <p className="text-center">{label}</p>
-          <p className="label text-blue-600">{`Income : ${payload[0].value}`}</p>
-          <p className="label text-red-600">{`Expense : ${payload[1].value}`}</p>
+          {payload[0]?.value && <p className="label text-blue-600">{`Income : ${payload[0].value}`}</p>}
+          {payload[1]?.value && <p className="label text-red-600">{`Expense : ${payload[1].value}`}</p>}
         </div>
       );
     }
@@ -111,7 +113,7 @@ const Dashboard = () => {
 
   return (
     <div className=" flex-1">
-      <Header title={'Dashboard'} Icon={Dashb}/>
+      <Header title={'Dashboard'} Icon={Dashb} />
       {/* Header Background biru - hanya untuk mobile */}
       <div className="bg-blue-600 h-16 md:hidden"></div>
 
@@ -121,7 +123,7 @@ const Dashboard = () => {
         <div className="-mt-16 px-4">
           <div className="bg-white rounded-2xl shadow-lg relative overflow-hidden">
             {/* Wave Background */}
-            <p>{new Date(Date.now()).toDateString().slice(0,3)}</p>
+            <p>{new Date(Date.now()).toDateString().slice(0, 3)}</p>
             <Wave
               fill="#2948FF1A"
               paused={false}
@@ -168,7 +170,11 @@ const Dashboard = () => {
                 Financial Chart
               </h3>
               <div className="flex gap-3">
-                <select className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                <select onChange={(e) => {
+                  e.preventDefault()
+                  setSelect(e.target.value)
+                }}
+                  className="focus:outline-none focus:ring-0 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
                   <option>All</option>
                   <option>Expense</option>
                   <option>Expense</option>
@@ -186,8 +192,8 @@ const Dashboard = () => {
                   <XAxis dataKey="day" style={{ fontSize: "10px" }} />
                   <YAxis style={{ fontSize: "10px" }} />
                   <Tooltip content={CustomTooltip} />
-                  {chartData[0].income && <Bar dataKey="income" fill="#2563eb" radius={[10, 10, 0, 0]} />}
-                  {chartData[0].expense && <Bar dataKey="expense" fill="#ef4444" radius={[10, 10, 0, 0]} />}
+                  {(select == 'income' || select == 'all') && < Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />}
+                  {(select == 'expense' || select == 'all') && <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />}
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -306,29 +312,35 @@ const Dashboard = () => {
                   <option>7 Days</option>
                   <option>30 Days</option>
                 </select>
-                <select className="focus:outline-none focus:ring-0 border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
-                  <option>All</option>
-                  <option>Income</option>
-                  <option>Expense</option>
+                <select onChange={(e) => {
+                  e.preventDefault()
+                  setSelect(e.target.value)
+                }}
+                  className="focus:outline-none focus:ring-0 border border-gray-300 rounded px-2 py-1 text-sm bg-[#F1F1F1]">
+                  <option value={'all'}>All</option>
+                  <option value={'income'}>Income</option>
+                  <option value={'expense'}>Expense</option>
                 </select>
               </div>
             </div>
-            <ResponsiveContainer
-              // width="100%"
-              height='90%'
-              className="outline-none focus:outline-none"
-            >
-              <BarChart
-                data={chartData}
+            <div className="w-full h-[80%]">
+              <ResponsiveContainer
+                width="100%"
+                height="100%"
                 className="outline-none focus:outline-none"
               >
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip content={CustomTooltip} />
-                <Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+                <BarChart
+                  data={chartData}
+                  className="outline-none focus:outline-none"
+                >
+                  <XAxis dataKey="day" />
+                  <YAxis />
+                  <Tooltip content={CustomTooltip} />
+                  {(select == 'income' || select == 'all') && < Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />}
+                  {(select == 'expense' || select == 'all' )&& <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
             <div className="flex gap-6 mt-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
