@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function EnterPin() {
@@ -7,6 +8,7 @@ function EnterPin() {
   const [focusedIndex, setFocusedIndex] = useState(null);
   const inputsRef = useRef([]);
   const navigate = useNavigate();
+  const pin = useSelector((state) => state.pin);
 
   const handleChange = (e, idx) => {
     const val = e.target.value.replace(/\D/g, ""); // hanya angka
@@ -44,7 +46,7 @@ function EnterPin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/home");
+    navigate("/transaction/dashboard");
   };
 
   const isPinComplete = pinValues.every((v) => v !== "");
@@ -56,7 +58,7 @@ function EnterPin() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl my-2">Enter Your Pin 👋</h1>
+          <h1 className="font-medium text-3xl my-2">{pin ? "Enter" : "Create"} Your Pin 👋</h1>
           <p className="font-normal text-[13px] md:text-[15px] text-gray-400">
             Please save your pin because this so important.
           </p>

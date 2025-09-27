@@ -11,7 +11,10 @@ import {
 } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 
+import pinReducer from "./slices/pinSlice";
+
 const rootReducer = combineReducers({
+    pin: pinReducer,
 });
 
 const persistConfig = {
