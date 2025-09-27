@@ -15,11 +15,9 @@ import EnterPin from "./pages/auth/EnterPin";
 import TopUp from "./pages/transaction/TopUp";
 import Footer from "./components/Footer";
 import TransactionHistory from "./pages/dashboard/TransactionHistory";
-import Transfer from "./pages/transaction/Transfer";
 import NotFoundPage from "./pages/error/ErrorPage";
-import Header from "./components/Header";
 import Detail from "./pages/transaction/Detail";
-import {FinePeople} from "./pages/transaction/FinePeople";
+import { FinePeople } from "./pages/transaction/FinePeople";
 
 function App() {
   return (
@@ -41,7 +39,7 @@ function App() {
         <Route element={<DashboardLayout />}>
           <Route path="/transaction">
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="transfer" element={<FinePeople/>} />
+            <Route path="transfer" element={<FinePeople />} />
             <Route path="transfer/:id" element={<Detail />} />
             <Route path="history" element={<TransactionHistory />} />
             <Route path="topup" element={<TopUp />} />
@@ -77,7 +75,9 @@ function DashboardLayout() {
 function HomeLayout() {
   return (
     <div className="relative">
-      <Navbar />
+      <div className="z-100 absolute">
+        <Navbar />
+      </div>
       <div className="mt-20">
         <Outlet />
       </div>
