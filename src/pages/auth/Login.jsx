@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { pinFound } from "../../redux/slices/pinSlice";
 
 function Login() {
   const [showPwd, setShowPwd] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const eyesolid = <Eye />;
   const eyeslash = <EyeOff />;
 
   const [form, setForm] = useState({
     email: "",
     pwd: "",
-    confpwd: "",
   });
 
   const handleChange = (e) => {
@@ -24,43 +26,73 @@ function Login() {
     });
   };
 
-  const validate = () => {
-    let newErr = {};
-    let valid = true;
+  // const validate = () => {
+  //   let newErr = {};
+  //   let valid = true;
 
-    // validasi email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!form.email) {
-      newErr.email = "Email tidak boleh kosong";
-      valid = false;
-    } else if (!emailPattern.test(form.email)) {
-      newErr.email = "Format email tidak valid";
-      valid = false;
-    }
+  //   // validasi email
+  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!form.email) {
+  //     newErr.email = "Email tidak boleh kosong";
+  //     valid = false;
+  //   } else if (!emailPattern.test(form.email)) {
+  //     newErr.email = "Format email tidak valid";
+  //     valid = false;
+  //   }
 
-    // validasi password
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
-    if (!form.pwd) {
-      newErr.pwd = "Password tidak boleh kosong";
-      valid = false;
-    } else if (!passwordPattern.test(form.pwd)) {
-      newErr.pwd =
-        "Password minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 karakter spesial";
-      valid = false;
-    }
+  //   // validasi password
+  //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+  //   if (!form.pwd) {
+  //     newErr.pwd = "Password tidak boleh kosong";
+  //     valid = false;
+  //   } else if (!passwordPattern.test(form.pwd)) {
+  //     newErr.pwd =
+  //       "Password minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 karakter spesial";
+  //     valid = false;
+  //   }
 
-    setErrors(newErr);
-    return valid;
-  };
+  //   setErrors(newErr);
+  //   return valid;
+  // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/auth/pin");
-    if (validate()) {
-      setMessage("Register berhasil");
-    } else {
-      setMessage(""); // pesan global hanya muncul kalau berhasil
+    const logBtn = e.target[2];
+
+    try {
+      const url = `${import.meta.env.VITE_BASE_URL}/auth`;
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.pwd,
+        }),
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+
+      // console.log(data);
+      if (!data.success) {
+        setMessage(data.error);
+        return
+      }
+
+      setMessage(data.message);
+      logBtn.disabled = true;
+
+      dispatch(pinFound(data.isPinExist));
+
+      setTimeout(() => {
+        navigate("/auth/pin");
+      }, 1200);
+    } catch (err) {
+      console.error("Error: ", err)
     }
+    // navigate("/auth/pin");
   };
   return (
     <>
@@ -70,8 +102,8 @@ function Login() {
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
           </div>
-          <h1 className="font-medium text-3xl my-2 flex">Hello Welcome Back 
-          <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} />
+          <h1 className="font-medium text-3xl my-2 flex">Hello Welcome Back
+            <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} />
           </h1>
           <p className="font-normal text-[15px] text-gray-400">
             Fill out the form correctly or you can login with several option.
