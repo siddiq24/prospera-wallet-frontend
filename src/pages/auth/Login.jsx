@@ -95,6 +95,7 @@ function Login() {
       dispatch(setUser({
         isPinExist: data.isPinExist,
         token: data.token,
+        email: data.email,
       }));
 
       setTimeout(() => {
