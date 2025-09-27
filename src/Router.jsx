@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Outlet, useNavigate } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules";
 import { Home } from "./pages/landingPage/Home";
@@ -18,6 +18,7 @@ import TransactionHistory from "./pages/dashboard/TransactionHistory";
 import NotFoundPage from "./pages/error/ErrorPage";
 import Detail from "./pages/transaction/Detail";
 import { FinePeople } from "./pages/transaction/FinePeople";
+import { useSelector } from "react-redux";
 
 function App() {
   return (
@@ -58,6 +59,16 @@ function App() {
 }
 
 function DashboardLayout() {
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!token || token == null) {
+      navigate("/", { replace: true });
+      return;
+    }
+  }, [navigate, token]);
+
   return (
     <div className="overflow-x-hidden">
       <LoggedNavbar />
