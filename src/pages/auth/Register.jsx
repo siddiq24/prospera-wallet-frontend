@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
@@ -63,11 +63,41 @@ function Register() {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/login");
+    const regBtn = e.target[3];
+
     if (validate()) {
-      setMessage("Register berhasil");
+      try {
+        const url = `${import.meta.env.VITE_BASE_URL}/auth/register`;
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: form.email,
+            password: form.pwd,
+          }),
+        };
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data)
+
+        if (response.ok) {
+          setMessage(data.message);
+          regBtn.disabled = true;
+          setTimeout(() => {
+            navigate("/auth/login");
+          }, 1800)
+          return
+        }
+
+        setMessage(data.error);
+      } catch (err) {
+        console.error("Error: ", err)
+      }
     } else {
       setMessage(""); // pesan global hanya muncul kalau berhasil
     }
