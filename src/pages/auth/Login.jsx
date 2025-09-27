@@ -96,6 +96,7 @@ function Login() {
         isPinExist: data.isPinExist,
         token: data.token,
         email: data.email,
+        issuedAt: Date.now(),
       }));
 
       setTimeout(() => {
@@ -199,7 +200,7 @@ function Login() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
-            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
+            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Login
             </button>
           </form>
