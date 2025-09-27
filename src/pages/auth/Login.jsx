@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearUser, setUser } from "../../redux/slices/userSlice";
 
 function Login() {
@@ -16,7 +16,7 @@ function Login() {
 
   useEffect(() => {
     dispatch(clearUser());
-  }, []);
+  }, [dispatch]);
 
   const [form, setForm] = useState({
     email: "",

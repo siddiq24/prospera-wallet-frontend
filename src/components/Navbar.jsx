@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BurgerMenu, Exit } from "../assets/Svg";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../redux/slices/userSlice";
 
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -49,7 +51,33 @@ export function Navbar() {
 }
 
 export function LoggedNavbar() {
-    const [open, setOpen] = useState(false)
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    const { token } = useSelector((state) => state.user);
+
+    async function handleLogout() {
+        try {
+            const url = `${import.meta.env.VITE_BASE_URL}/auth`;
+            const options = {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            };
+
+            const response = await fetch(url, options);
+            const data = await response.json();
+
+            if (data.success) {
+                dispatch(clearUser());
+                navigate("/", { replace: true });
+            }
+        } catch (err) {
+            console.error("Error: ", err);
+        }
+    }
+
     return (
         <header className='t-0 w-screen'>
             <div
@@ -73,7 +101,7 @@ export function LoggedNavbar() {
                             className='size-10 rounded-full object-cover'
                         />
                         <div onClick={() => { setOpen(!open) }}
-                            className=' md:hidden'>
+                            className=' md:hidden cursor-pointer hover:opacity-80'>
                             <img src="/down.svg" alt="" />
                         </div>
                     </div>
@@ -82,9 +110,10 @@ export function LoggedNavbar() {
             <div
                 className={`${open ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
-                <Link to={'/'}
-                    className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:border-[#2948FF] rounded-sm py-2'
-                ><Exit />Exit</Link>
+                <button 
+                    onClick={handleLogout}
+                    className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:opacity-85 rounded-sm py-2'
+                ><Exit />Exit</button>
             </div>
         </header>
     )
