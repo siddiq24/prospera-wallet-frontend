@@ -31,37 +31,57 @@ const Trash = ({ size }) => {
 }
 const KeyPass = ({ size }) => {
     return <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.12754 8.00008C7.12754 8.68208 6.57487 9.23475 5.89287 9.23475C5.21087 9.23475 4.6582 8.68208 4.6582 8.00008C4.6582 7.31808 5.21087 6.76541 5.89287 6.76541H5.89487C6.5762 6.76608 7.12754 7.31874 7.12754 8.00008Z" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M7.12754 8.00008C7.12754 8.68208 6.57487 9.23475 5.89287 9.23475C5.21087 9.23475 4.6582 8.68208 4.6582 8.00008C4.6582 7.31808 5.21087 6.76541 5.89287 6.76541H5.89487C6.5762 6.76608 7.12754 7.31874 7.12754 8.00008Z" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
         <path d="M7.12891 8.00006H11.3409V9.23473" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
         <path d="M9.45443 9.23473V8.00006" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.83398 8.00007C1.83398 3.3754 3.37598 1.8334 8.00065 1.8334C12.6253 1.8334 14.1673 3.3754 14.1673 8.00007C14.1673 12.6247 12.6253 14.1667 8.00065 14.1667C3.37598 14.1667 1.83398 12.6247 1.83398 8.00007Z" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M1.83398 8.00007C1.83398 3.3754 3.37598 1.8334 8.00065 1.8334C12.6253 1.8334 14.1673 3.3754 14.1673 8.00007C14.1673 12.6247 12.6253 14.1667 8.00065 14.1667C3.37598 14.1667 1.83398 12.6247 1.83398 8.00007Z" stroke="#4F5665" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 }
 const People = ({ size, color = '#2948FF' }) => {
     return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.592 15.2068C13.281 15.2068 16.434 15.7658 16.434 17.9988C16.434 20.2318 13.302 20.8068 9.592 20.8068C5.902 20.8068 2.75 20.2528 2.75 18.0188C2.75 15.7848 5.881 15.2068 9.592 15.2068Z" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.59108 12.0198C7.16908 12.0198 5.20508 10.0568 5.20508 7.63482C5.20508 5.21282 7.16908 3.24982 9.59108 3.24982C12.0121 3.24982 13.9761 5.21282 13.9761 7.63482C13.9851 10.0478 12.0351 12.0108 9.62208 12.0198H9.59108Z" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M9.592 15.2068C13.281 15.2068 16.434 15.7658 16.434 17.9988C16.434 20.2318 13.302 20.8068 9.592 20.8068C5.902 20.8068 2.75 20.2528 2.75 18.0188C2.75 15.7848 5.881 15.2068 9.592 15.2068Z" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M9.59108 12.0198C7.16908 12.0198 5.20508 10.0568 5.20508 7.63482C5.20508 5.21282 7.16908 3.24982 9.59108 3.24982C12.0121 3.24982 13.9761 5.21282 13.9761 7.63482C13.9851 10.0478 12.0351 12.0108 9.62208 12.0198H9.59108Z" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         <path d="M16.4844 10.8816C18.0854 10.6566 19.3184 9.28265 19.3214 7.61965C19.3214 5.98065 18.1264 4.62065 16.5594 4.36365" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         <path d="M18.5957 14.7322C20.1467 14.9632 21.2297 15.5072 21.2297 16.6272C21.2297 17.3982 20.7197 17.8982 19.8957 18.2112" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 }
-const TopUp = ({ size=20, color = '#2948FF' }) => {
+const Topup = ({ size = 20, color = '#2948FF' }) => {
     return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <mask id="mask0_60_548" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="8" width="20" height="15">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M2 8.79413H21.9996V22.5381H2V8.79413Z" fill="white" />
-        </mask>
-        <g mask="url(#mask0_60_548)">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.565 22.5381H6.435C3.99 22.5381 2 20.5491 2 18.1031V13.2281C2 10.7831 3.99 8.79413 6.435 8.79413H7.368C7.782 8.79413 8.118 9.13013 8.118 9.54413C8.118 9.95813 7.782 10.2941 7.368 10.2941H6.435C4.816 10.2941 3.5 11.6101 3.5 13.2281V18.1031C3.5 19.7221 4.816 21.0381 6.435 21.0381H17.565C19.183 21.0381 20.5 19.7221 20.5 18.1031V13.2191C20.5 11.6061 19.188 10.2941 17.576 10.2941H16.633C16.219 10.2941 15.883 9.95813 15.883 9.54413C15.883 9.13013 16.219 8.79413 16.633 8.79413H17.576C20.015 8.79413 22 10.7791 22 13.2191V18.1031C22 20.5491 20.01 22.5381 17.565 22.5381Z" fill={color} />
-        </g>
-        <mask id="mask1_60_548" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="11" y="2" width="2" height="14">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 2.00012H12.75V15.541H11.25V2.00012Z" fill="white" />
-        </mask>
-        <g mask="url(#mask1_60_548)">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 15.541C11.586 15.541 11.25 15.205 11.25 14.791V2.75C11.25 2.336 11.586 2 12 2C12.414 2 12.75 2.336 12.75 2.75V14.791C12.75 15.205 12.414 15.541 12 15.541Z" fill={color} />
-        </g>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.08374 6.42871C8.89274 6.42871 8.70074 6.35571 8.55474 6.20971C8.26174 5.91771 8.25974 5.44371 8.55274 5.14971L11.4677 2.22171C11.7487 1.93871 12.2487 1.93871 12.5297 2.22171L15.4457 5.14971C15.7377 5.44371 15.7367 5.91771 15.4437 6.20971C15.1497 6.50171 14.6757 6.50171 14.3837 6.20771L11.9987 3.81371L9.61474 6.20771C9.46874 6.35571 9.27574 6.42871 9.08374 6.42871Z" fill={color} />
+        <path fillRule="evenodd" clipRule="evenodd" d="M2 8.79413H21.9996V22.5381H2V8.79413Z" fill="none" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M17.565 22.5381H6.435C3.99 22.5381 2 20.5491 2 18.1031V13.2281C2 10.7831 3.99 8.79413 6.435 8.79413H7.368C7.782 8.79413 8.118 9.13013 8.118 9.54413C8.118 9.95813 7.782 10.2941 7.368 10.2941H6.435C4.816 10.2941 3.5 11.6101 3.5 13.2281V18.1031C3.5 19.7221 4.816 21.0381 6.435 21.0381H17.565C19.183 21.0381 20.5 19.7221 20.5 18.1031V13.2191C20.5 11.6061 19.188 10.2941 17.576 10.2941H16.633C16.219 10.2941 15.883 9.95813 15.883 9.54413C15.883 9.13013 16.219 8.79413 16.633 8.79413H17.576C20.015 8.79413 22 10.7791 22 13.2191V18.1031C22 20.5491 20.01 22.5381 17.565 22.5381Z" fill={color} />
+        <path fillRule="evenodd" clipRule="evenodd" d="M11.25 2.00012H12.75V15.541H11.25V2.00012Z" fill="none" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M12 15.541C11.586 15.541 11.25 15.205 11.25 14.791V2.75C11.25 2.336 11.586 2 12 2C12.414 2 12.75 2.336 12.75 2.75V14.791C12.75 15.205 12.414 15.541 12 15.541Z" fill={color} />
+        <path fillRule="evenodd" clipRule="evenodd" d="M9.08374 6.42871C8.89274 6.42871 8.70074 6.35571 8.55474 6.20971C8.26174 5.91771 8.25974 5.44371 8.55274 5.14971L11.4677 2.22171C11.7487 1.93871 12.2487 1.93871 12.5297 2.22171L15.4457 5.14971C15.7377 5.44371 15.7367 5.91771 15.4437 6.20971C15.1497 6.50171 14.6757 6.50171 14.3837 6.20771L11.9987 3.81371L9.61474 6.20771C9.46874 6.35571 9.27574 6.42871 9.08374 6.42871Z" fill={color} />
     </svg>
+}
+const Transfer = ({ size = 20, color = '#2948FF' }) => {
+    return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5039 2.07729C20.1889 1.87802 20.931 2.07025 21.434 2.58253C21.937 3.0938 22.123 3.83957 21.918 4.52999L20.669 8.73188C20.55 9.13144 20.1339 9.35789 19.7359 9.23913C19.3389 9.11936 19.1129 8.69867 19.2319 8.30012L20.481 4.09722C20.551 3.86171 20.4259 3.7027 20.3689 3.64533C20.3119 3.58696 20.1519 3.46014 19.9209 3.52758L3.82937 8.20652C3.57336 8.281 3.51736 8.49537 3.50536 8.58394C3.49436 8.6725 3.49036 8.89392 3.71837 9.03482L7.10449 11.1182C7.4575 11.3355 7.5695 11.8005 7.35249 12.1568C7.21149 12.3883 6.96548 12.5171 6.71247 12.5171C6.57947 12.5171 6.44446 12.4819 6.32246 12.4064L2.93634 10.3221C2.26532 9.90942 1.91331 9.16667 2.01831 8.38265C2.12331 7.59762 2.65833 6.97464 3.41336 6.75523L19.5039 2.07729ZM18.0282 12.3492C18.1482 11.9487 18.5652 11.7212 18.9622 11.842C19.3592 11.9618 19.5852 12.3824 19.4662 12.782L17.1441 20.596C16.9191 21.3519 16.2971 21.8833 15.5201 21.9829C15.4331 21.995 15.3471 22 15.2611 22C14.583 22 13.963 21.6518 13.602 21.0539L9.50187 14.2645C9.32286 13.9666 9.36786 13.5841 9.61287 13.3386L15.4341 7.48007C15.7271 7.18518 16.2011 7.18518 16.4941 7.48007C16.7871 7.77496 16.7871 8.25302 16.4941 8.54791L11.0899 13.9877L14.8841 20.2699C15.0221 20.4984 15.2391 20.4964 15.3291 20.4863C15.4171 20.4742 15.6301 20.4199 15.7061 20.1643L18.0282 12.3492Z" fill={color}/>
+    </svg>
+    
+}
+const History = ({ size = 20, color = '#2948FF' }) => {
+    return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.90918 3.36365V7H6.54556" stroke="url(#paint0_linear_140_1697)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M2 12C2 17.5229 6.47715 22 12 22C17.5229 22 22 17.5229 22 12C22 6.47715 17.5229 2 12 2C8.299 2 5.06755 4.01056 3.33839 6.99905" stroke="url(#paint1_linear_140_1697)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12.0026 6L12.002 12.0044L16.2417 16.2441" stroke="url(#paint2_linear_140_1697)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+            <linearGradient id="paint0_linear_140_1697" x1="4.72737" y1="3.36365" x2="4.72737" y2="7" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#396AFC" />
+                <stop offset="1" stop-color={color} />
+            </linearGradient>
+            <linearGradient id="paint1_linear_140_1697" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#396AFC" />
+                <stop offset="1" stop-color={color} />
+            </linearGradient>
+            <linearGradient id="paint2_linear_140_1697" x1="14.1218" y1="6" x2="14.1218" y2="16.2441" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#396AFC" />
+                <stop offset="1" stop-color={color} />
+            </linearGradient>
+        </defs>
+    </svg>
+
 }
 
 
-export { Profile, Phone, Mail, Pencil, Trash, KeyPass, People }
+export { Profile, Phone, Mail, Pencil, Trash, KeyPass, People, Topup, History, Transfer }

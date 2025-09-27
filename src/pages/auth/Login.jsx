@@ -99,11 +99,17 @@ function Login() {
       <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
         <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-12 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
-            <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
-            <p className="font-medium">E-Wallet</p>
+            <img src="/prospera.png" alt="dompet" className="w-8 h-8" />
+            <p className="font-medium">Prospera</p>
           </div>
-          <h1 className="font-medium text-3xl my-2 flex">Hello Welcome Back
-            <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} />
+
+          <h1 className="font-medium text-3xl my-2 flex">
+            Hello Welcome Back
+            <img
+              src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113"
+              alt=""
+              width={30}
+            />
           </h1>
           <p className="font-normal text-[15px] text-gray-400">
             Fill out the form correctly or you can login with several option.
@@ -137,7 +143,7 @@ function Login() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter Your Email"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/email.png"
@@ -160,7 +166,7 @@ function Login() {
                   value={form.pwd}
                   onChange={handleChange}
                   placeholder="Enter Your Password"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/password.png"

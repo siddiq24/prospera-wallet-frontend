@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { BurgerMenu, Exit } from '../assets/Svg'
-import { Link } from 'react-router';
+import { useState } from "react";
+import { BurgerMenu, Exit } from "../assets/Svg";
+import { Link } from "react-router";
 
 export function Navbar() {
-    const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
-    return (
+  return (
         <header
             className='text-white fixed w-screen top-0'
         >
@@ -13,11 +13,10 @@ export function Navbar() {
                 className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-10 md:px-32'
             >
                 <div
-                    className='w-50'
+                    className='w-30 md:w-50'
                 >
-                    <img src="/LogoNav.png" alt=""  className='drop-shadow-2xl '
-                      style={{ filter: "brightness(90%) saturate(90%) invert(100%) sepia(100%) saturate(100%) hue-rotate(180deg) brightness(95%) contrast(100%)" }} 
-/>
+                    <img src="/LogoNavHome.png" alt="" className='drop-shadow-2xl '
+                    />
                 </div>
                 <div
                     className='md:flex md:items-center md:gap-4'
@@ -54,7 +53,7 @@ export function LoggedNavbar() {
     return (
         <header className='t-0 w-screen'>
             <div
-                className='z-9999 pl-8 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
+                className='z-99999 md:pl-8 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
             >
                 <nav
                     className='flex items-center justify-between'

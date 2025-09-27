@@ -90,23 +90,24 @@ function EditProfile() {
     }
     return (
         <div className='flex-1'>
+            <Header title={'Profile Account'} Icon={People}/>
             <div className='p-8 pt-0 w-full'>
                 <div>
                     <section className='flex mt-4 gap-4'>
-                        <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33'>
+                        <div className='flex justify-center items-center rounded-xl bg-[#E8E8E84D] aspect-square h-33 md:h-44'>
                             {Avatar()}
                         </div>
-                        <div className='w-full flex flex-col items-center justify-around md:w-fit'>
-                            <label className="p-3 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white cursor-pointer">
+                        <div className='w-full flex flex-col items-center justify-around md:w-66 md:ml-4 md:text-xl'>
+                            <label className="p-3 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white cursor-pointer md:py-4 items-center">
                                 <span className="mr-2">
-                                    <Pencil size={18} />
+                                    <Pencil size={window.innerWidth>768?25:18} />
                                 </span>
                                 {loading ? "Uploading..." : "Change Profile"}
                                 <input type="file" className="hidden" accept="image/*" onChange={handleUpload} />
                             </label>
                             <button onClick={handleDelete}
-                                className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-fit'>
-                                <span className='mr-2'><Trash size={18} /></span>Remove Profile
+                                className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-full md:py-4 items-center'>
+                                <span className='mr-2'><Trash size={window.innerWidth>768?25:18} /></span>Remove Profile
                             </button>
                         </div>
                     </section>
