@@ -96,7 +96,7 @@ export const Home = () => {
     <main className="flex flex-col gap-18 overflow-hidden">
       {/* Hero section */}
       <div
-        className={`bg-[#2948FF]  text-white flex flex-col pt-30 pb-10 gap-6  md:items-center ${sectionPadding}`}
+        className={`bg-[#2948FF]  text-white flex flex-col pt-10 md:pt-30 pb-10 gap-6  md:items-center ${sectionPadding}`}
       >
         <h2 className="text-4xl md:text-6xl md:text-center">
           <div>Experience the Future of Digital</div>
@@ -270,7 +270,7 @@ export const Home = () => {
           </div>
           <div className="flex flex-6 flex-col md:flex-row items-center justify-between gap-8">
             {TRUSTED_PARTNERS.map((el, idx) => (
-              <img key={idx} src={el.img} alt={el.title} className="size-[5vw]"/>
+              <img key={idx} src={el.img} alt={el.title} className="md:size-[5vw]"/>
             ))}
           </div>
         </div>
