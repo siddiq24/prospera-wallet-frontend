@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Outlet, useNavigate } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import { Rules } from "./pages/Rules";
 import { Home } from "./pages/landingPage/Home";
@@ -15,11 +15,11 @@ import EnterPin from "./pages/auth/EnterPin";
 import TopUp from "./pages/transaction/TopUp";
 import Footer from "./components/Footer";
 import TransactionHistory from "./pages/dashboard/TransactionHistory";
-import Transfer from "./pages/transaction/Transfer";
 import NotFoundPage from "./pages/error/ErrorPage";
-import Header from "./components/Header";
 import Detail from "./pages/transaction/Detail";
-import {FinePeople} from "./pages/transaction/FinePeople";
+import { FinePeople } from "./pages/transaction/FinePeople";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "./redux/slices/userSlice";
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
         <Route element={<DashboardLayout />}>
           <Route path="/transaction">
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="transfer" element={<FinePeople/>} />
+            <Route path="transfer" element={<FinePeople />} />
             <Route path="transfer/:id" element={<Detail />} />
             <Route path="history" element={<TransactionHistory />} />
             <Route path="topup" element={<TopUp />} />
@@ -60,6 +60,38 @@ function App() {
 }
 
 function DashboardLayout() {
+  const navigate = useNavigate();
+  const { token, issuedAt } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!token || token == null) {
+      navigate("/", { replace: true });
+      return;
+    }
+
+    const EXPIRED_AT = 60 * 60 * 1000 - 2000;
+
+    const now = Date.now();
+    const timePassed = now - issuedAt;
+    const timeLeft = EXPIRED_AT - timePassed;
+
+    if (timeLeft <= 0) {
+      console.log("logging out...");
+      dispatch(clearUser());
+      navigate("/", { replace: true });
+      return;
+    }
+
+    const logoutTimer = setTimeout(() => {
+      console.log("logging out...");
+      dispatch(clearUser());
+      navigate("/", { replace: true });
+    }, timeLeft);
+
+    return () => clearTimeout(logoutTimer);
+  }, [dispatch, issuedAt, navigate, token]);
+
   return (
     <div className="overflow-x-hidden">
       <LoggedNavbar />
@@ -77,7 +109,9 @@ function DashboardLayout() {
 function HomeLayout() {
   return (
     <div className="relative">
-      <Navbar />
+      <div className="z-100 absolute">
+        <Navbar />
+      </div>
       <div className="mt-20">
         <Outlet />
       </div>

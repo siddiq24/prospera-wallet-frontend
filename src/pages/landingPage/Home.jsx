@@ -96,7 +96,7 @@ export const Home = () => {
     <main className="flex flex-col gap-18 overflow-hidden">
       {/* Hero section */}
       <div
-        className={`bg-[#2948FF]  text-white flex flex-col pt-20 gap-6  md:items-center ${sectionPadding}`}
+        className={`bg-[#2948FF]  text-white flex flex-col pt-30 pb-10 gap-6  md:items-center ${sectionPadding}`}
       >
         <h2 className="text-4xl md:text-6xl md:text-center">
           <div>Experience the Future of Digital</div>
@@ -181,7 +181,7 @@ export const Home = () => {
             src="mobile-dashboard-v2.png"
             alt=""
             width="300px"
-            className="absolute -bottom-5 left-1/2 -translate-x-1/2 z-10"
+            className="absolute -bottom-5 left-1/2 -translate-x-1/2"
           />
         </div>
         <div className="flex flex-col items-center md:items-start gap-8">
@@ -259,7 +259,7 @@ export const Home = () => {
       <div className={`flex flex-col gap-8 ${sectionPadding}`}>
         {/* 100+ */}
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="flex flex-col items-center gap-12">
+          <div className="flex flex-4 flex-col items-center gap-12">
             <div className="font-medium text-4xl text-[#0B132A]">
               100+ Trusted Partners
             </div>
@@ -268,9 +268,9 @@ export const Home = () => {
               the globe.
             </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex flex-6 flex-col md:flex-row items-center justify-between gap-8">
             {TRUSTED_PARTNERS.map((el, idx) => (
-              <img key={idx} src={el.img} alt={el.title} />
+              <img key={idx} src={el.img} alt={el.title} className="size-[5vw]"/>
             ))}
           </div>
         </div>
@@ -323,7 +323,7 @@ export const Home = () => {
           </div>
 
           {/* Carousel Section */}
-          <div className="flex flex-col items-center gap-4 md:hi">
+          <div className="flex flex-col items-center gap-4 md:hidden ">
             <div className="flex gap-2 mt-2">
               {carouselItems.map((_, idx) => (
                 <button

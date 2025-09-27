@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
@@ -63,11 +63,43 @@ function Register() {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/login");
+    const regBtn = e.target[3];
+
     if (validate()) {
-      setMessage("Register berhasil");
+      try {
+        const url = `${import.meta.env.VITE_BASE_URL}/auth/register`;
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: form.email,
+            password: form.pwd,
+          }),
+        };
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        if (!response.ok) {
+          let newErr = {};
+          newErr.confpwd = data.error;
+
+          setErrors(newErr);
+          throw response.statusText;
+        }
+
+        setMessage(data.message);
+        regBtn.disabled = true;
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 1200);
+      } catch (err) {
+        console.error("Error: ", err)
+      }
     } else {
       setMessage(""); // pesan global hanya muncul kalau berhasil
     }
@@ -195,13 +227,13 @@ function Register() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
-            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
+            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Register
             </button>
           </form>
           <p className="flex gap-1 justify-center">
             Have An Account?
-            <Link to="/login" className="text-[var(--color--primary)]">
+            <Link to="/auth/login" className="text-[var(--color--primary)]">
               Login
             </Link>
           </p>
