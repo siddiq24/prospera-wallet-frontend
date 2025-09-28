@@ -6,9 +6,9 @@ import { clearUser } from "../redux/slices/userSlice";
 import { profileActions } from "../redux/slices/profileSlice";
 
 export function Navbar() {
-  const [openMenu, setOpenMenu] = useState(false);
+    const [openMenu, setOpenMenu] = useState(false);
 
-  return (
+    return (
         <header
             className='text-white fixed w-screen top-0'
         >
@@ -56,7 +56,8 @@ export function LoggedNavbar() {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const { token } = useSelector((state) => state.user);
-    const { fullname } = useSelector((state) => state.profile);
+    const { fullname, img: avatar } = useSelector((state) => state.profile);
+    const [profileUrl, _] = useState(`${import.meta.env.VITE_BASE_URL}/profile/${avatar}`)
 
     useEffect(() => {
         dispatch(profileActions.getProfileThunk({
@@ -105,7 +106,7 @@ export function LoggedNavbar() {
                         <p
                             className='text-[#4F5665]'
                         >{fullname ? fullname : "User"}</p>
-                        <img src="/avatar-galuh.png" alt=""
+                        <img src={profileUrl} alt=""
                             className='size-10 rounded-full object-cover'
                         />
                         <div onClick={() => { setOpen(!open) }}
@@ -118,7 +119,7 @@ export function LoggedNavbar() {
             <div
                 className={`${open ? 'block' : 'hidden'} shadow-md rounded-b-3xl flex flex-col gap-3 md:hidden p-4`}
             >
-                <button 
+                <button
                     onClick={handleLogout}
                     className='text-white flex justify-center bg-red-500 items-center gap-4 cursor-pointer border border-transparent hover:opacity-85 rounded-sm py-2'
                 ><Exit />Exit</button>
