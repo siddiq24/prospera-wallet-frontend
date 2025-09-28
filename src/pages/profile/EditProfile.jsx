@@ -95,7 +95,7 @@ function EditProfile() {
 
                             </div>
                             <div className='w-full flex flex-col items-center justify-around md:w-66 md:ml-4 md:text-xl'>
-                                <label className="p-3 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white cursor-pointer md:py-4 items-center">
+                                <label className="p-3 flex w-full bg-[#2948FF] border-[#2948FF] rounded-lg text-white cursor-pointer md:py-4 items-center hover:opacity-90">
                                     <span className="mr-2">
                                         <Pencil size={window.innerWidth>768?25:18} />
                                     </span>
@@ -103,7 +103,7 @@ function EditProfile() {
                                     <input type="file" className="hidden" accept="image/*" id="profile_img"  />
                                 </label>
                                 <button onClick={handleDelete}
-                                    className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-full md:py-4 items-center'>
+                                    className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-full md:py-4 items-center cursor-pointer hover:opacity-80'>
                                     <span className='mr-2'><Trash size={window.innerWidth>768?25:18} /></span>Remove Profile
                                 </button>
                             </div>
@@ -155,7 +155,7 @@ function EditProfile() {
                             <div className='border border-gray-300 p-2 rounded-lg flex items-center'>
                                 <Mail size={20} />
                                 <input
-                                    className='ml-2 placeholder:text-sm text-gray-400 00 w-full focus:outline-none'
+                                    className='ml-2 placeholder:text-sm text-gray-400 00 w-full focus:outline-none disabled:text-sm'
                                     type='email'
                                     id='email'
                                     name='email'
@@ -169,7 +169,7 @@ function EditProfile() {
                             <label htmlFor='password' className='font-medium'>
                                 Password
                             </label>
-                            <Link to='/profile/change-password' className='text-blue-600 block'>
+                            <Link to='/profile/change-password' className='text-blue-600 block w-max'>
                                 Change Password
                             </Link>
 
@@ -177,13 +177,13 @@ function EditProfile() {
                             <label htmlFor='pin' className='font-medium'>
                                 Pin
                             </label>
-                            <Link to='/profile/change-pin' className='text-blue-600 block'>
+                            <Link to='/profile/change-pin' className='text-blue-600 block w-max'>
                                 Change Pin
                             </Link>
 
                             <button
                                 type='submit'
-                                className='block bg-[#2948FF] w-full p-3 mt-3 rounded-lg text-white'
+                                className='block bg-[#2948FF] w-full p-3 mt-3 rounded-lg text-white cursor-pointer hover:opacity-90'
                             >
                                 Submit
                             </button>
