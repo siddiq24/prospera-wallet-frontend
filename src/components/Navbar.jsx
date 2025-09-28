@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BurgerMenu, Exit } from "../assets/Svg";
 import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../redux/slices/userSlice";
+import { profileActions } from "../redux/slices/profileSlice";
 
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -55,6 +56,13 @@ export function LoggedNavbar() {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const { token } = useSelector((state) => state.user);
+    const { fullname } = useSelector((state) => state.profile);
+
+    useEffect(() => {
+        dispatch(profileActions.getProfileThunk({
+            token
+        }));
+    }, [dispatch, token]);
 
     async function handleLogout() {
         try {
@@ -96,7 +104,7 @@ export function LoggedNavbar() {
                     >
                         <p
                             className='text-[#4F5665]'
-                        >Ghaluh Wizard</p>
+                        >{fullname ? fullname : "User"}</p>
                         <img src="/avatar-galuh.png" alt=""
                             className='size-10 rounded-full object-cover'
                         />
