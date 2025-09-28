@@ -3,87 +3,7 @@ import { ListStart, Search, Star, StarIcon, Trash2 } from "lucide-react";
 import Header from "../../components/Header";
 import { History, Transfer } from "../../components/profile/Svg";
 import { useNavigate } from "react-router";
-
-// Data transaksi contoh
-const Transactions = [
-  {
-    id: 1,
-    name: "Ghauhi 1",
-    phone: "082785504337",
-    amount: 50000,
-    type: "credit",
-    fullName: "Ghauhi Wizard Aragonia",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-  {
-    id: 2,
-    name: "Cameron Williamson",
-    phone: "(208) 555-0112",
-    amount: 50000,
-    type: "debit",
-    fullName: "Cameron Williamson",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-  {
-    id: 3,
-    name: "Cody Fisher",
-    phone: "(704) 555-0127",
-    amount: 50000,
-    type: "credit",
-    fullName: "Cody Fisher",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-  {
-    id: 4,
-    name: "Kristin Watson",
-    phone: "(603) 555-0123",
-    amount: 50000,
-    type: "debit",
-    fullName: "Kristin Watson",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-  {
-    id: 5,
-    name: "Floyd Miles",
-    phone: "(671) 555-0110",
-    amount: 50000,
-    type: "credit",
-    fullName: "Floyd Miles",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-  {
-    id: 6,
-    name: "Wade Warren",
-    phone: "(229) 555-0109",
-    amount: 50000,
-    type: "debit",
-    fullName: "Wade Warren",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-  {
-    id: 7,
-    name: "Savannah Nguyen",
-    phone: "(217) 555-0113",
-    amount: 50000,
-    type: "credit",
-    fullName: "Savannah Nguyen",
-    status: "Transfer Success",
-    avatar: "/avatar-aang.png",
-    pin: false,
-  },
-];
+import { useSelector } from "react-redux";
 
 const FinePeople = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,21 +14,40 @@ const FinePeople = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  // ganti state tunggal jadi array
+  const [starredUsers, setStarredUsers] = useState([]);
+
+  const handlePin = (userId) => {
+    setStarredUsers(
+      (prev) =>
+        prev.includes(userId)
+          ? prev.filter((id) => id !== userId) // kalau sudah ada → hapus
+          : [...prev, userId] // kalau belum ada → tambah
+    );
+  };
 
   // Filter transaksi berdasarkan search term
-  const filteredUsers = users.filter(
-    (user) =>
-      user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.phone_number.includes(searchTerm)
-  );
+  const filteredUsers = users.filter((user) => {
+    const name = user.full_name ? user.full_name.toLowerCase() : "";
+    const phone = user.phone_number || "";
+    return (
+      name.includes(searchTerm.toLowerCase()) || phone.includes(searchTerm)
+    );
+  });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  // Urutkan: yang dibintangin paling atas
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    const aStarred = starredUsers.includes(a.id);
+    const bStarred = starredUsers.includes(b.id);
+    if (aStarred && !bStarred) return -1; // a duluan
+    if (!aStarred && bStarred) return 1; // b duluan
+    return 0; // sama-sama starred atau sama-sama tidak
+  });
+
+  // Pagination dihitung dari hasil sort
+  const totalPages = Math.ceil(sortedUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentUsers = filteredUsers.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentUsers = sortedUsers.slice(startIndex, startIndex + itemsPerPage);
 
   // Format currency ke format Indonesia
   const formatCurrency = (amount) => {
@@ -122,10 +61,10 @@ const FinePeople = () => {
   };
 
   // Handle Pin people
-  const handlePin = () => {
-    console.log("Delete transaction:", selectedUser?.id);
-    closeModal();
-  };
+  //   const handlePin = () => {
+  //     console.log("Delete transaction:", selectedUser?.id);
+  //     closeModal();
+  //   };
 
   // Pagination handlers
   const goToPage = (page) => {
@@ -140,18 +79,39 @@ const FinePeople = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  const token =
+    useSelector((state) => state.user.token) || localStorage.getItem("token");
+
   useEffect(() => {
-    fetch("http://localhost:8080/user/all")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchUsers = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_BASE_URL;
+
+        const res = await fetch(`${baseUrl}/user/all`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}`);
+        }
+
+        const data = await res.json();
         setUsers(data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Error fetch users:", err);
+      } finally {
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    if (token) {
+      // pastikan token ada
+      fetchUsers();
+    }
+  }, [token]);
 
   if (loading) return <p>Loading...</p>;
 
@@ -201,24 +161,26 @@ const FinePeople = () => {
 
         {/* People List */}
         <div className="px-4">
-          {filteredUsers.map((user, i) => (
-            <div
-              key={user.id}
-              className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
-                user.id % 2 === 0 ? "bg-white" : "bg-gray-50"
-              }`}
-              onClick={() => navigate(`/transaction/transfer/${i}`)}
-            >
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-500 text-sm">
-                  {user.full_name}
-                </h3>
-                <p className="text-gray-500 text-xs mt-1">
-                  {user.phone_number}
-                </p>
+          {filteredUsers.map((user) => {
+            return (
+              <div
+                key={user.id}
+                className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
+                  user.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                }`}
+                onClick={() => navigate(`/transaction/transfer/${user.id}`)}
+              >
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-500 text-sm">
+                    {user.full_name}
+                  </h3>
+                  <p className="text-gray-500 text-xs mt-1">
+                    {user.phone_number}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* No results message */}
           {filteredUsers.length === 0 && searchTerm && (
@@ -256,23 +218,40 @@ const FinePeople = () => {
 
             {/* user List - Desktop Table Style */}
             <div className="overflow-x-auto">
-              {currentUsers.map((user, i) => (
+              {currentUsers.map((user) => (
                 <div
-                  onClick={() => {
-                    navigate(`/transaction/transfer/${i}`);
-                  }}
+                  onClick={() => navigate(`/transaction/transfer/${user.id}`)}
                   key={user.id}
-                  className={`flex items-center px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${
+                  className={`flex cursor-pointer items-center px-6 py-4 border border-gray-100 last:border-b-0 hover:border-gray-400  transition-colors ${
                     user.id % 2 === 0 ? "bg-white" : "bg-gray-50"
                   }`}
                 >
                   {/* Avatar */}
                   <div className="flex-1 ml-22 mr-4">
-                    <img
-                      src={user.avatar}
-                      alt={user.full_name}
+                    {/* <img
+                      src={
+                        user.avatar
+                          ? `${import.meta.env.VITE_BASE_URL}/${user.avatar}`
+                          : "/avatar-aang.png" // fallback kalau null
+                      }
+                      alt={user.full_name || "Unknown"}
                       className="w-12 h-12 rounded-lg object-cover"
-                    />
+                    /> */}
+                    {user.counterparty_im ? (
+                      <img
+                        src={`${URL}/profile/${user.counterparty_img}`}
+                        alt=""
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <img
+                        src={`https://api.dicebear.com/9.x/open-peeps/png?seed=${
+                          user.id
+                        }&flip=${user.id % 2 == 0}`}
+                        alt=""
+                        className="w-12 h-12 rounded-full"
+                      />
+                    )}
                   </div>
 
                   {/* Name and Phone */}
@@ -290,16 +269,22 @@ const FinePeople = () => {
 
                   <div className="flex-shrink-0">
                     <button
-                      onClick={() => {
-                        handlePin();
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePin(user.id);
                       }}
                       className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     >
                       <Star
-                      // className={`w-5 h-5 ${
-                      //   transaction.pin && "fill - lime - 400"
-                      // }`
-                      // }
+                        className={`w-5 h-5 ${
+                          starredUsers.includes(user.id)
+                            ? "fill-red-500"
+                            : "fill-none"
+                        }`}
+                        // className={`w-5 h-5 ${
+                        //   transaction.pin && "fill - lime - 400"
+                        // }`
+                        // }
                       />
                     </button>
                   </div>
@@ -327,7 +312,7 @@ const FinePeople = () => {
                     <button
                       onClick={goToPrevPage}
                       disabled={currentPage <= 1}
-                      className={`text-sm mr-4 ${
+                      className={`text-sm mr-4 cursor-pointer ${
                         currentPage <= 1
                           ? "text-gray-400 cursor-not-allowed"
                           : "text-gray-500 hover:text-gray-700"
@@ -345,7 +330,7 @@ const FinePeople = () => {
                         <button
                           key={page}
                           onClick={() => goToPage(page)}
-                          className={`px-3 py-1 text-sm rounded ${
+                          className={`px-3 py-1 text-sm rounded cursor-pointer ${
                             currentPage === page
                               ? "bg-blue-600 text-white"
                               : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
@@ -359,7 +344,7 @@ const FinePeople = () => {
                     <button
                       onClick={goToNextPage}
                       disabled={currentPage >= totalPages}
-                      className={`text-sm ml-4 ${
+                      className={`text-sm ml-4 cursor-pointer ${
                         currentPage >= totalPages
                           ? "text-gray-400 cursor-not-allowed"
                           : "text-gray-500 hover:text-gray-700"
@@ -471,4 +456,4 @@ const FinePeople = () => {
   );
 };
 
-export { FinePeople, Transactions };
+export { FinePeople };
