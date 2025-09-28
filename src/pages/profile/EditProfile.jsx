@@ -100,7 +100,28 @@ function EditProfile() {
                                         <Pencil size={window.innerWidth>768?25:18} />
                                     </span>
                                     {loading ? "Uploading..." : "Change Profile"}
-                                    <input type="file" className="hidden" accept="image/*" id="profile_img"  />
+                                    <input 
+                                        type="file" 
+                                        className="hidden" 
+                                        accept="image/*" 
+                                        id="profile_img"  
+                                        onChange={async (e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                try {
+                                                    dispatch(profileActions.updateAvatarThunk({
+                                                        token: userState.token, 
+                                                        profileImg: file
+                                                    })).unwrap();
+
+                                                    dispatch(profileActions.getProfileThunk({ token: userState.token }))
+                                                } catch (error) {
+                                                    console.log(error);
+                                                    toast.error("Failed to update avatar.")
+                                                }
+                                            }
+                                        }}    
+                                    />
                                 </label>
                                 <button onClick={handleDelete}
                                     className='p-3 flex w-full rounded-lg text-[#D00000] border border-[#D00000] md:w-full md:py-4 items-center cursor-pointer hover:opacity-80'>

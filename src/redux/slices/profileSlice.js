@@ -6,6 +6,7 @@ const initialState = {
   email: null,
   phone: null,
   img: null,
+  verified: false,
 
   // Loading states
   isLoading: false,
@@ -42,12 +43,11 @@ const getProfileThunk = createAsyncThunk(
 
 const updateProfileThunk = createAsyncThunk(
   "user/update",
-  async ({ token, fullname, phone, profileImg }, { rejectWithValue }) => {
+  async ({ token, fullname, phone }, { rejectWithValue }) => {
     try {
       const formdata = new FormData();
       formdata.append("fullname", fullname);
       formdata.append("phone", phone);
-      formdata.append("img", profileImg);
 
       const request = new Request(`${import.meta.env.VITE_BASE_URL}/user`, {
         method: "PATCH",
@@ -57,8 +57,37 @@ const updateProfileThunk = createAsyncThunk(
         body: formdata,
       });
 
-      console.log("form data : ");
-      console.log(formdata);
+      const response = await fetch(request);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+const updateAvatarThunk = createAsyncThunk(
+  "user/avatar",
+  async ({ token, profileImg }, { rejectWithValue }) => {
+    try {
+      console.log("Update Avatar started.");
+
+      const formdata = new FormData();
+      formdata.append("img", profileImg);
+
+      const request = new Request(`${import.meta.env.VITE_BASE_URL}/user`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formdata,
+      });
 
       const response = await fetch(request);
 
@@ -129,8 +158,7 @@ const profileSlice = createSlice({
         state.email = payload.data.email;
         state.phone = payload.data.phone_number;
         state.img = payload.data.avatar;
-        console.log("img (get): ");
-        console.log(state.img);
+        state.verified = payload.data.verified;
 
         // UI states
         state.isLoading = false;
@@ -142,6 +170,7 @@ const profileSlice = createSlice({
         state.email = null;
         state.phone = null;
         state.img = null;
+        state.verified = null;
 
         // UI states
         state.isLoading = false;
@@ -164,6 +193,29 @@ const profileSlice = createSlice({
       })
 
       .addCase(updateProfileThunk.rejected, (state, action) => {
+
+        // UI states
+        state.isLoading = false;
+        state.isFailed = true;
+        state.error = action.payload;
+      })
+
+      // UPADATE AVATAR
+      .addCase(updateAvatarThunk.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+        state.isFailed = false;
+        state.error = null;
+      })
+
+      .addCase(updateAvatarThunk.fulfilled, (state) => {
+
+        // UI states
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+
+      .addCase(updateAvatarThunk.rejected, (state, action) => {
 
         // UI states
         state.isLoading = false;
@@ -202,5 +254,6 @@ export const profileActions = {
   ...profileSlice.actions,
   getProfileThunk,
   updateProfileThunk,
+  updateAvatarThunk,
   deleteAvatarThunk
 };
