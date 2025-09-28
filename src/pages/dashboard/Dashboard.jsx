@@ -98,7 +98,7 @@ const Dashboard = () => {
         <div className="-mt-16 px-4">
           <div className="bg-white rounded-2xl shadow-lg relative overflow-hidden">
             {/* Wave Background */}
-            <p>{new Date(Date.now()).toDateString().slice(0, 3)}</p>
+            {/* <p>{new Date(Date.now()).toDateString().slice(0, 3)}</p> */}
             <Wave
               fill="#2948FF1A"
               paused={false}
@@ -331,24 +331,22 @@ const Dashboard = () => {
                 </select>
               </div>
             </div>
-            <div className="w-full h-[80%]">
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-                className="outline-none focus:outline-none"
-              >
-                <BarChart
-                  data={chartData}
-                  className="outline-none focus:outline-none"
-                >
+            <div className="w-full h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
                   <XAxis dataKey="day" />
                   <YAxis style={{ fontSize: "10px" }} />
                   <Tooltip content={CustomTooltip} />
-                  {(select == 'income' || select == 'all') && < Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />}
-                  {(select == 'expense' || select == 'all') && <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />}
+                  {(select == 'income' || select == 'all') && (
+                    <Bar dataKey="income" fill="#2563eb" radius={[6, 6, 0, 0]} />
+                  )}
+                  {(select == 'expense' || select == 'all') && (
+                    <Bar dataKey="expense" fill="#ef4444" radius={[6, 6, 0, 0]} />
+                  )}
                 </BarChart>
               </ResponsiveContainer>
             </div>
+
             <div className="flex gap-6 mt-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
