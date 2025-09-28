@@ -97,7 +97,7 @@ function DashboardLayout() {
       <LoggedNavbar />
       <div className="flex flex-col-reverse md:flex-row ">
         <Sidebar cName="md:min-h-screen" />
-        <div className="w-full bg-gray-50">
+        <div className="w-full">
           <div className="md:ml-8 md:flex justify-between md:pr-20">
             <Outlet />
           </div>
