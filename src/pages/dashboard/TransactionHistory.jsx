@@ -43,8 +43,8 @@ const TransactionHistory = () => {
   // Filter transaksi berdasarkan search term
   const filteredTransactions = transactions.filter(
     (transaction) =>
-      transaction.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction.phone.includes(searchTerm)
+      transaction.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      transaction.phone?.includes(searchTerm)
   );
 
   // Pagination
