@@ -16,6 +16,7 @@ import { fetchHistory } from "../../redux/slices/historySlice";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Down, Up } from "../../components/profile/Svg";
+import DashboardSkeleton from "../../components/loading/DashboardSceletone";
 const URL = import.meta.env.VITE_BASE_URL
 
 const Dashboard = () => {
@@ -23,7 +24,7 @@ const Dashboard = () => {
   const [select, setSelect] = useState('all')
   const [range, setRange] = useState('daily')
   const { token } = useSelector(state => state.user)
-  const { history } = useSelector((state) => state.history);
+  const { history, loading } = useSelector((state) => state.history);
   const dispatch = useDispatch()
   // console.log(history)
 
@@ -60,7 +61,6 @@ const Dashboard = () => {
           },
         });
         setDaily(resD.data.data[5])
-
       } catch (error) {
         console.log(error)
       }
@@ -79,6 +79,12 @@ const Dashboard = () => {
     }
     return null;
   };
+
+  if (loading) return (
+    <div className="flex-1">
+      <DashboardSkeleton />
+    </div>
+  );
 
   return (
     <div className=" flex-1">

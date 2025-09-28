@@ -78,15 +78,15 @@ const History = ({ size = 20, color = '#2948FF' }) => {
         <path d="M12.0026 6L12.002 12.0044L16.2417 16.2441" stroke="url(#paint2_linear_140_1697)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         <defs>
             <linearGradient id="paint0_linear_140_1697" x1="4.72737" y1="3.36365" x2="4.72737" y2="7" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#396AFC" />
+                <stop stop-color={color} />
                 <stop offset="1" stop-color={color} />
             </linearGradient>
             <linearGradient id="paint1_linear_140_1697" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#396AFC" />
+                <stop stop-color={color} />
                 <stop offset="1" stop-color={color} />
             </linearGradient>
             <linearGradient id="paint2_linear_140_1697" x1="14.1218" y1="6" x2="14.1218" y2="16.2441" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#396AFC" />
+                <stop stop-color={color} />
                 <stop offset="1" stop-color={color} />
             </linearGradient>
         </defs>
