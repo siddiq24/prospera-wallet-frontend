@@ -289,12 +289,12 @@ const Dashboard = () => {
               </h3>
               <div className="flex gap-3">
                 <button onClick={() => { navigate('/transaction/topup') }}
-                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm">
+                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm cursor-pointer hover:opacity-75">
                   <Plus size={16} />
                   Top Up
                 </button>
                 <button onClick={() => { navigate('/transaction/transfer') }}
-                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm">
+                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm cursor-pointer hover:opacity-75">
                   <Send size={16} />
                   Transfer
                 </button>
@@ -365,7 +365,9 @@ const Dashboard = () => {
               <h3 className="text-lg font-semibold text-gray-900">
                 Transaction History
               </h3>
-              <button className="text-blue-600 text-sm">See All</button>
+              <button className="text-blue-600 text-sm cursor-pointer border-b border-transparent hover:opacity-70 hover:border-[#2563eb]"
+                onClick={() => navigate("/transaction/history")}
+              >See All</button>
             </div>
             <div className="space-y-4">
               {history?.map((t) => (
