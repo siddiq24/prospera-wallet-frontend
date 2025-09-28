@@ -95,10 +95,10 @@ function DashboardLayout() {
   return (
     <div className="overflow-x-hidden">
       <LoggedNavbar />
-      <div className="flex flex-col-reverse md:flex-row ">
+      <div className="flex flex-col-reverse md:flex-row md:px-15">
         <Sidebar cName="md:min-h-screen" />
         <div className="w-full">
-          <div className="md:ml-8 md:flex justify-between md:pr-20">
+          <div className="md:ml-8 md:flex justify-between">
             <Outlet />
           </div>
         </div>

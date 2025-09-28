@@ -89,7 +89,7 @@ export function LoggedNavbar() {
     return (
         <header className='t-0 w-screen'>
             <div
-                className='z-99999 md:pl-8 text-white sm:px-3 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
+                className='z-9999 text-white px-4 md:px-15 py-3 border-b border-[#E8E8E8] w-full text-[3vw] md:text-[18px]'
             >
                 <nav
                     className='flex items-center justify-between'
