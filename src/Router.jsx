@@ -20,6 +20,8 @@ import Detail from "./pages/transaction/Detail";
 import { FinePeople } from "./pages/transaction/FinePeople";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "./redux/slices/userSlice";
+import { Toaster } from "react-hot-toast";
+import Notification from "./components/Notification";
 
 function App() {
   return (
@@ -94,6 +96,7 @@ function DashboardLayout() {
 
   return (
     <div className="overflow-x-hidden">
+      <Toaster/><Notification/>
       <LoggedNavbar />
       <div className="flex flex-col-reverse md:flex-row ">
         <Sidebar cName="md:min-h-screen" />
