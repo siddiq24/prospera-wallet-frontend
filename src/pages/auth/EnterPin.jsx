@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -75,11 +76,16 @@ function EnterPin() {
       const response = await fetch(`${baseUrl}/auth/verify`, options);
       const data = await response.json();
 
-      if (data.data) {
-        navigate("/transaction/dashboard");
+      // console.log(data);
+      if (!data.data) {
+        toast.error(data.message);
         return;
       }
-      console.log(data);
+
+      toast.success(data.message);
+      setTimeout(() => {
+        navigate("/transaction/dashboard");
+      }, 1400);
     } catch (err) {
       console.error("Error: ", err)
     }
@@ -88,6 +94,7 @@ function EnterPin() {
   const isPinComplete = pinValues.every((v) => v !== "");
   return (
     <>
+      <Toaster />
       <section className="flex min-h-screen bg-[var(--color--primary)] py-30 px-10 md:p-0">
         <div className="w-full md:w-1/2 rounded-r-2xl rounded-l-2xl md:rounded-r-4xl md:rounded-l-none bg-white flex flex-col justify-center px-10 py-5 md:py-20 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
