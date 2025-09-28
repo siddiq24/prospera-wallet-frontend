@@ -35,7 +35,7 @@ function Detail() {
   useEffect(() => {
     const fetchReceiver = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user/all`, {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user/${id}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -44,10 +44,7 @@ function Detail() {
 
         if (!res.ok) throw new Error(`Error ${res.status}`);
         const data = await res.json();
-
-        // Ambil user sesuai id
-        const user = data.data.find((u) => u.id === Number(id));
-        setReceiver(user);
+        setReceiver(data.data);
       } catch (err) {
         console.error("Error fetch receiver:", err);
         setFetchError("Gagal mengambil data penerima");
@@ -154,7 +151,7 @@ function Detail() {
     try {
       // 1. Verify PIN dulu
       const verifyRes = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/auth/verify`,
+        `${import.meta.env.VITE_BASE_URL}/auth/verify-pin`,
         {
           method: "POST",
           headers: {
