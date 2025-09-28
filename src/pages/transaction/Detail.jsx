@@ -154,7 +154,7 @@ function Detail() {
     try {
       // 1. Verify PIN dulu
       const verifyRes = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/auth/verify`,
+        `${import.meta.env.VITE_BASE_URL}/auth/verify-pin`,
         {
           method: "POST",
           headers: {
