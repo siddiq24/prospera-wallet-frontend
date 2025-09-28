@@ -61,7 +61,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setDaily(resD.data.data[5])
+        setDaily(resD.data.data[6])
       } catch (error) {
         console.log(error)
       }
@@ -223,10 +223,10 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div
-                    className={`font-semibold text-sm ${t.type !== "transfer" ? "text-green-500" : "text-red-500"
+                    className={`font-semibold text-sm ${t.direction === "credit" ? "text-green-500" : "text-red-500"
                       }`}
                   >
-                    {t.type !== "transfer" ? "+" : "-"}Rp
+                    {t.direction === "credit" ? "+" : "-"}Rp
                     {t.total.toLocaleString("id-ID")}
                   </div>
                 </div>
@@ -391,10 +391,10 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <p
-                    className={`font-semibold text-sm ${t.type !== "transfer" ? "text-green-500" : "text-red-500"
+                    className={`font-semibold text-sm ${t.direction === "credit" ? "text-green-500" : "text-red-500"
                       }`}
                   >
-                    {t.type !== "transfer" ? "+" : "-"}Rp
+                    {t.direction === "credit" ? "+" : "-"}Rp
                     {t.total.toLocaleString("id-ID")}
                   </p>
                 </div>
