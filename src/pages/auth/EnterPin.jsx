@@ -73,7 +73,7 @@ function EnterPin() {
         }
       }
 
-      const response = await fetch(`${baseUrl}/auth/verify-pin`, options);
+      const response = await fetch(`${baseUrl}/auth/pin`, options);
       const data = await response.json();
 
       // console.log(data);
