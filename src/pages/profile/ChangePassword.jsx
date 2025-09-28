@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { KeyPass, Profile } from "../../components/profile/Svg";
 import { Eye, EyeOff } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { changePasswordThunk } from "../../redux/slices/userSlice";
 
 function EditProfile() {
   const [showExist, setShowExist] = useState(false);
@@ -14,6 +18,10 @@ function EditProfile() {
   });
 
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate()
+  const userState = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
   // Regex rules
   const minLen = /^.{8,}$/;
@@ -65,102 +73,112 @@ function EditProfile() {
     }
 
     setErrors({});
-    alert("Form submitted:", formData);
+
+    dispatch(changePasswordThunk({
+      token: userState.token,
+      oldPassword: formData.ExistingPass,
+      newPassword: formData.ConfirmNewPassword
+    }))
+    toast.success("Successfully changed password!")
+    navigate("/profile/edit", { replace: true })
   };
 
   return (
-    <div className="p-8 pt-4 w-full">
-      <p className="font-semibold mb-6">Change Password</p>
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-6 md:border  border-gray-200 p-0 md:p-8"
-      >
-        {/* Existing Password */}
-        <label htmlFor="ExistingPass" className="font-medium">
-          Existing Password
-        </label>
-        <div className="border border-gray-300 p-2 rounded-lg flex mt-2 items-center">
-          <KeyPass size={20} />
-          <input
-            className="ml-2 placeholder:text-sm w-full focus:outline-none"
-            type={showExist ? "text" : "password"}
-            id="ExistingPass"
-            name="ExistingPass"
-            placeholder="Enter Your Existing Password"
-            value={formData.ExistingPass}
-            onChange={handleChange}
-          />
-          <div
-            onClick={() => setShowExist(!showExist)}
-            className="cursor-pointer"
-          >
-            {showExist ? <Eye /> : <EyeOff />}
-          </div>
-        </div>
-
-        {/* New Password */}
-        <label htmlFor="NewPass" className="font-medium">
-          New Password
-        </label>
-        <div className="border border-gray-300 p-2 rounded-lg flex mt-2 items-center">
-          <KeyPass size={20} />
-          <input
-            className="ml-2 placeholder:text-sm w-full focus:outline-none"
-            type={showNew ? "text" : "password"}
-            id="NewPass"
-            name="NewPass"
-            placeholder="Enter Your New Password"
-            value={formData.NewPass}
-            onChange={handleChange}
-          />
-          <div onClick={() => setShowNew(!showNew)} className="cursor-pointer">
-            {showNew ? <Eye /> : <EyeOff />}
-          </div>
-        </div>
-        {/* Error list for NewPass */}
-        {Object.values(errors).map(
-          (err, idx) =>
-            idx !== "confirm" && (
-              <p key={idx} className="text-sm text-red-500">
-                {err}
-              </p>
-            )
-        )}
-
-        {/* Confirm Password */}
-        <label htmlFor="ConfirmNewPassword" className="font-medium">
-          Confirm New Password
-        </label>
-        <div className="border border-gray-300 p-2 rounded-lg flex mt-2 items-center">
-          <KeyPass size={20} />
-          <input
-            className="ml-2 placeholder:text-sm w-full focus:outline-none"
-            type={showConfirm ? "text" : "password"}
-            id="ConfirmNewPassword"
-            name="ConfirmNewPassword"
-            placeholder="Re-Type Your New Password"
-            value={formData.ConfirmNewPassword}
-            onChange={handleChange}
-          />
-          <div
-            onClick={() => setShowConfirm(!showConfirm)}
-            className="cursor-pointer"
-          >
-            {showConfirm ? <Eye /> : <EyeOff />}
-          </div>
-        </div>
-        {errors.confirm && (
-          <p className="text-sm text-red-500">{errors.confirm}</p>
-        )}
-
-        <button
-          type="submit"
-          className="block bg-[#2948FF] w-full p-3 mt-3 rounded-lg text-white"
+    <>
+      <Toaster />
+      <div className="p-8 pt-4 w-full">
+        <p className="font-semibold mb-6">Change Password</p>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 md:border  border-gray-200 p-0 md:p-8"
         >
-          Submit
-        </button>
-      </form>
-    </div>
+          {/* Existing Password */}
+          <label htmlFor="ExistingPass" className="font-medium">
+            Existing Password
+          </label>
+          <div className="border border-gray-300 p-2 rounded-lg flex mt-2 items-center">
+            <KeyPass size={20} />
+            <input
+              className="ml-2 placeholder:text-sm w-full focus:outline-none"
+              type={showExist ? "text" : "password"}
+              id="ExistingPass"
+              name="ExistingPass"
+              placeholder="Enter Your Existing Password"
+              value={formData.ExistingPass}
+              onChange={handleChange}
+            />
+            <div
+              onClick={() => setShowExist(!showExist)}
+              className="cursor-pointer"
+            >
+              {showExist ? <Eye /> : <EyeOff />}
+            </div>
+          </div>
+
+          {/* New Password */}
+          <label htmlFor="NewPass" className="font-medium">
+            New Password
+          </label>
+          <div className="border border-gray-300 p-2 rounded-lg flex mt-2 items-center">
+            <KeyPass size={20} />
+            <input
+              className="ml-2 placeholder:text-sm w-full focus:outline-none"
+              type={showNew ? "text" : "password"}
+              id="NewPass"
+              name="NewPass"
+              placeholder="Enter Your New Password"
+              value={formData.NewPass}
+              onChange={handleChange}
+            />
+            <div onClick={() => setShowNew(!showNew)} className="cursor-pointer">
+              {showNew ? <Eye /> : <EyeOff />}
+            </div>
+          </div>
+          {/* Error list for NewPass */}
+          {Object.values(errors).map(
+            (err, idx) =>
+              idx !== "confirm" && (
+                <p key={idx} className="text-sm text-red-500">
+                  {err}
+                </p>
+              )
+          )}
+
+          {/* Confirm Password */}
+          <label htmlFor="ConfirmNewPassword" className="font-medium">
+            Confirm New Password
+          </label>
+          <div className="border border-gray-300 p-2 rounded-lg flex mt-2 items-center">
+            <KeyPass size={20} />
+            <input
+              className="ml-2 placeholder:text-sm w-full focus:outline-none"
+              type={showConfirm ? "text" : "password"}
+              id="ConfirmNewPassword"
+              name="ConfirmNewPassword"
+              placeholder="Re-Type Your New Password"
+              value={formData.ConfirmNewPassword}
+              onChange={handleChange}
+            />
+            <div
+              onClick={() => setShowConfirm(!showConfirm)}
+              className="cursor-pointer"
+            >
+              {showConfirm ? <Eye /> : <EyeOff />}
+            </div>
+          </div>
+          {errors.confirm && (
+            <p className="text-sm text-red-500">{errors.confirm}</p>
+          )}
+
+          <button
+            type="submit"
+            className="block bg-[#2948FF] w-full p-3 mt-3 rounded-lg text-white"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
 
