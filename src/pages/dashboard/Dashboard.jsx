@@ -201,7 +201,7 @@ const Dashboard = () => {
             </div>
 
             <div className="space-y-4">
-              {history.map((t) => (
+              {history?.map((t) => (
                 <div
                   key={t.id}
                   className="flex items-center justify-between pb-2"
@@ -249,7 +249,7 @@ const Dashboard = () => {
               <div >
                 Income
                 <div className="text-green-600 font-medium flex w-max">
-                  Rp.{history.length > 0
+                  Rp.{history?.length > 0
                     ? (daily?.total_income ?? 0).toLocaleString("id-ID")
                     : '0'
                   }
@@ -265,7 +265,7 @@ const Dashboard = () => {
               <div >
                 Expense
                 <div className="text-red-500 font-medium flex w-max">
-                  Rp.{history.length > 0
+                  Rp.{history?.length > 0
                     ? (daily?.total_expense ?? 0).toLocaleString("id-ID")
                     : '0'
                   }
@@ -370,7 +370,7 @@ const Dashboard = () => {
               <button className="text-blue-600 text-sm">See All</button>
             </div>
             <div className="space-y-4">
-              {history.map((t) => (
+              {history?.map((t) => (
                 <div key={t.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
