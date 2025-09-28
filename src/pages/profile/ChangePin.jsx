@@ -1,25 +1,74 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 function ChangePin() {
-  const [_, setOtp] = useState()
+  const [otp, setOtp] = useState();
+
+  const navigate = useNavigate()
+  const userState = useSelector((state) => state.user)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    (
+      async () => {
+        try {
+          const request = new Request(`${import.meta.env.VITE_BASE_URL}/auth/pin`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${userState.token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              pin: otp
+            })
+          });
+
+          const response = await fetch(request);
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message);
+          }
+
+          toast.success("Pin successfully changed!")
+          navigate("/profile/edit", { replace: true })
+        } catch (error) {
+          return error.message;
+        }
+      }
+    )();
+  };
+
   return (
-    <div className='p-10 w-full'>
-      <div className='mt-22'>
-        <div className='flex justify-center items-center'>
-          <h1 className=''>Change Pin</h1>
-          <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" width={30} />
-        </div>
-        <p className='text-xs text-center text-gray-500 my-4'>Please save your pin because this so important.</p>
-        <div className='my-26'>
-          <OtpInput setOtp={setOtp} />
-        </div>
-        <button className='bg-[#2948FF] w-full text-lg text-white rounded-lg py-4'>Submit</button>
+    <>
+      <Toaster />
+      <div className="p-10 w-full">
+        <form className="mt-22" onSubmit={handleSubmit}>
+          <div className="flex justify-center items-center">
+            <h1 className="">Change Pin</h1>
+            <img
+              src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113"
+              alt=""
+              width={30}
+            />
+          </div>
+          <p className="text-xs text-center text-gray-500 my-4">
+            Please save your pin because this so important.
+          </p>
+          <div className="my-26">
+            <OtpInput setOtp={setOtp} />
+          </div>
+          <button className="bg-[#2948FF] w-full text-lg text-white rounded-lg py-4">
+            Submit
+          </button>
+        </form>
       </div>
-    </div>
-  )
+    </>
+  );
 }
-
-
 
 function OtpInput({ setOtp }) {
   const length = 6;
@@ -27,8 +76,8 @@ function OtpInput({ setOtp }) {
   const inputsRef = useRef([]);
 
   useEffect(() => {
-    setOtp(otpDigits.join(''))
-  }, [otpDigits, setOtp])
+    setOtp(otpDigits.join(""));
+  }, [otpDigits, setOtp]);
 
   const handleChange = (value, index) => {
     if (/^\d?$/.test(value)) {
@@ -65,4 +114,4 @@ function OtpInput({ setOtp }) {
     </div>
   );
 }
-export default ChangePin
+export default ChangePin;
