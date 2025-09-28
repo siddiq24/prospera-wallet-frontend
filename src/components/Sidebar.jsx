@@ -3,6 +3,8 @@ import { Dashb, Exit, History, Profile, TopUp, TransferMobile } from '../assets/
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser } from '../redux/slices/userSlice';
+import { clearHistory } from '../redux/slices/historySlice';
+import { profileActions } from '../redux/slices/profileSlice';
 
 function Sidebar({ cName }) {
     const location = useLocation();
@@ -91,6 +93,8 @@ function Sidebar({ cName }) {
 
             if (data.success) {
                 dispatch(clearUser());
+                dispatch(clearHistory());
+                dispatch(profileActions.clearProfileStates());
                 navigate("/", { replace: true });
             }
         } catch (err) {
@@ -100,7 +104,7 @@ function Sidebar({ cName }) {
 
     return (
         <aside
-            className={`fixed md:static text-[3vw] border-t md:text-[18px] text-[#4F5665] ${cName} p-3 md:ps-[5%] md:pt-10 border-r border-[#E8E8E8] bg-white md:bg-transparent flex bottom-0 md:flex-col w-screen md:w-full md:max-w-xs justify-between md:justify-start md:gap-8`}
+            className={`fixed md:static text-[3vw] md:text-[18px] text-[#4F5665] ${cName} md:pt-10 border-r border-[#E8E8E8] bg-white md:bg-transparent flex bottom-0 md:flex-col w-screen md:w-full md:max-w-xs justify-between md:justify-start md:gap-6`}
         >
             {items.map((e, i) => {
                 const isActive = location.pathname.startsWith(e.link);
