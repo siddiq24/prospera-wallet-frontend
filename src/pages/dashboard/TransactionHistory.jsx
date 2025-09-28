@@ -1,9 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Search, Trash2 } from "lucide-react";
 import Header from "../../components/Header";
 import { History } from "../../components/profile/Svg";
-import { Plus, Send } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHistory } from "../../redux/slices/historySlice";
 
@@ -20,19 +18,25 @@ const TransactionHistory = () => {
 
   useEffect(() => {
     dispatch(fetchHistory(token));
-    setTransactions(
-      history.map((user) => ({
-        id: user.id,
-        name: user.counterparty_name,
-        phone: user.counterparty_phone,
-        amount: user.total,
-        type: user.type,
-        fullName: user.counterparty_name,
-        status: "Transfer Success",
-        avatar: user.counterparty_img,
-      }))
-    )
-  }, [dispatch, token])
+  }, [dispatch, token]);
+  
+  useEffect(() => {
+    if (history && history.length > 0) {
+      setTransactions(
+        history.map((user) => ({
+          id: user.id,
+          name: user.counterparty_name,
+          phone: user.counterparty_phone,
+          amount: user.total,
+          type: user.type,
+          fullName: user.counterparty_name,
+          status: "Transfer Success",
+          avatar: user.counterparty_img,
+        }))
+      );
+    }
+  }, [history]);
+  
 
   console.log(transactions)
 
