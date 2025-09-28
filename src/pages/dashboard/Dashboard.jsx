@@ -48,6 +48,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log(resC.data.data)
         setChartData(
           resC.data.data.map((data, i) => ({
             day: (resC.data.data.length == 4 ? `Week ${i + 1}` : new Date(data.date).toDateString().slice(0, 3)),
@@ -66,6 +67,7 @@ const Dashboard = () => {
       }
     })()
   }, [dispatch, token, balance, range]);
+  console.log(history)
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -221,10 +223,10 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div
-                    className={`font-semibold text-sm ${t.type === "transfer" ? "text-green-500" : "text-red-500"
+                    className={`font-semibold text-sm ${t.type !== "transfer" ? "text-green-500" : "text-red-500"
                       }`}
                   >
-                    {t.type === "transfer" ? "+" : "-"}Rp
+                    {t.type !== "transfer" ? "+" : "-"}Rp
                     {t.total.toLocaleString("id-ID")}
                   </div>
                 </div>
@@ -389,10 +391,10 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <p
-                    className={`font-semibold text-sm ${t.type === "transfer" ? "text-green-500" : "text-red-500"
+                    className={`font-semibold text-sm ${t.type !== "transfer" ? "text-green-500" : "text-red-500"
                       }`}
                   >
-                    {t.type === "transfer" ? "+" : "-"}Rp
+                    {t.type !== "transfer" ? "+" : "-"}Rp
                     {t.total.toLocaleString("id-ID")}
                   </p>
                 </div>
