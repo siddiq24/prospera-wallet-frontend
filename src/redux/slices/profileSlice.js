@@ -75,6 +75,32 @@ const updateProfileThunk = createAsyncThunk(
   }
 );
 
+const deleteAvatarThunk = createAsyncThunk(
+  "user/delete",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const request = new Request(`${import.meta.env.VITE_BASE_URL}/user/avatar`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const response = await fetch(request);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 
 const profileSlice = createSlice({
   initialState,
@@ -130,8 +156,7 @@ const profileSlice = createSlice({
         state.error = null;
       })
 
-      .addCase(updateProfileThunk.fulfilled, (state, { _ }) => {
-        console.log("Profile Updated");
+      .addCase(updateProfileThunk.fulfilled, (state) => {
 
         // UI states
         state.isLoading = false;
@@ -139,7 +164,29 @@ const profileSlice = createSlice({
       })
 
       .addCase(updateProfileThunk.rejected, (state, action) => {
-        console.log("Profile Failed Update");
+
+        // UI states
+        state.isLoading = false;
+        state.isFailed = true;
+        state.error = action.payload;
+      })
+
+      .addCase(deleteAvatarThunk.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+        state.isFailed = false;
+        state.error = null;
+      })
+
+      .addCase(deleteAvatarThunk.fulfilled, (state) => {
+        state.img = null
+
+        // UI states
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+
+      .addCase(deleteAvatarThunk.rejected, (state, action) => {
 
         // UI states
         state.isLoading = false;
@@ -155,4 +202,5 @@ export const profileActions = {
   ...profileSlice.actions,
   getProfileThunk,
   updateProfileThunk,
+  deleteAvatarThunk
 };
