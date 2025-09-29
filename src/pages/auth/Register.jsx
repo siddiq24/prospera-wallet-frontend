@@ -123,11 +123,11 @@ function Register() {
           </p>
 
           <div className="mt-6 md:space-y-3 flex md:flex-col flex-row">
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/google.png" alt="google logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Google</span>
             </div>
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/fb.png" alt="facebook logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Facebook</span>
             </div>
@@ -141,7 +141,9 @@ function Register() {
 
           <form onSubmit={handleSubmit}>
             <div className="mt-6 flex flex-col">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email"
+                className="font-medium text-[#0B132A]"
+              >Email</label>
               <div className="relative">
                 <input
                   type="text"
@@ -163,7 +165,9 @@ function Register() {
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="pwd">Password</label>
+              <label htmlFor="pwd"
+                className="font-medium text-[#0B132A]"
+              >Password</label>
               <div className="relative">
                 <input
                   type={showPwd ? "text" : "password"}
@@ -192,7 +196,9 @@ function Register() {
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="confpwd">Confirm Password</label>
+              <label htmlFor="confpwd"
+                className="font-medium text-[#0B132A]"
+              >Confirm Password</label>
               <div className="relative">
                 <input
                   type={showConfPwd ? "text" : "password"}
@@ -231,9 +237,9 @@ function Register() {
               Register
             </button>
           </form>
-          <p className="flex gap-1 justify-center">
+          <p className="flex gap-1 justify-center text-[#4F5665]">
             Have An Account?
-            <Link to="/auth/login" className="text-[var(--color--primary)]">
+            <Link to="/auth/login" className="text-[var(--color--primary)] font-medium">
               Login
             </Link>
           </p>

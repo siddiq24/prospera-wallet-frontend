@@ -98,14 +98,18 @@ function EnterPin() {
       <section className="flex min-h-screen bg-[var(--color--primary)] py-30 px-10 md:p-0">
         <div className="w-full md:w-1/2 rounded-r-2xl rounded-l-2xl md:rounded-r-4xl md:rounded-l-none bg-white flex flex-col justify-center px-10 py-5 md:py-20 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
+            <img src="/prospera.png" alt="dompet" className="w-8 h-8" />
+            <p className="font-medium">Prospera</p>
+          </div>
+          {/* <div className="flex gap-3 items-center text-[var(--color--primary)]">
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
-          </div>
+          </div> */}
           <div className="flex gap-2 items-center w-max">
             <h1 className="font-medium text-3xl my-2">{isPinExist ? "Enter" : "Create"} Your Pin </h1>
             <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" className="size-8" />
           </div>
-          <p className="font-normal text-[13px] md:text-[15px] text-gray-400">
+          <p className="font-normal text-[13px] md:text-[15px] text-[#4F5665]">
             Please save your pin because this so important.
           </p>
 
@@ -128,7 +132,7 @@ function EnterPin() {
                   onBlur={handleBlur}
                   ref={(el) => (inputsRef.current[idx] = el)}
                   autoComplete="one-time-code" // biar dianggap input OTP, ga diisi otomatis
-                  className={`w-6 md:w-14  h-12 text-center border-b-2 outline-none text-xl"
+                  className={`w-6 md:w-14  h-12 text-center border-b-2 outline-none text-xl font-medium"
           ${focusedIndex === idx
                       ? "border-[var(--color--primary)]"
                       : "border-gray-300"
@@ -150,9 +154,9 @@ function EnterPin() {
             </button>
           </form>
 
-          <p className="flex gap-1 justify-center mt-3">
+          <p className="flex gap-1 justify-center mt-3 text-[#4F5665]">
             Forgot Your Pin?
-            <Link className="text-[var(--color--primary)]">Reset</Link>
+            <Link className="text-[var(--color--primary)] font-medium">Reset</Link>
           </p>
         </div>
 
