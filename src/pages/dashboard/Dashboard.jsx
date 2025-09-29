@@ -104,7 +104,7 @@ const Dashboard = () => {
 
   return (
     <div className=" flex-1">
-      {/* <Header title={'Dashboard'} Icon={Dashb} /> */}
+      <Header title={'Dashboard'} Icon={Dashb} />
       {/* Header Background biru - hanya untuk mobile */}
       <div className="bg-[#2948FF] h-16 md:hidden"></div>
 
@@ -213,7 +213,7 @@ const Dashboard = () => {
           </div>
 
           {/* Transaction History Mobile */}
-          <div>
+          <div className="pb-12">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-[#0B132A]">
                 Transaction History
@@ -260,7 +260,7 @@ const Dashboard = () => {
       </div>
 
       {/* ===== Desktop Layout ===== */}
-      <div className="hidden md:block py-12">
+      <div className="hidden md:block">
         {/* Bagian Atas: 2 grid */}
         <div className="flex gap-6 mb-6">
           {/* Balance Card Desktop */}
@@ -329,7 +329,7 @@ const Dashboard = () => {
         </div>
 
         {/* Bagian Bawah: Chart + History */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-6 pb-16">
           {/* Financial Chart Desktop */}
           <div className="col-span-2 bg-white border border-gray-300 rounded-xl p-6 shadow-xs">
             <div className="flex justify-between items-center mb-4">
