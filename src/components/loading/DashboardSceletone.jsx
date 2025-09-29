@@ -10,7 +10,7 @@ const SkeletonBox = ({ className }) => (
 export default function DashboardSceletone() {
     return (
         <div className="flex h-screen bg-gray-50">
-            <div className="hidden md:block">
+            <div className="hidden md:block w-full">
                 <div className="flex-1 p-6 space-y-6">
                     <SkeletonBox className="h-14 w-56 my-5 " />
                     <div className="flex gap-6">
