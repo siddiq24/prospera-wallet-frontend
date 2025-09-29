@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { useParams, useSearchParams } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { Eye, EyeOff } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
+import PassValidation from '../../components/PassValidation';
 
 const CreatePasswordPin = () => {
     const [code, setCode] = useState('');
@@ -10,23 +12,11 @@ const CreatePasswordPin = () => {
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const navigate = useNavigate()
 
     const { type } = useParams();
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
-
-    // Regex rules
-    const minLen = /^.{8,}$/;
-    const hasLower = /(?=.*[a-z])/;
-    const hasUpper = /(?=.*[A-Z])/;
-    const hasDigit = /(?=.*\d)/;
-
-    const rules = [
-        { test: minLen, label: "At least 8 characters" },
-        { test: hasLower, label: "Lowercase letter" },
-        { test: hasUpper, label: "Uppercase letter" },
-        { test: hasDigit, label: "At least one number" },
-    ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,12 +38,6 @@ const CreatePasswordPin = () => {
 
         if (type === 'pin' && (!/^\d+$/.test(code) || code.length !== 6)) {
             setError('PIN harus terdiri dari 6 digit angka');
-            setLoading(false);
-            return;
-        }
-
-        if (type === 'password' && !rules.every(rule => rule.test.test(code))) {
-            setError('Password belum memenuhi semua syarat');
             setLoading(false);
             return;
         }
@@ -84,7 +68,11 @@ const CreatePasswordPin = () => {
                 setMessage(`${type === 'password' ? 'Password' : 'PIN'} berhasil direset!`);
                 setCode('');
                 setConfirmCode('');
+                setTimeout(() => {
+                    navigate('/auth/login')
+                }, 1000);
             } else {
+                console.log(data)
                 setError(data.message || `Gagal mereset ${type === 'password' ? 'password' : 'PIN'}`);
             }
         } catch (err) {
@@ -94,6 +82,11 @@ const CreatePasswordPin = () => {
         }
     };
 
+    useEffect(() => {
+        message && toast.success(message) && setMessage('')
+        error && toast.error(error) && setError('')
+    }, [message, error])
+
     const inputType = type === 'password' ? 'password' : 'text';
     const inputMode = type === 'pin' ? 'numeric' : 'text';
     const maxLength = type === 'pin' ? 6 : undefined;
@@ -101,12 +94,15 @@ const CreatePasswordPin = () => {
         type === 'pin'
             ? 'Masukkan 6 digit PIN'
             : 'Masukkan password minimal 8 karakter';
-    const allValid = rules.every(rule => rule.test.test(code));
 
     return (
-        <div className="min-h-screen bg-[var(--color--primary)] flex items-center justify-center px-4">
-            <div className="max-w-[40vw] aspect-5/4 w-full bg-white rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col items-center justify-center gap-8">
-                <h1 className="text-2xl lg:text-4xl font-bold mb-4 text-center">
+        <div className="min-h-screen bg-[var(--color--primary)] flex items-center justify-center px-4 flex-col gap-10 md:gap-20"> <Toaster />
+            <div className='flex items-center gap-2 md:gap-5 justify-center'>
+                <img src="/pros-logo-bw.png" alt="" className='size-[10vw] md:size-[5%] lg:size-[3%]' />
+                <p className='text-white text-[6vw] md:text-[3vw] lg:text-[2vw]  font-bold'>Prospera</p>
+            </div>
+            <div className="max-w-2xl p-8 md:p-15 w-full h-full bg-white rounded-2xl shadow-lg border border-gray-100  flex flex-col items-center justify-center gap-8 lg:max-w-[70vh]">
+                <h1 className="text-2xl lg:text-3xl font-bold mb-4 text-center">
                     Reset {type === 'password' ? 'Password' : 'PIN'}
                 </h1>
 
@@ -122,6 +118,7 @@ const CreatePasswordPin = () => {
                                 type={showPassword ? "text" : inputType}
                                 inputMode={inputMode}
                                 maxLength={maxLength}
+                                autoFocus
                                 value={code}
                                 onChange={(e) => setCode(e.target.value)}
                                 placeholder={placeholder}
@@ -137,32 +134,7 @@ const CreatePasswordPin = () => {
                                 </button>
                             )}
                         </div>
-
-                        {/* Checklist Validasi Password */}
-                        {type === 'password' && !allValid && (
-                            <div className="mt-3 bg-gray-50 rounded-lg text-sm lg:text-lg relative">
-                                <ul className="space-y-1 absolute bg-cyan-100 top-6 left-5 shadow-md rounded-xl p-4 -translate-y-8 border-cyan-900 border w-full  z-100">                                    <p className="font-medium text-gray-700 mb-2">Your password must have:</p>
-                                    {rules.map((rule, idx) => {
-                                        const isValid = rule.test.test(code);
-                                        return (
-                                            <li key={idx} className="flex items-center gap-2 ">
-                                                <span
-                                                    className={`w-4 h-4 flex items-center justify-center rounded-full border text-xs ${isValid
-                                                        ? 'bg-green-100 border-green-700 text-green-600'
-                                                        : 'bg-gray-100 border-gray-400 text-gray-400'
-                                                        }`}
-                                                >
-                                                    {isValid ? '✓' : '•'}
-                                                </span>
-                                                <span className={isValid ? 'text-green-600' : 'text-gray-600'}>
-                                                    {rule.label}
-                                                </span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                        )}
+                        {type === 'password' && <PassValidation code={code} />}
                     </div>
 
                     {/* Input Konfirmasi */}
@@ -192,19 +164,6 @@ const CreatePasswordPin = () => {
                             )}
                         </div>
                     </div>
-
-                    {/* Error & Success */}
-                    {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm lg:text-lg">
-                            {error}
-                        </div>
-                    )}
-                    {message && (
-                        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm lg:text-lg">
-                            {message}
-                        </div>
-                    )}
-
                     {/* Submit */}
                     <button
                         type="submit"
