@@ -199,6 +199,10 @@ function Login() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
+            <p className="text-right my-4 text-[var(--color--primary)]">
+              <Link to={'/auth/forgot/password'}
+              >Forgot Password?</Link>
+            </p>
             <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Login
             </button>

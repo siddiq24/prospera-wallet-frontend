@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "./redux/slices/userSlice";
 import { Toaster } from "react-hot-toast";
 import Notification from "./components/Notification";
+import CreatePasswordPin from "./pages/forgot/Create";
 
 function App() {
   return (
@@ -32,8 +33,9 @@ function App() {
         <Route path="/auth">
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="forgot/:type" element={<ForgotPassword />} />
           <Route path="pin" element={<EnterPin />} />
+          <Route path="create/:type" element={<CreatePasswordPin/>} />
         </Route>
 
         <Route element={<HomeLayout />}>
@@ -96,7 +98,7 @@ function DashboardLayout() {
 
   return (
     <div className="overflow-x-hidden">
-      <Toaster/><Notification/>
+      <Toaster /><Notification />
       <LoggedNavbar />
       <div className="flex flex-col-reverse md:flex-row md:px-15">
         <Sidebar cName="md:min-h-screen" />

@@ -152,7 +152,7 @@ function EnterPin() {
 
           <p className="flex gap-1 justify-center mt-3">
             Forgot Your Pin?
-            <Link className="text-[var(--color--primary)]">Reset</Link>
+            <Link to={'/auth/forgot/pin'} className="text-[var(--color--primary)]">Reset</Link>
           </p>
         </div>
 
