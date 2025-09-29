@@ -5,7 +5,7 @@ import axios from "axios";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const {type} = useParams()
+  const { type } = useParams()
   console.log(type)
 
   const handleSubmit = async () => {
@@ -14,7 +14,7 @@ const ForgotPassword = () => {
         email,
         type,
       });
-  
+
       toast.success(`Success: ${response.data.message || "Email submitted"}`);
     } catch (error) {
       console.error(error);
@@ -25,14 +25,12 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#3969FD] flex items-center justify-center p-4"><Toaster/>
+    <div className="min-h-screen bg-[#3969FD] flex items-center justify-center p-4"><Toaster />
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
         {/* Header with Icon */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center mt-2">
-            <img src="/money-wallet.svg" />
-          </div>
-          <h1 className="text-xl font-semibold text-blue-600">E-Wallet</h1>
+          <img src="/prospera.png" className="w-10" />
+          <h1 className="text-xl font-semibold text-blue-700">Prospera</h1>
         </div>
 
         {/* Title */}
