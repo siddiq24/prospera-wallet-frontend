@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function EnterPin() {
@@ -7,6 +9,7 @@ function EnterPin() {
   const [focusedIndex, setFocusedIndex] = useState(null);
   const inputsRef = useRef([]);
   const navigate = useNavigate();
+  const { isPinExist, token } = useSelector((state) => state.user);
 
   const handleChange = (e, idx) => {
     const val = e.target.value.replace(/\D/g, ""); // hanya angka
@@ -42,22 +45,71 @@ function EnterPin() {
     setFocusedIndex(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/home");
+    const pinInput = pinValues.join("");
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    const body = JSON.stringify({
+      pin: pinInput,
+    });
+
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body,
+      };
+
+      if (!isPinExist) {
+        const response = await fetch(`${baseUrl}/auth/pin`, options);
+        const data = await response.json();
+
+        if (data.success) {
+          navigate("/transaction/dashboard");
+          return;
+        }
+      }
+
+      const response = await fetch(`${baseUrl}/auth/verify-pin`, options);
+      const data = await response.json();
+
+      // console.log(data);
+      if (!data.data) {
+        toast.error(data.message);
+        return;
+      }
+
+      toast.success(data.message);
+      setTimeout(() => {
+        navigate("/transaction/dashboard");
+      }, 1400);
+    } catch (err) {
+      console.error("Error: ", err)
+    }
   };
 
   const isPinComplete = pinValues.every((v) => v !== "");
   return (
     <>
-      <section className="flex min-h-screen bg-[var(--color--primary)] py-15 px-10 md:p-0">
-        <div className="w-full md:w-1/2 rounded-r-2xl rounded-l-2xl md:rounded-r-4xl md:rounded-l-none bg-white flex flex-col justify-center px-10 py-10 md:py-20 md:p-20">
+      <Toaster />
+      <section className="flex min-h-screen bg-[var(--color--primary)] py-30 px-10 md:p-0">
+        <div className="w-full md:w-1/2 rounded-r-2xl rounded-l-2xl md:rounded-r-4xl md:rounded-l-none bg-white flex flex-col justify-center px-10 py-5 md:py-20 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
+            <img src="/prospera.png" alt="dompet" className="w-8 h-8" />
+            <p className="font-medium">Prospera</p>
+          </div>
+          {/* <div className="flex gap-3 items-center text-[var(--color--primary)]">
             <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
             <p className="font-medium">E-Wallet</p>
+          </div> */}
+          <div className="flex gap-2 items-center w-max">
+            <h1 className="font-medium text-3xl my-2">{isPinExist ? "Enter" : "Create"} Your Pin </h1>
+            <img src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113" alt="" className="size-8" />
           </div>
-          <h1 className="font-medium text-3xl my-2">Enter Your Pin 👋</h1>
-          <p className="font-normal text-[13px] md:text-[15px] text-gray-400">
+          <p className="font-normal text-[13px] md:text-[15px] text-[#4F5665]">
             Please save your pin because this so important.
           </p>
 
@@ -80,12 +132,11 @@ function EnterPin() {
                   onBlur={handleBlur}
                   ref={(el) => (inputsRef.current[idx] = el)}
                   autoComplete="one-time-code" // biar dianggap input OTP, ga diisi otomatis
-                  className={`w-5 md:w-14 h-12 text-center border-b-2 outline-none text-xl
-          ${
-            focusedIndex === idx
-              ? "border-[var(--color--primary)]"
-              : "border-gray-300"
-          }`}
+                  className={`w-6 md:w-14  h-12 text-center border-b-2 outline-none text-xl font-medium"
+          ${focusedIndex === idx
+                      ? "border-[var(--color--primary)]"
+                      : "border-gray-300"
+                    }`}
                 />
               ))}
             </div>
@@ -94,19 +145,18 @@ function EnterPin() {
               type="submit"
               disabled={!isPinComplete}
               className={`w-full py-3 rounded-lg cursor-pointer transition
-            ${
-              isPinComplete
-                ? "bg-[var(--color--primary)] text-white hover:opacity-90"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
+            ${isPinComplete
+                  ? "bg-[var(--color--primary)] text-white hover:opacity-90"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
             >
               Submit
             </button>
           </form>
 
-          <p className="flex gap-1 justify-center mt-3">
+          <p className="flex gap-1 justify-center mt-3 text-[#4F5665]">
             Forgot Your Pin?
-            <Link className="text-[var(--color--primary)]">Reset</Link>
+            <Link to={'/auth/forgot/pin'} className="text-[var(--color--primary)]">Reset</Link>
           </p>
         </div>
 

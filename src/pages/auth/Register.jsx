@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
@@ -63,11 +63,43 @@ function Register() {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/login");
+    const regBtn = e.target[3];
+
     if (validate()) {
-      setMessage("Register berhasil");
+      try {
+        const url = `${import.meta.env.VITE_BASE_URL}/auth/register`;
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: form.email,
+            password: form.pwd,
+          }),
+        };
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        if (!response.ok) {
+          let newErr = {};
+          newErr.confpwd = data.error;
+
+          setErrors(newErr);
+          throw response.statusText;
+        }
+
+        setMessage(data.message);
+        regBtn.disabled = true;
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 1200);
+      } catch (err) {
+        console.error("Error: ", err)
+      }
     } else {
       setMessage(""); // pesan global hanya muncul kalau berhasil
     }
@@ -77,8 +109,8 @@ function Register() {
       <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
         <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-20 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
-            <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
-            <p className="font-medium">E-Wallet</p>
+            <img src="/prospera.png" alt="dompet" className="w-8 h-8" />
+            <p className="font-medium">Prospera</p>
           </div>
           <h1 className="font-medium text-3xl my-2">
             Start Accessing Banking Needs With All Devices and All Platforms
@@ -91,11 +123,11 @@ function Register() {
           </p>
 
           <div className="mt-6 md:space-y-3 flex md:flex-col flex-row">
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/google.png" alt="google logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Google</span>
             </div>
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/fb.png" alt="facebook logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Facebook</span>
             </div>
@@ -109,7 +141,9 @@ function Register() {
 
           <form onSubmit={handleSubmit}>
             <div className="mt-6 flex flex-col">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email"
+                className="font-medium text-[#0B132A]"
+              >Email</label>
               <div className="relative">
                 <input
                   type="text"
@@ -118,7 +152,7 @@ function Register() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter Your Email"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/email.png"
@@ -131,7 +165,9 @@ function Register() {
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="pwd">Password</label>
+              <label htmlFor="pwd"
+                className="font-medium text-[#0B132A]"
+              >Password</label>
               <div className="relative">
                 <input
                   type={showPwd ? "text" : "password"}
@@ -141,7 +177,7 @@ function Register() {
                   value={form.pwd}
                   onChange={handleChange}
                   placeholder="Enter Your Password"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/password.png"
@@ -160,7 +196,9 @@ function Register() {
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="confpwd">Confirm Password</label>
+              <label htmlFor="confpwd"
+                className="font-medium text-[#0B132A]"
+              >Confirm Password</label>
               <div className="relative">
                 <input
                   type={showConfPwd ? "text" : "password"}
@@ -169,7 +207,7 @@ function Register() {
                   value={form.confpwd}
                   onChange={handleChange}
                   placeholder="Enter Your Password Again"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/password.png"
@@ -195,13 +233,13 @@ function Register() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
-            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
+            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Register
             </button>
           </form>
-          <p className="flex gap-1 justify-center">
+          <p className="flex gap-1 justify-center text-[#4F5665]">
             Have An Account?
-            <Link to="/login" className="text-[var(--color--primary)]">
+            <Link to="/auth/login" className="text-[var(--color--primary)] font-medium">
               Login
             </Link>
           </p>

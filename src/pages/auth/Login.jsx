@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/src/assets/styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { clearUser, setUser } from "../../redux/slices/userSlice";
 
 function Login() {
   const [showPwd, setShowPwd] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const eyesolid = <Eye />;
   const eyeslash = <EyeOff />;
+
+  useEffect(() => {
+    dispatch(clearUser());
+  }, [dispatch]);
 
   const [form, setForm] = useState({
     email: "",
     pwd: "",
-    confpwd: "",
   });
 
   const handleChange = (e) => {
@@ -24,42 +30,80 @@ function Login() {
     });
   };
 
-  const validate = () => {
-    let newErr = {};
-    let valid = true;
+  // const validate = () => {
+  //   let newErr = {};
+  //   let valid = true;
 
-    // validasi email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!form.email) {
-      newErr.email = "Email tidak boleh kosong";
-      valid = false;
-    } else if (!emailPattern.test(form.email)) {
-      newErr.email = "Format email tidak valid";
-      valid = false;
-    }
+  //   // validasi email
+  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!form.email) {
+  //     newErr.email = "Email tidak boleh kosong";
+  //     valid = false;
+  //   } else if (!emailPattern.test(form.email)) {
+  //     newErr.email = "Format email tidak valid";
+  //     valid = false;
+  //   }
 
-    // validasi password
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
-    if (!form.pwd) {
-      newErr.pwd = "Password tidak boleh kosong";
-      valid = false;
-    } else if (!passwordPattern.test(form.pwd)) {
-      newErr.pwd =
-        "Password minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 karakter spesial";
-      valid = false;
-    }
+  //   // validasi password
+  //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+  //   if (!form.pwd) {
+  //     newErr.pwd = "Password tidak boleh kosong";
+  //     valid = false;
+  //   } else if (!passwordPattern.test(form.pwd)) {
+  //     newErr.pwd =
+  //       "Password minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 karakter spesial";
+  //     valid = false;
+  //   }
 
-    setErrors(newErr);
-    return valid;
-  };
+  //   setErrors(newErr);
+  //   return valid;
+  // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/pin");
-    if (validate()) {
-      setMessage("Register berhasil");
-    } else {
-      setMessage(""); // pesan global hanya muncul kalau berhasil
+    const logBtn = e.target[2];
+
+    try {
+      const url = `${import.meta.env.VITE_BASE_URL}/auth`;
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.pwd,
+        }),
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+
+      // console.log(data);
+      if (!data.success) {
+        let newErr = {};
+        newErr.pwd = data.error;
+
+        setErrors(newErr)
+        return
+      }
+      setErrors({ pwd: "" })
+
+      setMessage(data.message);
+      logBtn.disabled = true;
+
+      dispatch(setUser({
+        isPinExist: data.isPinExist,
+        token: data.token,
+        email: data.email,
+        issuedAt: Date.now(),
+      }));
+
+      setTimeout(() => {
+        navigate("/auth/pin");
+      }, 1200);
+    } catch (err) {
+      console.error("Error: ", err)
     }
   };
   return (
@@ -67,20 +111,29 @@ function Login() {
       <section className="flex min-h-screen bg-white md:bg-[var(--color--primary)]">
         <div className="w-full md:w-1/2 rounded-r-4xl bg-white flex flex-col justify-center px-10 py-12 md:p-20">
           <div className="flex gap-3 items-center text-[var(--color--primary)]">
-            <img src="/dompetkecil.png" alt="dompet" className="w-8 h-8" />
-            <p className="font-medium">E-Wallet</p>
+            <img src="/prospera.png" alt="dompet" className="w-8 h-8" />
+            <p className="font-medium">Prospera</p>
           </div>
-          <h1 className="font-medium text-3xl my-2">Hello Welcome Back 👋</h1>
-          <p className="font-normal text-[15px] text-gray-400">
+
+          <h1 className="font-medium text-3xl flex- gap-2 my-2 flex items-center">
+            Hello Welcome Back
+            <img
+              src="https://emojiisland.com/cdn/shop/products/Waving_Hand_Sign_Emoji_Icon_ios10_small.png?v=1571606113"
+              alt=""
+              width={30}
+              className="size-8"
+            />
+          </h1>
+          <p className="font-normal text-[15px] text-[#4F5665]">
             Fill out the form correctly or you can login with several option.
           </p>
 
           <div className="mt-6 md:space-y-3 flex md:flex-col flex-row">
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/google.png" alt="google logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Google</span>
             </div>
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/fb.png" alt="facebook logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Facebook</span>
             </div>
@@ -94,7 +147,9 @@ function Login() {
 
           <form onSubmit={handleSubmit}>
             <div className="mt-6 flex flex-col">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email"
+                className="font-medium text-[#0B132A]"
+              >Email</label>
               <div className="relative">
                 <input
                   type="text"
@@ -103,7 +158,7 @@ function Login() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter Your Email"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/email.png"
@@ -116,17 +171,18 @@ function Login() {
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="pwd">Password</label>
+              <label htmlFor="pwd"
+                className="font-medium text-[#0B132A]"
+              >Password</label>
               <div className="relative">
                 <input
                   type={showPwd ? "text" : "password"}
-                  inputMode="none"
                   name="pwd"
                   id="pwd"
                   value={form.pwd}
                   onChange={handleChange}
                   placeholder="Enter Your Password"
-                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full"
+                  className="border border-gray-300 bg-[#FCFDFE] rounded-lg py-2 px-10 my-2 w-full focus:outline-none focus:ring-1"
                 />
                 <img
                   src="/password.png"
@@ -147,13 +203,17 @@ function Login() {
             {message && (
               <p className="text-sm font-medium text-green-600">{message}</p>
             )}
-            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer">
+            <p className="text-right my-4 text-[var(--color--primary)]">
+              <Link to={'/auth/forgot/password'}
+              >Forgot Password?</Link>
+            </p>
+            <button className="my-5 bg-[var(--color--primary)] text-white w-full py-2 rounded-lg cursor-pointer disabled:opacity-60">
               Login
             </button>
           </form>
-          <p className="flex gap-1 justify-center">
-            Have An Account?
-            <Link to="/register" className="text-[var(--color--primary)]">
+          <p className="flex gap-1 justify-center text-[#4F5665]">
+            Not Have An Account?
+            <Link to="/auth/register" className="text-[var(--color--primary)] font-medium">
               Register
             </Link>
           </p>

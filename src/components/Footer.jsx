@@ -1,4 +1,5 @@
 import React from "react";
+import { Mail } from "./profile/Svg";
 
 function Footer() {
     return (
@@ -27,7 +28,7 @@ function Footer() {
                             <p>+62 5637 8882 9901</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            <img src="message.svg" alt="" />
+                            <Mail size={20} color="#fff"/>
                             <p>contact@zwallet.com</p>
                         </div>
                     </div>
