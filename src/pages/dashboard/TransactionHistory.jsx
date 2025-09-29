@@ -34,11 +34,8 @@ const TransactionHistory = () => {
           avatar: user.counterparty_img,
         }))
       );
-      console.log(history);
     }
   }, [history]);
-
-  console.log(transactions);
 
   // Filter transaksi berdasarkan search term
   const filteredTransactions = transactions.filter(
