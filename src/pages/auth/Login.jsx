@@ -173,7 +173,6 @@ function Login() {
               <div className="relative">
                 <input
                   type={showPwd ? "text" : "password"}
-                  inputMode="none"
                   name="pwd"
                   id="pwd"
                   value={form.pwd}
