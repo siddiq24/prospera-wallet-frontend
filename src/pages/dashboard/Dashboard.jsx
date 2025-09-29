@@ -48,7 +48,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(resC.data.data)
+        // console.log(resC.data.data)
         setChartData(
           resC.data.data.map((data, i) => ({
             day: (resC.data.data.length == 4 ? `Week ${i + 1}` : new Date(data.date).toDateString().slice(0, 3)),
@@ -67,7 +67,7 @@ const Dashboard = () => {
       }
     })()
   }, [dispatch, token, balance, range]);
-  console.log(history)
+  // console.log(history)
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -199,7 +199,9 @@ const Dashboard = () => {
               <h3 className="text-lg font-semibold text-gray-900">
                 Transaction History
               </h3>
-              <button className="text-blue-600 text-sm">See All</button>
+              <button className="text-blue-600 text-sm"
+                onClick={() => navigate("/transaction/history")}
+              >See All</button>
             </div>
 
             <div className="space-y-4">
@@ -241,7 +243,7 @@ const Dashboard = () => {
         {/* Bagian Atas: 2 grid */}
         <div className="flex gap-6 mb-6">
           {/* Balance Card Desktop */}
-          <div className="bg-white flex-1 border border-gray-300 rounded-xl p-6 shadow-sm">
+          <div className="bg-white flex-1 border border-gray-300 rounded-xl p-6 shadow-xs">
             <div className="flex items-center gap-2 mb-4">
               <img src="/balance.png"></img>
               <span className="text-gray-700 font-medium">Balance</span>
@@ -284,14 +286,14 @@ const Dashboard = () => {
           </div>
 
           {/* Fast Service + Buttons */}
-          <div className="bg-white flex-2 border border-gray-300 col-auto rounded-xl p-6 shadow-sm flex flex-col justify-center">
+          <div className="bg-white flex-2 border border-gray-300 col-auto rounded-xl p-6 shadow-xs flex flex-col justify-center">
             <div className="flex justify-between items-center ">
               <h3 className="text-gray-700 font-medium text-lg">
                 Fast Service
               </h3>
               <div className="flex gap-3">
                 <button onClick={() => { navigate('/transaction/topup') }}
-                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow text-sm cursor-pointer hover:opacity-75">
+                  className="bg-blue-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 text-sm cursor-pointer hover:opacity-75">
                   <Plus size={16} />
                   Top Up
                 </button>
@@ -308,7 +310,7 @@ const Dashboard = () => {
         {/* Bagian Bawah: Chart + History */}
         <div className="grid grid-cols-3 gap-6">
           {/* Financial Chart Desktop */}
-          <div className="col-span-2 bg-white border border-gray-300 rounded-xl p-6 shadow-sm">
+          <div className="col-span-2 bg-white border border-gray-300 rounded-xl p-6 shadow-xs">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-900">
                 Financial Chart
