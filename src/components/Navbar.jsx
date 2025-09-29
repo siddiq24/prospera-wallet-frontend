@@ -13,13 +13,16 @@ export function Navbar() {
             className='text-white fixed w-screen top-0'
         >
             <nav
-                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-10 md:px-32'
+                className='z-9999 bg-[#2948FF] flex items-center justify-between p-4 px-8 md:px-28'
             >
                 <div
-                    className='w-30 md:w-50'
+                    className='w-30 md:w-50 flex items-center gap-3'
                 >
-                    <img src="/LogoNavHome.png" alt="" className='drop-shadow-2xl '
+                    <img src="/pros-logo-bw.png" alt="" className='drop-shadow-2xl w-10'
                     />
+                    <p
+                        className="font-semibold"
+                    >Prospera</p>
                 </div>
                 <div
                     className='md:flex md:items-center md:gap-4'
@@ -30,10 +33,10 @@ export function Navbar() {
                         openMenu={openMenu}
                     />
                     <Link to={'/auth/login'}
-                        className='hidden md:block px-4 py-2 bg-transparent rounded-sm border'
+                        className='hidden md:block px-4 py-2 bg-transparent rounded-sm border hover:opacity-90'
                     >SignIn</Link>
                     <Link to={'/auth/register'}
-                        className='hidden md:block px-4 py-2 bg-white rounded-sm text-[#3969FD]'
+                        className='hidden md:block px-4 py-2 bg-white rounded-sm text-[#3969FD] hover:opacity-90'
                     >SignUp</Link>
                 </div>
             </nav>
