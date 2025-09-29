@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useSearchParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { Eye, EyeOff } from 'lucide-react';
 
 const CreatePasswordPin = () => {
@@ -10,6 +10,7 @@ const CreatePasswordPin = () => {
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const navigate = useNavigate()
 
     const { type } = useParams();
     const [searchParams] = useSearchParams();
@@ -91,6 +92,7 @@ const CreatePasswordPin = () => {
             setError('Terjadi kesalahan saat menghubungi server', err);
         } finally {
             setLoading(false);
+            navigate('/auth/login')
         }
     };
 
