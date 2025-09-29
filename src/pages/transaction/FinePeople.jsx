@@ -218,12 +218,12 @@ const FinePeople = () => {
 
             {/* user List - Desktop Table Style */}
             <div className="overflow-x-auto">
-              {currentUsers.map((user) => (
+              {currentUsers.map((user, i) => (
                 <div
                   onClick={() => navigate(`/transaction/transfer/${user.id}`)}
                   key={user.id}
                   className={`flex cursor-pointer items-center px-6 py-4 border border-gray-100 last:border-b-0 hover:border-gray-400  transition-colors ${
-                    user.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    i % 2 === 1 ? "bg-white" : "bg-gray-50"
                   }`}
                 >
                   {/* Avatar */}
