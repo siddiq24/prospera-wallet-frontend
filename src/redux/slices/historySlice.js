@@ -51,7 +51,7 @@ const historySlice = createSlice({
             });
     },
 });
-console.log("🚀 ~ historySlice:", historySlice)
+// console.log("🚀 ~ historySlice:", historySlice)
 
 export const { clearHistory } = historySlice.actions;
 export default historySlice.reducer;
