@@ -10,12 +10,13 @@ import {
   submitTopup,
   clearTopup,
 } from "../../redux/slices/topupSlice";
+import { Profile } from "../../assets/Svg";
 
 function TopUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { fullname, phone, img, verified } = useSelector(
+  const { fullname, phone, verified } = useSelector(
     (state) => state.profile
   );
   const { banks, amount, selectedBank, va, loading, success, error } =
@@ -23,9 +24,16 @@ function TopUp() {
 
   const [errors, setErrors] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [profileUrl, setProfileUrl] = useState("");
   const profileState = useSelector((state) => state.profile);
   const vaccount =
     selectedBank && phone ? `${selectedBank.code}${phone}` : null;
+
+  useEffect(() => {
+    setProfileUrl(
+      `${import.meta.env.VITE_BASE_URL}/profile/${profileState.img}`
+    );
+  }, []);
 
   useEffect(() => {
     dispatch(fetchBanks());
@@ -103,13 +111,11 @@ function TopUp() {
           <div className="py-5 px-8 mb-5 flex-1 md:border bg-white md:border-gray-200 md:rounded-lg">
             <h2 className="font-semibold mb-3">Account Information</h2>
             <div className="flex gap-5 bg-[#E8E8E84D] p-5 rounded-lg">
-              <img
-                src={`${import.meta.env.VITE_BASE_URL}/profile/${
-                  profileState.img
-                }`}
-                alt="foto profile"
-                className="w-25 h-25 object-cover"
-              />
+              {profileState.img ? (
+                <img src={profileUrl} alt="Profile" className="w-25 h-25 object-cover rounded-2xl" />
+              ) : (
+                <Profile size={50} />
+              )}
               <div>
                 <p className="font-semibold">{fullname}</p>
                 <p className="text-gray-500 my-3">{phone}</p>
@@ -186,28 +192,26 @@ function TopUp() {
             <p className="font-semibold">Payment</p>
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p className="font-semibold text-[#4F5665]">Order</p>
-              <p
-                className="text-[#0B132A] font-bold"
-              >Idr.{formatCurrency(amount)}</p>
+              <p className="text-[#0B132A] font-bold">
+                Idr.{formatCurrency(amount)}
+              </p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p className="font-semibold text-[#4F5665]">Delivery</p>
-              <p
-                className="text-[#0B132A] font-bold"
-              >Idr.0</p>
+              <p className="text-[#0B132A] font-bold">Idr.0</p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
               <p className="font-semibold text-[#4F5665]">Tax</p>
-              <p
-                className="text-[#0B132A] font-bold"
-              >Idr.{formatCurrency(tax)}</p>
+              <p className="text-[#0B132A] font-bold">
+                Idr.{formatCurrency(tax)}
+              </p>
             </div>
             <hr className="border-gray-500" />
             <div className="flex justify-between mt-4 mb-2 font-semibold text-sm">
               <p className="font-semibold text-[#4F5665]">Sub Total</p>
-              <p
-                className="text-[#0B132A] font-bold"
-              >Idr.{formatCurrency(subtotal)}</p>
+              <p className="text-[#0B132A] font-bold">
+                Idr.{formatCurrency(subtotal)}
+              </p>
             </div>
             <button
               onClick={handleSubmit}
