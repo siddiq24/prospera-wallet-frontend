@@ -130,7 +130,7 @@ const TransactionHistory = () => {
               </div>
               <div className="text-right">
                 <p
-                  className={`font-medium text-sm ${transaction.type === "credit"
+                  className={`font-medium text-sm ${transaction.type === "top_up"
                     ? "text-green-600"
                     : "text-red-500"
                     }`}
@@ -180,7 +180,7 @@ const TransactionHistory = () => {
               {currentTransactions.map((transaction, i) => (
                 <div
                   key={i}
-                  className={`flex justify-between px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${transaction.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  className={`flex justify-between px-6 py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors ${i % 2 === 1 ? "bg-white" : "bg-gray-50"
                     }`}
                 >
                   {/* Avatar */}
@@ -212,7 +212,7 @@ const TransactionHistory = () => {
                   {/* Amount */}
                   <div className="flex-2 mr-28">
                     <p
-                      className={`text-sm text-center font-medium ${transaction.type === "credit"
+                      className={`text-sm text-center font-medium ${transaction.type === "top_up"
                         ? "text-green-600"
                         : "text-red-500"
                         }`}
@@ -229,7 +229,7 @@ const TransactionHistory = () => {
                         setSelectedTransaction(transaction);
                         handleDelete();
                       }}
-                      className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
