@@ -114,7 +114,7 @@ function TopUp() {
                 <p className="font-semibold">{fullname}</p>
                 <p className="text-gray-500 my-3">{phone}</p>
                 {verified && (
-                  <div className="inline-flex items-center gap-2 bg-[var(--color--primary)] rounded px-2 py-1">
+                  <div className="inline-flex items-center gap-2 bg-[var(--color--primary)] rounded-md px-2">
                     <img src="/verified.svg" alt="verified" />
                     <span className="text-white">Verified</span>
                   </div>
@@ -123,7 +123,7 @@ function TopUp() {
             </div>
 
             <h2 className="font-semibold mt-5">Amount</h2>
-            <p className="text-gray-500 text-sm my-3">
+            <p className="text-[#4F5665] text-sm my-3">
               Type the amount you want to transfer to your e-wallet account
             </p>
             <div className="relative">
@@ -132,7 +132,7 @@ function TopUp() {
                 placeholder="Enter Nominal Top Up"
                 value={amount ? formatCurrency(amount) : ""}
                 onChange={handleNominalChange}
-                className="border rounded-lg py-2 px-10 my-2 w-full focus:ring-1"
+                className="border border-[#E8E8E8] rounded-lg py-2 px-10 my-2 w-full focus:ring-1"
               />
               <img
                 src="/u_money.svg"
@@ -145,7 +145,7 @@ function TopUp() {
             )}
 
             <h2 className="font-semibold mt-5">Payment Method</h2>
-            <p className="text-gray-500 text-sm my-3">
+            <p className="text-[#4F5665] text-sm my-3">
               Choose your payment method for top up account
             </p>
             <div>
@@ -155,7 +155,7 @@ function TopUp() {
                   className={`flex items-center gap-4 border rounded-xl p-4 cursor-pointer hover:border-blue-500 my-5 ${
                     selectedBank?.id === bank.id
                       ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 bg-[#E8E8E84D]"
+                      : "border-transparent bg-[#E8E8E84D]"
                   }`}
                 >
                   <input
@@ -185,21 +185,29 @@ function TopUp() {
           <div className="pt-5 pb-2 px-8 mb-0 w-full md:w-1/3 md:border md:border-gray-200 md:rounded-lg self-start">
             <p className="font-semibold">Payment</p>
             <div className="flex justify-between my-2 font-semibold text-sm">
-              <p className="font-medium text-gray-500">Order</p>
-              <p>Idr.{formatCurrency(amount)}</p>
+              <p className="font-semibold text-[#4F5665]">Order</p>
+              <p
+                className="text-[#0B132A] font-bold"
+              >Idr.{formatCurrency(amount)}</p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
-              <p className="font-medium text-gray-500">Delivery</p>
-              <p>Idr.0</p>
+              <p className="font-semibold text-[#4F5665]">Delivery</p>
+              <p
+                className="text-[#0B132A] font-bold"
+              >Idr.0</p>
             </div>
             <div className="flex justify-between my-2 font-semibold text-sm">
-              <p className="font-medium text-gray-500">Tax</p>
-              <p>Idr.{formatCurrency(tax)}</p>
+              <p className="font-semibold text-[#4F5665]">Tax</p>
+              <p
+                className="text-[#0B132A] font-bold"
+              >Idr.{formatCurrency(tax)}</p>
             </div>
             <hr className="border-gray-500" />
             <div className="flex justify-between mt-4 mb-2 font-semibold text-sm">
-              <p className="font-medium text-gray-500">Sub Total</p>
-              <p>Idr.{formatCurrency(subtotal)}</p>
+              <p className="font-semibold text-[#4F5665]">Sub Total</p>
+              <p
+                className="text-[#0B132A] font-bold"
+              >Idr.{formatCurrency(subtotal)}</p>
             </div>
             <button
               onClick={handleSubmit}
@@ -212,7 +220,7 @@ function TopUp() {
             >
               {loading ? "Processing..." : "Submit"}
             </button>
-            <p className="text-gray-500 text-sm my-3">
+            <p className="text-[#4F5665] text-sm my-3">
               *Get Discount if you pay with Bank Central Asia
             </p>
           </div>

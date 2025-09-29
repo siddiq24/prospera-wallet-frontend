@@ -140,9 +140,9 @@ function Sidebar({ cName }) {
 function Item({ text, isActive, svg }) {
     return (
         <div
-            className={`flex flex-col md:flex-row items-center border border-transparent cursor-pointer gap-2 md:gap-3 p-2 rounded-md w-fit md:w-[90%]
+            className={`flex flex-col md:flex-row items-center border border-transparent cursor-pointer gap-2 md:gap-3 p-2 rounded-md w-fit md:w-[90%] font-medium
         ${isActive
-                    ? "text-blue-800 md:bg-[#2948ff] md:text-white"
+                    ? "text-[#2948FF] md:bg-[#2948ff] md:text-white"
                     : "text-[#4F5665] hover:border-[#c3c3c3]"
                 }
         ${text === "Keluar" ? "text-[#D00000] hidden md:flex" : ""}`}
