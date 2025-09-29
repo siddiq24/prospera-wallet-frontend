@@ -124,16 +124,16 @@ function Login() {
               className="size-8"
             />
           </h1>
-          <p className="font-normal text-[15px] text-gray-400">
+          <p className="font-normal text-[15px] text-[#4F5665]">
             Fill out the form correctly or you can login with several option.
           </p>
 
           <div className="mt-6 md:space-y-3 flex md:flex-col flex-row">
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full  py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/google.png" alt="google logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Google</span>
             </div>
-            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer">
+            <div className="flex justify-center items-center gap-3 border border-gray-300 w-full rounded-full py-2 cursor-pointer hover:bg-[#2948FF] hover:border-transparent hover:text-white">
               <img src="/fb.png" alt="facebook logo" className="w-6 h-6" />
               <span className="hidden md:block">Sign In With Facebook</span>
             </div>
@@ -147,7 +147,9 @@ function Login() {
 
           <form onSubmit={handleSubmit}>
             <div className="mt-6 flex flex-col">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email"
+                className="font-medium text-[#0B132A]"
+              >Email</label>
               <div className="relative">
                 <input
                   type="text"
@@ -169,7 +171,9 @@ function Login() {
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="pwd">Password</label>
+              <label htmlFor="pwd"
+                className="font-medium text-[#0B132A]"
+              >Password</label>
               <div className="relative">
                 <input
                   type={showPwd ? "text" : "password"}
@@ -207,9 +211,9 @@ function Login() {
               Login
             </button>
           </form>
-          <p className="flex gap-1 justify-center">
-            Have An Account?
-            <Link to="/auth/register" className="text-[var(--color--primary)]">
+          <p className="flex gap-1 justify-center text-[#4F5665]">
+            Not Have An Account?
+            <Link to="/auth/register" className="text-[var(--color--primary)] font-medium">
               Register
             </Link>
           </p>

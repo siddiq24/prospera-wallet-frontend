@@ -38,6 +38,7 @@ const ForgotPassword = () => {
         <p className='text-white text-[6vw] md:text-[3vw] lg:text-[2vw]  font-bold'>Prospera</p>
       </div>
       <div className="max-w-2xl p-8 md:p-15 w-full h-full bg-white rounded-2xl shadow-lg border border-gray-100  flex flex-col items-center justify-center gap-8 lg:max-w-[70vh]">
+
         {/* Title */}
         <div className="mb-6">
           <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-900 mb-5">
