@@ -14,7 +14,7 @@ function Header({ title, img, Icon = null }) {
             </div>
         )
     } else {
-        return <div className="bg-blue-600 flex gap-3 text-white px-8 py-4">
+        return <div className="bg-[#2948FF] border-b flex gap-3 text-white px-8 py-4">
             {Icon && <Icon size={25} color="#FFFFFF" />}
             <h1 className="text-lg font-semibold text-left">
                 {title}
