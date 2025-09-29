@@ -1,17 +1,31 @@
 import React, { useState } from "react";
-import { Mail, Wallet } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import { useParams } from "react-router";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const {type} = useParams()
+  console.log(type)
 
-  const handleSubmit = () => {
-    console.log("Email submitted:", email);
-    // Add your form submission logic here
-    alert(`Email submitted: ${email}`);
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/forgot`, {
+        email,
+        type,
+      });
+  
+      toast.success(`Success: ${response.data.message || "Email submitted"}`);
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Something went wrong. Please try again."
+      );
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#3969FD] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#3969FD] flex items-center justify-center p-4"><Toaster/>
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
         {/* Header with Icon */}
         <div className="flex items-center gap-3 mb-6">
