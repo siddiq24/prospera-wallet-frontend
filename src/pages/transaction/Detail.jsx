@@ -17,7 +17,7 @@ function Detail() {
   const [fetchError, setFetchError] = useState(null);
   const [receiver, setReceiver] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [_, setBalance] = useState(0);
+  const [balance, setBalance] = useState(0);
   const [pinError, setPinError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -95,6 +95,9 @@ function Detail() {
 
     if (!rawNominal || Number(rawNominal) <= 0) {
       newErrors.nominal = "Nominal harus berupa angka lebih dari 0";
+    }
+    if (rawNominal > balance) {
+      newErrors.nominal = "Saldo kurang";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
