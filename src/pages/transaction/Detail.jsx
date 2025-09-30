@@ -17,7 +17,7 @@ function Detail() {
   const [fetchError, setFetchError] = useState(null);
   const [receiver, setReceiver] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [balance, setBalance] = useState(0);
+  const [_, setBalance] = useState(0);
   const [pinError, setPinError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -168,8 +168,9 @@ function Detail() {
         setPinAttempts((prev) => {
           const attempts = prev + 1;
           if (attempts >= 3) {
-            setShowModal(false);
-            navigate("/profile/change-pin");
+            setStatus("insufficient");
+            setModalStep("result");
+            return;
           } else {
             setPinError("PIN salah, coba lagi.");
             setPinValues(Array(PIN_LENGTH).fill(""));
@@ -180,11 +181,11 @@ function Detail() {
         return;
       }
 
-      if (amount > balance) {
-        setStatus("insufficient");
-        setModalStep("result");
-        return;
-      }
+      // if (amount > balance) {
+      //   setStatus("insufficient");
+      //   setModalStep("result");
+      //   return;
+      // }
 
       // 2. Kalau PIN valid → Transfer
       const transferRes = await fetch(
