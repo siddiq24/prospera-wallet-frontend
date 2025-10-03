@@ -97,7 +97,7 @@ function Detail() {
       newErrors.nominal = "Nominal harus berupa angka lebih dari 0";
     }
     if (rawNominal > balance) {
-      newErrors.nominal = "Saldo kurang";
+      newErrors.nominal = "Saldo tidak mencukupi";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
