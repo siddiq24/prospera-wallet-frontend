@@ -96,6 +96,9 @@ function Detail() {
     if (!rawNominal || Number(rawNominal) <= 0) {
       newErrors.nominal = "Nominal harus berupa angka lebih dari 0";
     }
+    if (rawNominal > balance) {
+      newErrors.nominal = "Saldo tidak mencukupi";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -168,8 +171,9 @@ function Detail() {
         setPinAttempts((prev) => {
           const attempts = prev + 1;
           if (attempts >= 3) {
-            setShowModal(false);
-            navigate("/profile/change-pin");
+            setStatus("insufficient");
+            setModalStep("result");
+            return;
           } else {
             setPinError("PIN salah, coba lagi.");
             setPinValues(Array(PIN_LENGTH).fill(""));
@@ -180,11 +184,11 @@ function Detail() {
         return;
       }
 
-      if (amount > balance) {
-        setStatus("insufficient");
-        setModalStep("result");
-        return;
-      }
+      // if (amount > balance) {
+      //   setStatus("insufficient");
+      //   setModalStep("result");
+      //   return;
+      // }
 
       // 2. Kalau PIN valid → Transfer
       const transferRes = await fetch(
